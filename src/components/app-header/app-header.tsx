@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './app-header.module.css';
-import AppHeaderElement from "../app-header-element/app-header-element";
+import AppHeaderElement from "./app-header-element/app-header-element";
 
 const AppHeader = () => {
 
     return (
         <header className={styles.content}>
-            <div className={styles.placement}>
+            <section className={styles.placement}>
                 <AppHeaderElement
                     icon={<BurgerIcon type="primary" />}
                     text="Конструктор"
@@ -19,19 +19,19 @@ const AppHeader = () => {
                     icon={<ListIcon type="secondary" />}
                     text="Лента заказов"
                 />
-            </div>
+            </section>
 
-            <div className={styles.logo}>
+            <section className={styles.logo}>
                 <Logo />
-            </div>
+            </section>
 
-            <div>
+            <section>
                 <AppHeaderElement
                     textInactive
                     icon={<ProfileIcon type="secondary" />}
                     text="Личный кабинет"
                 />
-            </div>
+            </section>
         </header>
     );
 };

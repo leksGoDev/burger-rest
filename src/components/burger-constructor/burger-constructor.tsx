@@ -2,9 +2,9 @@ import * as React from 'react';
 
 const BurgerConstructor = () => {
     return (
-        <div>
+        <article>
 
-        </div>
+        </article>
     );
 };
 

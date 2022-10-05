@@ -8,10 +8,10 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 const App = () => {
 
     return (
-        <section className={styles.content}>
+        <section>
             <AppHeader />
 
-            <main>
+            <main className={styles.main}>
                 <BurgerIngredients />
                 <BurgerConstructor />
             </main>

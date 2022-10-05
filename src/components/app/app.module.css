@@ -1,2 +1,7 @@
-.content {
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 0 340px;
 }
