@@ -1,0 +1,3 @@
+.placement {
+    composes: placement from "../app-header/app-header.module.css";
+}

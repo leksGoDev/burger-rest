@@ -2,21 +2,23 @@ import * as React from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './app-header.module.css';
+import AppHeaderElement from "../app-header-element/app-header-element";
 
 const AppHeader = () => {
 
     return (
         <header className={styles.content}>
             <div className={styles.placement}>
-                <div className={`${styles.placement} pt-4 pb-4 pr-5 pl-5`}>
-                    <BurgerIcon type="primary" />
-                    <p className="text text_type_main-default">Конструктор</p>
-                </div>
+                <AppHeaderElement
+                    icon={<BurgerIcon type="primary" />}
+                    text="Конструктор"
+                />
 
-                <div className={`${styles.placement} pt-4 pb-4 pr-5 pl-5`}>
-                    <ListIcon type="secondary" />
-                    <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
-                </div>
+                <AppHeaderElement
+                    textInactive
+                    icon={<ListIcon type="secondary" />}
+                    text="Лента заказов"
+                />
             </div>
 
             <div className={styles.logo}>
@@ -24,10 +26,11 @@ const AppHeader = () => {
             </div>
 
             <div>
-                <div className={`${styles.placement} pt-4 pb-4 pr-5 pl-5`}>
-                    <ProfileIcon type="secondary" />
-                    <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
-                </div>
+                <AppHeaderElement
+                    textInactive
+                    icon={<ProfileIcon type="secondary" />}
+                    text="Личный кабинет"
+                />
             </div>
         </header>
     );
