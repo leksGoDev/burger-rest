@@ -1,5 +1,25 @@
-.cardSection {
+.content {
+    width: 600px;
+    height: 716px;
+    overflow: auto;
+}
+
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #2F2F37;
+    margin-bottom: 75px;
+}
+
+.list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 24px;
+    gap: 32px 24px;
 }
