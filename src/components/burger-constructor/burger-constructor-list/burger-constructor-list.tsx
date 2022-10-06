@@ -25,8 +25,8 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
 
             <main className={styles.main}>
                 <ul className={styles.list}>
-                    {otherIngredients.map(({ name, image, price}) =>
-                        <li className={styles.listItem}>
+                    {otherIngredients.map(({ _id, name, image, price}) =>
+                        <li key={_id} className={styles.listItem}>
                             <DragIcon type="primary" />
                             <ConstructorElement
                                 text={name}
