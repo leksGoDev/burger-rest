@@ -2,14 +2,20 @@
     composes: article from '../app/app.module.css';
 }
 
-.section {
+.listSection {
     height: 656px;
     overflow: auto;
     composes: scroll from '../app/app.module.css';
 }
 
-.section::-webkit-scrollbar-track {
+.listSection::-webkit-scrollbar-track {
     margin: 96px 0 80px 0;
+}
+
+.confirmSection {
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
 
 .list {
@@ -31,4 +37,9 @@
 
 .listItem:last-child {
     padding-left: 32px;
+}
+
+.svgWrap > svg {
+    width: 36px;
+    height: 36px;
 }
