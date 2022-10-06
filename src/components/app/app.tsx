@@ -15,7 +15,7 @@ const App = () => {
 
             <main className={styles.main}>
                 <BurgerIngredients data={data as Ingredient[]} />
-                <BurgerConstructor />
+                <BurgerConstructor data={data as Ingredient[]}/>
             </main>
         </section>
     );
