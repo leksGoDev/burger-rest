@@ -19,13 +19,13 @@ const BurgerIngredientsCard: React.FC<Props> = ({ image, price, name, count }) =
 
                 <img className="pl-4 pr-4" src={image} alt={image} />
 
-                <figcaption style={{ display: "flex" }}>
+                <figcaption className={styles.price}>
                     <p className="text text_type_digits-default pr-2">{price}</p>
                     <CurrencyIcon type="primary" />
                 </figcaption>
 
                 <figcaption>
-                    <p className="text text_type_main-default pb-6">{name}</p>
+                    <p className={`${styles.name} text text_type_main-default pb-6`}>{name}</p>
                 </figcaption>
             </figure>
         </li>
