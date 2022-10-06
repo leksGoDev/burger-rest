@@ -13,6 +13,13 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
     const bun = data.filter(el => el.type == IngredientType.bun)[1]
     const ingredients = data.filter(el => el.type != IngredientType.bun);
 
+    const calculateTotalPrice = () => {
+        let sum = bun.price * 2;
+        sum += ingredients.reduce((sum, el) => sum + el.price, 0);
+
+        return sum;
+    };
+
     return (
         <article className={styles.article}>
             <section className="mt-25 mb-10 ml-4">
@@ -20,7 +27,9 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
             </section>
 
             <section className={`${styles.confirmSection} mr-4`}>
-                <p className="text text_type_digits-medium mr-2">610</p>
+                <p className="text text_type_digits-medium mr-2">
+                    {calculateTotalPrice()}
+                </p>
                 <span className={`${styles.svgWrap} mr-10`}>
                     <CurrencyIcon type="primary" />
                 </span>

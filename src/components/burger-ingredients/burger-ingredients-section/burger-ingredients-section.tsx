@@ -22,6 +22,7 @@ const BurgerIngredientsSection: React.FC<Props> = ({ type, data }) => {
                         image={element.image}
                         price={element.price}
                         name={element.name}
+                        count={((element._id == "60666c42cc7b410027a1a9b2" || element._id == "60666c42cc7b410027a1a9b8") && 1) as number}
                     />
                 )}
             </ol>
