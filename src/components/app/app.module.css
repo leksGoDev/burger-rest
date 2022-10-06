@@ -1,7 +1,22 @@
 .main {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     gap: 40px;
     padding: 0 340px;
+}
+
+.article {
+    width: 600px;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.scroll::-webkit-scrollbar-track {
+    background: #2F2F37;
 }

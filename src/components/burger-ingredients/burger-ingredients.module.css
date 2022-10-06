@@ -1,20 +1,15 @@
+.article {
+    composes: article from '../app/app.module.css';
+}
+
 .content {
-    width: 600px;
     height: 716px;
     overflow: auto;
-}
-
-.content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.content::-webkit-scrollbar-thumb {
-    background: #8585AD;
+    composes: scroll from '../app/app.module.css';
 }
 
 .content::-webkit-scrollbar-track {
-    background: #2F2F37;
-    margin-bottom: 75px;
+    margin-bottom: 52px;
 }
 
 .list {

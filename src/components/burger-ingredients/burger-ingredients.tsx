@@ -20,7 +20,7 @@ const BurgerIngredients = () => {
     const [tabValue, setTabValue] = React.useState<Tabs>(Tabs.Buns);
 
     return (
-        <article>
+        <article className={styles.article}>
             <nav className="mt-10 mb-10">
                 <p className="text text_type_main-large mb-5">Соберите бургер</p>
 
