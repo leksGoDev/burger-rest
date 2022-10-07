@@ -22,19 +22,21 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
 
     return (
         <article className={styles.article}>
-            <section className="mt-25 mb-10 ml-4">
-                <BurgerConstructorList bun={bun} otherIngredients={ingredients} />
-            </section>
+            <form>
+                <section className="mt-25 mb-10 ml-4">
+                    <BurgerConstructorList bun={bun} otherIngredients={ingredients} />
+                </section>
 
-            <section className={`${styles.confirmSection} mr-4`}>
-                <p className="text text_type_digits-medium mr-2">
-                    {calculateTotalPrice()}
-                </p>
-                <span className={`${styles.svgWrap} mr-10`}>
-                    <CurrencyIcon type="primary" />
-                </span>
-                <Button type="primary" size="large" htmlType="button">Оформить заказ</Button>
-            </section>
+                <section className={`${styles.confirmSection} mr-4`}>
+                    <p className="text text_type_digits-medium mr-2">
+                        {calculateTotalPrice()}
+                    </p>
+                    <span className={`${styles.svgWrap} mr-10`}>
+                        <CurrencyIcon type="primary" />
+                    </span>
+                    <Button type="primary" size="large" htmlType="submit">Оформить заказ</Button>
+                </section>
+            </form>
         </article>
     );
 };

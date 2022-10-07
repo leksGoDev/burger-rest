@@ -15,6 +15,7 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
 
     const buns = data.filter(el => el.type == IngredientType.bun);
     const sauces = data.filter(el => el.type == IngredientType.sauce);
+    const main = data.filter(el => el.type == IngredientType.main);
 
     return (
         <article className={styles.article}>
@@ -50,6 +51,8 @@ const BurgerIngredients: React.FC<Props> = ({ data }) => {
                 <BurgerIngredientsSection type={IngredientType.bun} data={buns} />
 
                 <BurgerIngredientsSection type={IngredientType.sauce} data={sauces} />
+
+                <BurgerIngredientsSection type={IngredientType.main} data={main} />
             </section>
         </article>
     );
