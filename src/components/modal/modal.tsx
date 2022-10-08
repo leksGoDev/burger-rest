@@ -17,8 +17,13 @@ const Modal: React.FC<Props> = ({ title , children, onClose }) => {
 
     return (
         ReactDOM.createPortal((
-            <ModalOverlay onClick={onClose}>
-                <article className={styles.article} onClick={e => e.stopPropagation()}>
+            <section>
+                <ModalOverlay onClick={onClose} />
+
+                <article
+                    className={styles.article}
+                    style={{ height: "Детали ингредиента" ? "539px" : "718px"}}
+                >
                     <header
                         className={`${styles.header} mt-15 ml-10 mr-10`}
                         style={{ justifyContent: title?.length ? "space-between" : "right" }}
@@ -31,7 +36,7 @@ const Modal: React.FC<Props> = ({ title , children, onClose }) => {
                         {children}
                     </main>
                 </article>
-            </ModalOverlay>
+            </section>
         ), modalRoot!)
     );
 };
