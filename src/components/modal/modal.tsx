@@ -6,21 +6,25 @@ import ModalOverlay from "./modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 
 interface Props {
-    children?: React.ReactNode;
+    title?: string;
+    children: React.ReactNode;
+    onClose: () => void;
 }
 
 const modalRoot = document.getElementById("modal");
 
-const Modal: React.FC<Props> = ({ children }) => {
+const Modal: React.FC<Props> = ({ title , children, onClose }) => {
 
     return (
         ReactDOM.createPortal((
-            <ModalOverlay>
-                <article className={styles.article}>
-                    <header className={styles.header}>
-                        <span className={styles.icon}>
-                            <CloseIcon type="primary" />
-                        </span>
+            <ModalOverlay onClick={onClose}>
+                <article className={styles.article} onClick={e => e.stopPropagation()}>
+                    <header
+                        className={`${styles.header} mt-15 ml-10 mr-10`}
+                        style={{ justifyContent: title?.length ? "space-between" : "right" }}
+                    >
+                        <p className="text text_type_main-large">{title}</p>
+                        <CloseIcon type="primary" onClick={onClose}/>
                     </header>
 
                     <main>

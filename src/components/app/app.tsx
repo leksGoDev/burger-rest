@@ -5,7 +5,6 @@ import AppHeader  from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { Ingredient } from "../../models/ingredient";
-import Modal from "../modal/modal";
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -30,9 +29,7 @@ const App = () => {
     return (
         <section>
             <AppHeader />
-            <Modal>
-                <p>content</p>
-            </Modal>
+
             <main className={styles.main}>
                 <BurgerIngredients data={data} />
                 <BurgerConstructor data={data} />
