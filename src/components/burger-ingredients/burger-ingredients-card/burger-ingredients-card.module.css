@@ -1,0 +1,16 @@
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 272px;
+}
+
+.price {
+    display: flex;
+}
+
+.name {
+    text-align: center;
+}

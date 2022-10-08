@@ -1,0 +1,17 @@
+.article {
+    composes: article from '../app/app.module.css';
+}
+
+.content {
+    height: 716px;
+    overflow: auto;
+    composes: scroll from '../app/app.module.css';
+}
+
+.content::-webkit-scrollbar-track {
+    margin-bottom: 52px;
+}
+
+.tabs {
+    display: flex;
+}
