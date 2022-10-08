@@ -14,6 +14,16 @@ interface Props {
 const modalRoot = document.getElementById("modal");
 
 const Modal: React.FC<Props> = ({ title , children, onClose }) => {
+    React.useEffect(() => {
+        const close = (e: KeyboardEvent) => {
+            if (e.code === "Escape"){
+                onClose();
+            }
+        }
+        window.addEventListener('keydown', close);
+
+        return () => window.removeEventListener('keydown', close);
+    },[])
 
     return (
         ReactDOM.createPortal((
