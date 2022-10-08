@@ -30,7 +30,9 @@ const App = () => {
     return (
         <section>
             <AppHeader />
-            <Modal />
+            <Modal>
+                <p>content</p>
+            </Modal>
             <main className={styles.main}>
                 <BurgerIngredients data={data} />
                 <BurgerConstructor data={data} />

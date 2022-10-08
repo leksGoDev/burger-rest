@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import styles from "./modal-overlay.module.css"
+
 interface Props {
     children: React.ReactNode;
 }
@@ -7,7 +9,7 @@ interface Props {
 const ModalOverlay: React.FC<Props> = ({ children }) => {
 
     return (
-        <section>
+        <section className={styles.section}>
             {children}
         </section>
     );
