@@ -24,12 +24,12 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
         <article className={styles.article}>
             <form>
                 <section className="mt-25 mb-10 ml-4">
-                    <BurgerConstructorList bun={bun} otherIngredients={ingredients} />
+                    {data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
                 </section>
 
                 <section className={`${styles.confirmSection} mr-4`}>
                     <p className="text text_type_digits-medium mr-2">
-                        {calculateTotalPrice()}
+                        {data?.length ? calculateTotalPrice() : 0}
                     </p>
                     <span className={`${styles.svgWrap} mr-10`}>
                         <CurrencyIcon type="primary" />
