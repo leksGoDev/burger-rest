@@ -4,15 +4,15 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import styles from './burger-ingredients-card.module.css'
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
+import { Ingredient } from "../../../models/ingredient";
 
 interface Props {
-    image: string;
-    price: number;
-    name: string;
+    ingredient: Ingredient;
     count?: number;
 }
 
-const BurgerIngredientsCard: React.FC<Props> = ({ image, price, name, count }) => {
+const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
+    const { image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
     const [isModalVisible, setModalVisible] = React.useState(false);
 
     return (
@@ -34,7 +34,14 @@ const BurgerIngredientsCard: React.FC<Props> = ({ image, price, name, count }) =
 
             {isModalVisible &&
                 <Modal title="Детали ингредиента" onClose={() => setModalVisible(false)}>
-                    <IngredientDetails />
+                    <IngredientDetails
+                        image={image_large}
+                        name={name}
+                        calories={calories}
+                        proteins={proteins}
+                        fat={fat}
+                        carbohydrates={carbohydrates}
+                    />
                 </Modal>}
         </li>
     );

@@ -32,10 +32,10 @@ const Modal: React.FC<Props> = ({ title , children, onClose }) => {
 
                 <article
                     className={styles.article}
-                    style={{ height: "Детали ингредиента" ? "539px" : "718px"}}
+                    style={{ height: "Детали ингредиента" ? "538px" : "718px"}}
                 >
                     <header
-                        className={`${styles.header} mt-15 ml-10 mr-10`}
+                        className={`${styles.header} mt-10 ml-10 mr-10`}
                         style={{ justifyContent: title?.length ? "space-between" : "right" }}
                     >
                         <p className="text text_type_main-large">{title}</p>
