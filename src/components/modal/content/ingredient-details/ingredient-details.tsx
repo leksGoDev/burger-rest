@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import styles from "./ingredient-details.module.css";
 import { Ingredient } from "../../../../models/ingredient";
+import IngredientDetailsSection from "./ingredient-details-section/ingredient-details-section";
 
 interface Props {
     image: Ingredient["image_large"];
@@ -23,45 +24,13 @@ const IngredientDetails: React.FC<Props> = ({ image, name, calories, proteins, f
             </figcaption>
 
             <figcaption className={styles.stats}>
-                <section className={styles.statsSection} style={{ width: "120px" }}>
-                    <p className="text text_type_main-default text_color_inactive">
-                        Калории,ккал
-                    </p>
+                <IngredientDetailsSection name="Калории,ккал" value={calories} width={120} />
 
-                    <p className="text text_type_digits-default text_color_inactive">
-                        {calories}
-                    </p>
-                </section>
+                <IngredientDetailsSection name="Белки, г" value={proteins} width={112} />
 
-                <section className={styles.statsSection} style={{ width: "112px" }}>
-                    <p className="text text_type_main-default text_color_inactive ">
-                        Белки, г
-                    </p>
+                <IngredientDetailsSection name="Жиры, г" value={fat} width={112} />
 
-                    <p className="text text_type_digits-default text_color_inactive ">
-                        {proteins}
-                    </p>
-                </section>
-
-                <section className={styles.statsSection} style={{ width: "112px" }}>
-                    <p className="text text_type_main-default text_color_inactive">
-                        Жиры, г
-                    </p>
-
-                    <p className="text text_type_digits-default text_color_inactive">
-                        {fat}
-                    </p>
-                </section>
-
-                <section className={styles.statsSection} style={{ width: "112px" }}>
-                    <p className="text text_type_main-default text_color_inactive">
-                        Углеводы, г
-                    </p>
-
-                    <p className="text text_type_digits-default text_color_inactive">
-                        {carbohydrates}
-                    </p>
-                </section>
+                <IngredientDetailsSection name="Углеводы, г" value={carbohydrates} width={112} />
             </figcaption>
         </figure>
     );
