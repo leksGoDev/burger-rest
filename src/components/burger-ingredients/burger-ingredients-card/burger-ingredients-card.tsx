@@ -20,7 +20,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
             <figure className={styles.content} onClick={() => setModalVisible(true)}>
                 {count && <Counter count={count} />}
 
-                <img className="pl-4 pr-4" src={image} alt={image} />
+                <img className="pl-4 pr-4" src={image} alt="image" />
 
                 <figcaption className={styles.price}>
                     <p className="text text_type_digits-default pr-2">{price}</p>

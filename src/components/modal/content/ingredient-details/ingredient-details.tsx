@@ -17,7 +17,7 @@ const IngredientDetails: React.FC<Props> = ({ image, name, calories, proteins, f
 
     return (
         <figure className={styles.content}>
-            <img className="pl-5 pr-5 mb-4" src={image} alt={image} />
+            <img className="pl-5 pr-5 mb-4" src={image} alt="image" />
 
             <figcaption>
                 <p className={`${styles.name} text text_type_main-medium mb-8`}>{name}</p>
