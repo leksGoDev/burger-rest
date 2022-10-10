@@ -2,7 +2,7 @@
     composes: article from '../app/app.module.css';
 }
 
-.confirmSection {
+.form {
     display: flex;
     justify-content: right;
     align-items: center;

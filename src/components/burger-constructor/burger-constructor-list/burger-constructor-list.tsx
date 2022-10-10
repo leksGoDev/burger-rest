@@ -23,20 +23,18 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
                 />
             </header>
 
-            <main className={styles.main}>
-                <ul className={styles.list}>
-                    {otherIngredients.map(({ _id, name, image, price}) =>
-                        <li key={_id} className={styles.listItem}>
-                            <DragIcon type="primary" />
-                            <ConstructorElement
-                                text={name}
-                                thumbnail={image}
-                                price={price}
-                            />
-                        </li>
-                    )}
-                </ul>
-            </main>
+            <ul className={styles.list}>
+                {otherIngredients.map(({ _id, name, image, price}) =>
+                    <li key={_id} className={styles.listItem}>
+                        <DragIcon type="primary" />
+                        <ConstructorElement
+                            text={name}
+                            thumbnail={image}
+                            price={price}
+                        />
+                    </li>
+                )}
+            </ul>
 
             <footer className="mt-4 pl-8">
                 <ConstructorElement

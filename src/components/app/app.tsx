@@ -17,7 +17,10 @@ const App = () => {
         setIsLoading(true);
         fetch(API_URL)
             .then(res => res.json())
-            .then(({ data }) => setData(data))
+            .then(({ data, success }) => {
+                if (success) setData(data);
+                else setHasError(true);
+            })
             .catch(err => {
                 console.log(err.message)
                 setHasError(true);
@@ -27,14 +30,14 @@ const App = () => {
 
 
     return (
-        <section>
+        <>
             <AppHeader />
 
             <main className={styles.main}>
                 <BurgerIngredients data={data} />
                 <BurgerConstructor data={data} />
             </main>
-        </section>
+        </>
     );
 };
 

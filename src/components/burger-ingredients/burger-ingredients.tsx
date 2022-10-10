@@ -13,9 +13,9 @@ interface Props {
 const BurgerIngredients: React.FC<Props> = ({ data }) => {
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
 
-    const buns = data.filter(el => el.type == IngredientType.bun);
-    const sauces = data.filter(el => el.type == IngredientType.sauce);
-    const main = data.filter(el => el.type == IngredientType.main);
+    const buns = React.useMemo(() => data.filter(el => el.type == IngredientType.bun), [data]);
+    const sauces = React.useMemo(() => data.filter(el => el.type == IngredientType.sauce), [data]);
+    const main = React.useMemo(() => data.filter(el => el.type == IngredientType.main), [data]);
 
     return (
         <article className={styles.article}>

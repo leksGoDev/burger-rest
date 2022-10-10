@@ -9,15 +9,18 @@ interface Props {
 }
 
 const IngredientDetailsSection: React.FC<Props> = ({ name, value, width }) => {
-    return (
-        <section className={styles.section} style={{ width: `${width}px` }}>
-            <p className="text text_type_main-default text_color_inactive">
-                {name}
-            </p>
 
-            <p className="text text_type_digits-default text_color_inactive">
-                {value}
-            </p>
+    return (
+        <section style={{ width: `${width}px` }}>
+            <article className={styles.article}>
+                <p className="text text_type_main-default text_color_inactive">
+                    {name}
+                </p>
+
+                <p className="text text_type_digits-default text_color_inactive">
+                    {value}
+                </p>
+            </article>
         </section>
     );
 };

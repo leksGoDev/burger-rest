@@ -14,8 +14,8 @@ interface Props {
 const BurgerConstructor: React.FC<Props> = ({ data }) => {
     const [isModalVisible, setModalVisible] = React.useState(false);
 
-    const bun = data.filter(el => el.type == IngredientType.bun)[1]
-    const ingredients = data.filter(el => el.type != IngredientType.bun);
+    const bun = React.useMemo(() => data.filter(el => el.type == IngredientType.bun)[1], [data]);
+    const ingredients = React.useMemo(() => data.filter(el => el.type != IngredientType.bun), [data]);
 
     const calculateTotalPrice = () => {
         let sum = bun.price * 2;
@@ -31,18 +31,20 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
 
     return (
         <article className={styles.article}>
-            <form>
-                <section className="mt-25 mb-10 ml-4">
-                    {data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
-                </section>
+            <section className="mt-25 mb-10 ml-4">
+                {data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
+            </section>
 
-                <section className={`${styles.confirmSection} mr-4`}>
+            <section className="mr-4">
+                <form className={styles.form}>
                     <p className="text text_type_digits-medium mr-2">
                         {data?.length ? calculateTotalPrice() : 0}
                     </p>
+
                     <span className={`${styles.svgWrap} mr-10`}>
-                        <CurrencyIcon type="primary" />
-                    </span>
+                            <CurrencyIcon type="primary" />
+                        </span>
+
                     <Button
                         type="primary"
                         size="large"
@@ -51,13 +53,13 @@ const BurgerConstructor: React.FC<Props> = ({ data }) => {
                     >
                         Оформить заказ
                     </Button>
-                </section>
+                </form>
+            </section>
 
-                {isModalVisible &&
-                    <Modal onClose={() => setModalVisible(false)}>
-                        <OrderDetails />
-                    </Modal>}
-            </form>
+            {isModalVisible &&
+                <Modal onClose={() => setModalVisible(false)}>
+                    <OrderDetails />
+                </Modal>}
         </article>
     );
 };

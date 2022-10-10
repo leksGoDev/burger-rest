@@ -1,14 +1,18 @@
-.main {
+.sizes {
     height: 464px;
     overflow: auto;
     composes: scroll from '../../app/app.module.css';
 }
 
-.list {
+.placement {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+}
+
+.list {
+    composes: sizes placement;
 }
 
 .listItem {
