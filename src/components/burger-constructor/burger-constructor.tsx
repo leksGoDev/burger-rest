@@ -8,14 +8,25 @@ import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
 import { DataContext, IDataContext } from "../../services/dataContext";
 
+const ORDERS_API_URL = 'https://norma.nomoreparties.space/api/orders';
+
 interface Props {}
 
 const BurgerConstructor: React.FC<Props> = () => {
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [hasError, setHasError] = React.useState(false);
     const [isModalVisible, setModalVisible] = React.useState(false);
+    const [orderNum, setOrderNum] = React.useState<number | null>(null);
     const { data } = React.useContext<IDataContext>(DataContext);
 
     const bun = React.useMemo(() => data.filter(el => el.type == IngredientType.bun)[1], [data]);
-    const ingredients = React.useMemo(() => data.filter(el => el.type != IngredientType.bun), [data]);
+    const ingredients = React.useMemo(() => data.filter(el => el.type == IngredientType.main), [data]);
+
+    React.useEffect(() => {
+        if (orderNum) {
+            setModalVisible(true);
+        }
+    }, [orderNum]);
 
     const calculateTotalPrice = React.useCallback(() => {
         let sum = bun.price * 2;
@@ -26,13 +37,33 @@ const BurgerConstructor: React.FC<Props> = () => {
 
     const handleSubmitButton = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        setModalVisible(true);
+
+        setIsLoading(true);
+        fetch(ORDERS_API_URL, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                ingredients:  [bun._id, ...ingredients.map(({ _id }) => _id)]
+            })
+        })
+            .then(res => res.json())
+            .then(({ order, success }) => {
+                if (success) setOrderNum(order.number);
+                else setHasError(true);
+            })
+            .catch(err => {
+                console.log(err.message)
+                setHasError(true);
+        })
+            .finally(() => setIsLoading(false))
     };
 
     return (
         <article className={styles.article}>
             <section className="mt-25 mb-10 ml-4">
-                {data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
+                {!!data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
             </section>
 
             <section className="mr-4">
@@ -58,7 +89,7 @@ const BurgerConstructor: React.FC<Props> = () => {
 
             {isModalVisible &&
                 <Modal onClose={() => setModalVisible(false)}>
-                    <OrderDetails />
+                    <OrderDetails orderNum={orderNum!} />
                 </Modal>}
         </article>
     );

@@ -7,7 +7,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { Ingredient } from "../../models/ingredient";
 import { DataContext } from "../../services/dataContext";
 
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+const INGREDIENTS_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 const App = () => {
     const [isLoading, setIsLoading] = React.useState(false);
@@ -16,7 +16,7 @@ const App = () => {
 
     React.useEffect(() => {
         setIsLoading(true);
-        fetch(API_URL)
+        fetch(INGREDIENTS_API_URL)
             .then(res => res.json())
             .then(({ data, success }) => {
                 if (success) setData(data);

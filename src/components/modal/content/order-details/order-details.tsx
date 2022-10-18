@@ -3,11 +3,16 @@ import * as React from 'react';
 import doneImg from "../../../../images/done.png";
 import styles from "./order-details.module.css";
 
-const OrderDetails = () => {
+interface Props {
+    orderNum: number;
+}
+
+const OrderDetails: React.FC<Props> = ({ orderNum }) => {
+
     return (
         <figure className={styles.content}>
             <figcaption>
-                <p className={`${styles.text} text text_type_digits-large mb-8`}>034536</p>
+                <p className={`${styles.text} text text_type_digits-large mb-8`}>{orderNum}</p>
 
                 <p className={`${styles.text} text text_type_main-medium`}>идентификатор заказа</p>
             </figcaption>
