@@ -6,15 +6,13 @@ import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
 import { DataContext, IDataContext } from "../../services/dataContext";
 
-interface Props {}
-
-const BurgerIngredients: React.FC<Props> = () => {
+const BurgerIngredients: React.FC = () => {
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
     const { data } = React.useContext<IDataContext>(DataContext);
 
-    const buns = React.useMemo(() => data.filter(el => el.type == IngredientType.bun), [data]);
-    const sauces = React.useMemo(() => data.filter(el => el.type == IngredientType.sauce), [data]);
-    const main = React.useMemo(() => data.filter(el => el.type == IngredientType.main), [data]);
+    const buns = React.useMemo(() => data.filter(el => el.type === IngredientType.bun), [data]);
+    const sauces = React.useMemo(() => data.filter(el => el.type === IngredientType.sauce), [data]);
+    const main = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
 
     return (
         <article className={styles.article}>
