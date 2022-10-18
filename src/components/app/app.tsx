@@ -13,6 +13,7 @@ const App = () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [hasError, setHasError] = React.useState(false);
     const [data, setData] = React.useState<Ingredient[]>([]);
+    const [orderNum, setOrderNum] = React.useState<number | null>(null);
 
     React.useEffect(() => {
         setIsLoading(true);
@@ -35,7 +36,7 @@ const App = () => {
             <AppHeader />
 
             <main className={styles.main}>
-                <DataContext.Provider value={{ data, setData }}>
+                <DataContext.Provider value={{ data, setData, orderNum, setOrderNum }}>
                     <BurgerIngredients />
                     <BurgerConstructor />
                 </DataContext.Provider>

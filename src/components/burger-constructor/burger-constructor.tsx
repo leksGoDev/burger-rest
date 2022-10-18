@@ -16,8 +16,7 @@ const BurgerConstructor: React.FC<Props> = () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [hasError, setHasError] = React.useState(false);
     const [isModalVisible, setModalVisible] = React.useState(false);
-    const [orderNum, setOrderNum] = React.useState<number | null>(null);
-    const { data } = React.useContext<IDataContext>(DataContext);
+    const { data, orderNum, setOrderNum } = React.useContext<IDataContext>(DataContext);
 
     const bun = React.useMemo(() => data.filter(el => el.type == IngredientType.bun)[1], [data]);
     const ingredients = React.useMemo(() => data.filter(el => el.type == IngredientType.main), [data]);
