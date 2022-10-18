@@ -2,27 +2,27 @@ import * as React from 'react';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.css'
-import { Ingredient, IngredientType } from "../../models/ingredient";
+import { IngredientType } from "../../models/ingredient";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
+import { DataContext, IDataContext } from "../../services/dataContext";
 
-interface Props {
-    data: Ingredient[];
-}
+interface Props {}
 
-const BurgerConstructor: React.FC<Props> = ({ data }) => {
+const BurgerConstructor: React.FC<Props> = () => {
     const [isModalVisible, setModalVisible] = React.useState(false);
+    const { data } = React.useContext<IDataContext>(DataContext);
 
     const bun = React.useMemo(() => data.filter(el => el.type == IngredientType.bun)[1], [data]);
     const ingredients = React.useMemo(() => data.filter(el => el.type != IngredientType.bun), [data]);
 
-    const calculateTotalPrice = () => {
+    const calculateTotalPrice = React.useCallback(() => {
         let sum = bun.price * 2;
         sum += ingredients.reduce((sum, el) => sum + el.price, 0);
 
         return sum;
-    };
+    }, [data]);
 
     const handleSubmitButton = (e: React.SyntheticEvent) => {
         e.preventDefault();

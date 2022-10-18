@@ -5,6 +5,7 @@ import AppHeader  from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { Ingredient } from "../../models/ingredient";
+import { DataContext } from "../../services/dataContext";
 
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -34,8 +35,10 @@ const App = () => {
             <AppHeader />
 
             <main className={styles.main}>
-                <BurgerIngredients data={data} />
-                <BurgerConstructor data={data} />
+                <DataContext.Provider value={{ data, setData }}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </DataContext.Provider>
             </main>
         </>
     );

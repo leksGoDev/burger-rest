@@ -2,16 +2,15 @@ import * as React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-ingredients.module.css'
-
-import { Ingredient, IngredientType, IngredientTypeName } from "../../models/ingredient";
+import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
+import { DataContext, IDataContext } from "../../services/dataContext";
 
-interface Props {
-    data: Ingredient[];
-}
+interface Props {}
 
-const BurgerIngredients: React.FC<Props> = ({ data }) => {
+const BurgerIngredients: React.FC<Props> = () => {
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
+    const { data } = React.useContext<IDataContext>(DataContext);
 
     const buns = React.useMemo(() => data.filter(el => el.type == IngredientType.bun), [data]);
     const sauces = React.useMemo(() => data.filter(el => el.type == IngredientType.sauce), [data]);
