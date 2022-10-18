@@ -19,9 +19,7 @@ const BurgerIngredientsSection: React.FC<Props> = ({ type, data }) => {
                 {data.map(element =>
                     <BurgerIngredientsCard
                         key={element._id}
-                        image={element.image}
-                        price={element.price}
-                        name={element.name}
+                        ingredient={element}
                         count={((element._id == "60666c42cc7b410027a1a9b2" || element._id == "60666c42cc7b410027a1a9b8") && 1) as number}
                     />
                 )}
