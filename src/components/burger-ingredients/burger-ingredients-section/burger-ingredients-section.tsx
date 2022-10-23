@@ -9,10 +9,10 @@ interface Props {
     data: Ingredient[];
 }
 
-const BurgerIngredientsSection: React.FC<Props> = ({ type, data }) => {
+const BurgerIngredientsSection = React.forwardRef<HTMLElement, Props>(({ type, data }, ref) => {
 
     return (
-        <section className="mb-10">
+        <section ref={ref} className="mb-10">
             <p className="text text_type_main-medium mb-6">{IngredientTypeName[type]}</p>
 
             <ol className={`${styles.list} pl-4 pr-2`}>
@@ -26,6 +26,6 @@ const BurgerIngredientsSection: React.FC<Props> = ({ type, data }) => {
             </ol>
         </section>
     );
-};
+});
 
 export default BurgerIngredientsSection;
