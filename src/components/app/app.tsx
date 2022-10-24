@@ -1,34 +1,21 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 
 import styles from './app.module.css'
 import AppHeader  from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { Ingredient } from "../../models/ingredient";
-import { IngredientsResponse } from "../../models/api";
+
 import { DataContext } from "../../services/dataContext";
-import { request } from "../../services/request";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { fetchIngredients } from "../../services/store/slices/ingredientsSlice";
 
 const App = () => {
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [hasError, setHasError] = React.useState(false);
-    const [data, setData] = React.useState<Ingredient[]>([]);
+    const { data } = useAppSelector(store => store.ingredients);
+    const dispatch = useAppDispatch();
 
-    React.useEffect(() => {
-        setIsLoading(true);
-
-        request<IngredientsResponse>('ingredients')
-            .then(({ data, success }) => {
-                if (success) setData(data);
-                else setHasError(true);
-            })
-            .catch(err => {
-                console.log(err.message)
-                setHasError(true);
-            })
-            .finally(() => setIsLoading(false))
+    useEffect(() => {
+        dispatch(fetchIngredients())
     }, []);
-
 
     return (
         <>
