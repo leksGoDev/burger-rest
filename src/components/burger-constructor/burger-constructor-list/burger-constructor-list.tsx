@@ -14,17 +14,25 @@ interface Props {
 
 const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
     const dispatch = useAppDispatch();
-    const [, drop] = useDrop<Ingredient>({
-       accept: 'ingredientsDnd',
+
+    const useBunDrop = () => useDrop<Ingredient>({
+        accept: IngredientType.bun,
         drop(ingredient) {
-           if (ingredient.type === IngredientType.bun) dispatch(changeBun(ingredient));
-           else dispatch(addIngredient(ingredient));
+            dispatch(changeBun(ingredient));
+        }
+    });
+    const [, bunDropHeader] = useBunDrop();
+    const [, bunDropFooter] = useBunDrop();
+    const [, ingredientsDrop] = useDrop<Ingredient>({
+        accept: IngredientType.sauce || IngredientType.main,
+        drop(ingredient) {
+            dispatch(addIngredient(ingredient));
         }
     });
 
     return (
-        <div ref={drop}>
-            <header className={`${styles.bunSection} mb-4 pl-8`}>
+        <>
+            <header ref={bunDropHeader} className={`${styles.bunSection} mb-4 pl-8`}>
                 {
                     bun ?
                         <ConstructorElement
@@ -39,7 +47,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
                 }
             </header>
 
-            <ul className={styles.list}>
+            <ul ref={ingredientsDrop} className={styles.list}>
                 {otherIngredients.map(({ _id, name, image, price}) =>
                     <li key={_id} className={styles.listItem}>
                         <DragIcon type="primary" />
@@ -52,7 +60,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
                 )}
             </ul>
 
-            <footer className={`${styles.bunSection} mt-4 pl-8`}>
+            <footer ref={bunDropFooter} className={`${styles.bunSection} mt-4 pl-8`}>
                 {
                     bun ?
                         <ConstructorElement
@@ -66,7 +74,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
                         <div className="constructor-element constructor-element_pos_bottom" />
                 }
             </footer>
-        </div>
+        </>
     );
 };
 

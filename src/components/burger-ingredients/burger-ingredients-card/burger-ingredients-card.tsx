@@ -13,10 +13,10 @@ interface Props {
 }
 
 const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
-    const { image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
+    const { type, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [, drag] = useDrag<Ingredient>({
-        type: 'ingredientsDnd',
+        type: type,
         item: ingredient
     });
 
