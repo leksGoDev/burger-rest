@@ -6,7 +6,7 @@ import styles from "./burger-constructor-list.module.css";
 import { Ingredient, IngredientType } from "../../../models/ingredient";
 import { useAppDispatch } from "../../../hooks/redux";
 import { addStuffing, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
-import DragConstructorElement from "./drag-constructor-element/drag-constructor-element";
+import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
 interface Props {
     bun: Ingredient | null;
@@ -51,7 +51,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
 
             <ul ref={stuffingDrop} className={styles.list}>
                 {stuffing.map((ingredient, index) =>
-                    <DragConstructorElement key={Math.random()} index={index} ingredient={ingredient} />
+                    <ConstructorElementWrapper key={Math.random()} index={index} ingredient={ingredient} />
                 )}
             </ul>
 
