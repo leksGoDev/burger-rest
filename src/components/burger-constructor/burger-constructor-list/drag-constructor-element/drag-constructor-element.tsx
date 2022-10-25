@@ -12,15 +12,24 @@ interface Props {
     ingredient: Ingredient;
 }
 
+interface DragProps {
+    isDrag: boolean;
+}
+
 const DragConstructorElement: React.FC<Props> = ({ index, ingredient }) => {
     const dispatch = useAppDispatch();
 
     const { name, image, price } = ingredient;
 
-    const [, drag] = useDrag<Ingredient>({
+    const [{ isDrag }, drag] = useDrag<Ingredient, null, DragProps>({
         type: 'stuffing',
-        item: ingredient
-    });
+        item: ingredient,
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    }, [ingredient]);
+
+    if (isDrag) return null;
 
     return (
         <li ref={drag} className={styles.listItem}>

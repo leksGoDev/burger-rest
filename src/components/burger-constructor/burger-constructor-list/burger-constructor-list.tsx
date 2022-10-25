@@ -21,15 +21,15 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
         drop(ingredient) {
             dispatch(changeBun(ingredient));
         }
-    });
+    }, [dispatch]);
     const [, bunDropHeader] = useBunDrop();
     const [, bunDropFooter] = useBunDrop();
-    const [, ingredientsDrop] = useDrop<Ingredient>({
+    const [, stuffingDrop] = useDrop<Ingredient>({
         accept: 'stuffing',
         drop(ingredient) {
             dispatch(addStuffing(ingredient));
         }
-    });
+    }, [dispatch]);
 
     return (
         <>
@@ -49,7 +49,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
                 }
             </header>
 
-            <ul ref={ingredientsDrop} className={styles.list}>
+            <ul ref={stuffingDrop} className={styles.list}>
                 {stuffing.map((ingredient, index) =>
                     <DragConstructorElement key={Math.random()} index={index} ingredient={ingredient} />
                 )}

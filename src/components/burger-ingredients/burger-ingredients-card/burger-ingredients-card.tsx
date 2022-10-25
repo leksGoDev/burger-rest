@@ -22,7 +22,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
     const [, drag] = useDrag<Ingredient>({
         type: type === IngredientType.bun ? type : 'stuffing',
         item: ingredient
-    });
+    }, [ingredient]);
 
     const count = React.useMemo(() => {
         if (type == IngredientType.bun) {
