@@ -10,7 +10,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
 
 const BurgerConstructor: React.FC = () => {
-    const { bun, ingredients } = useAppSelector(store => store.burgerConstructor);
+    const { bun, stuffing } = useAppSelector(store => store.burgerConstructor);
 
     const [isLoading, setIsLoading] = React.useState(false);
     const [hasError, setHasError] = React.useState(false);
@@ -19,10 +19,10 @@ const BurgerConstructor: React.FC = () => {
 
     const totalPrice = React.useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;
-        sum += ingredients.reduce((sum, el) => sum + el.price, 0);
+        sum += stuffing.reduce((sum, el) => sum + el.price, 0);
 
         return sum;
-    }, [bun, ingredients]);
+    }, [bun, stuffing]);
 
     React.useEffect(() => {
         if (orderNum) {
@@ -33,10 +33,10 @@ const BurgerConstructor: React.FC = () => {
     const handleSubmitButton = (e: React.SyntheticEvent) => {
         e.preventDefault();
 
-        if (bun && !!ingredients.length) {
+        if (bun && !!stuffing.length) {
             setIsLoading(true);
             const requestBody = {
-                ingredients:  [bun._id, ...ingredients.map(({ _id }) => _id)]
+                ingredients:  [bun._id, ...stuffing.map(({ _id }) => _id)]
             };
             request<OrderResponse>('orders', requestBody)
                 .then(({ order, success }) => {
@@ -54,7 +54,7 @@ const BurgerConstructor: React.FC = () => {
     return (
         <article className={styles.article}>
             <section className="mt-25 mb-10 ml-4">
-                <BurgerConstructorList bun={bun} otherIngredients={ingredients} />
+                <BurgerConstructorList bun={bun} stuffing={stuffing} />
             </section>
 
             <section className="mr-4">

@@ -5,7 +5,7 @@ import { useDrag } from "react-dnd";
 import styles from './burger-ingredients-card.module.css'
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
-import { Ingredient } from "../../../models/ingredient";
+import { Ingredient, IngredientType } from "../../../models/ingredient";
 
 interface Props {
     ingredient: Ingredient;
@@ -16,7 +16,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
     const { type, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [, drag] = useDrag<Ingredient>({
-        type: type,
+        type: type === IngredientType.bun ? type : 'stuffing',
         item: ingredient
     });
 

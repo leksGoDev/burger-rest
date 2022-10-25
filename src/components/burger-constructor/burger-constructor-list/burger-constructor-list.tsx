@@ -5,15 +5,15 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./burger-constructor-list.module.css";
 import { Ingredient, IngredientType } from "../../../models/ingredient";
 import { useAppDispatch } from "../../../hooks/redux";
-import { addIngredient, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
+import { addStuffing, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
 import DragConstructorElement from "./drag-constructor-element/drag-constructor-element";
 
 interface Props {
     bun: Ingredient | null;
-    otherIngredients: Ingredient[];
+    stuffing: Ingredient[];
 }
 
-const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
+const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
     const dispatch = useAppDispatch();
 
     const useBunDrop = () => useDrop<Ingredient>({
@@ -25,9 +25,9 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
     const [, bunDropHeader] = useBunDrop();
     const [, bunDropFooter] = useBunDrop();
     const [, ingredientsDrop] = useDrop<Ingredient>({
-        accept: IngredientType.sauce || IngredientType.main,
+        accept: 'stuffing',
         drop(ingredient) {
-            dispatch(addIngredient(ingredient));
+            dispatch(addStuffing(ingredient));
         }
     });
 
@@ -49,8 +49,8 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
             </header>
 
             <ul ref={ingredientsDrop} className={styles.list}>
-                {otherIngredients.map(ingredient =>
-                    <DragConstructorElement key={ingredient._id} ingredient={ingredient} />
+                {stuffing.map((ingredient, index) =>
+                    <DragConstructorElement key={Math.random()} index={index} ingredient={ingredient} />
                 )}
             </ul>
 

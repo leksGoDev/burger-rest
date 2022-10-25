@@ -17,8 +17,8 @@ const initialState: State = {
     data: [],
 };
 
-const ingredientsSlice = createSlice({
-    name: 'ingredients',
+const ingredientsApiSlice = createSlice({
+    name: 'ingredientsApi',
     initialState: initialState,
     reducers: {
         loading(state) {
@@ -36,7 +36,7 @@ const ingredientsSlice = createSlice({
     }
 });
 
-const { loading, failed, received } = ingredientsSlice.actions;
+const { loading, failed, received } = ingredientsApiSlice.actions;
 
 export const fetchIngredients = () => async (dispatch: AppDispatch) => {
     dispatch(loading());
@@ -51,4 +51,4 @@ export const fetchIngredients = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export default ingredientsSlice.reducer;
+export default ingredientsApiSlice.reducer;

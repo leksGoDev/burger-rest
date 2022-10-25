@@ -8,7 +8,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import { useAppDispatch } from "../../hooks/redux";
-import { fetchIngredients } from "../../services/store/slices/ingredientsSlice";
+import { fetchIngredients } from "../../services/store/slices/ingredientsApiSlice";
 
 const App = () => {
     const dispatch = useAppDispatch();

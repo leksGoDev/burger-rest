@@ -9,7 +9,7 @@ import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingred
 type SectionRef = React.MutableRefObject<HTMLElement>;
 
 const BurgerIngredients: React.FC = () => {
-    const { data } = useAppSelector(store => store.ingredients);
+    const { data } = useAppSelector(store => store.ingredientsApi);
 
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
 

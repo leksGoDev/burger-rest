@@ -3,12 +3,12 @@ import { Ingredient } from "../../../models/ingredient";
 
 interface State {
     bun: Ingredient | null;
-    ingredients: Ingredient[];
+    stuffing: Ingredient[];
 }
 
 const initialState: State = {
     bun: null,
-    ingredients: []
+    stuffing: []
 };
 
 const burgerConstructorSlice = createSlice({
@@ -18,16 +18,16 @@ const burgerConstructorSlice = createSlice({
         changeBun(state, action: PayloadAction<Ingredient>) {
             state.bun = action.payload;
         },
-        addIngredient(state, action: PayloadAction<Ingredient>) {
-            state.ingredients.push(action.payload);
+        addStuffing(state, action: PayloadAction<Ingredient>) {
+            state.stuffing.push(action.payload);
         },
-        removeIngredient(state, action: PayloadAction<number>) {
+        removeStuffing(state, action: PayloadAction<number>) {
             const index = action.payload;
-            state.ingredients = state.ingredients.filter((_, i) => i !== index);
+            state.stuffing = state.stuffing.filter((_, i) => i !== index);
         }
     }
 });
 
-export const { changeBun, addIngredient, removeIngredient } = burgerConstructorSlice.actions;
+export const { changeBun, addStuffing, removeStuffing } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;
