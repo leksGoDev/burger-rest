@@ -5,9 +5,8 @@ import styles from './burger-constructor.module.css'
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
-import { IngredientType } from "../../models/ingredient";
+import { IngredientType, Ingredient } from "../../models/ingredient";
 import { OrderResponse } from "../../models/api";
-import { DataContext, IDataContext } from "../../services/dataContext";
 import { request } from "../../services/request";
 
 const BurgerConstructor: React.FC = () => {
@@ -15,16 +14,12 @@ const BurgerConstructor: React.FC = () => {
     const [hasError, setHasError] = React.useState(false);
     const [isModalVisible, setModalVisible] = React.useState(false);
     const [orderNum, setOrderNum] = React.useState<number | null>(null);
-    const { data } = React.useContext<IDataContext>(DataContext);
+    const data = [] as Ingredient[]
 
     const bun = React.useMemo(() => data.filter(el => el.type === IngredientType.bun)[1], [data]);
     const ingredients = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
     const totalPrice = React.useMemo(() => {
-        if (!bun?.price || !ingredients[0]?.price) {
-            return 0;
-        }
-
-        let sum = bun.price * 2;
+        let sum = (bun?.price ?? 0) * 2;
         sum += ingredients.reduce((sum, el) => sum + el.price, 0);
 
         return sum;
@@ -58,7 +53,7 @@ const BurgerConstructor: React.FC = () => {
     return (
         <article className={styles.article}>
             <section className="mt-25 mb-10 ml-4">
-                {!!data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
+                <BurgerConstructorList bun={bun} otherIngredients={ingredients} />
             </section>
 
             <section className="mr-4">

@@ -5,7 +5,7 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { Ingredient } from "../../../models/ingredient";
 
 interface Props {
-    bun: Ingredient;
+    bun: Ingredient | null;
     otherIngredients: Ingredient[];
 }
 
@@ -13,14 +13,19 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
 
     return (
         <>
-            <header className="mb-4 pl-8">
-                <ConstructorElement
-                    isLocked
-                    type="top"
-                    text={`${bun.name} (верх)`}
-                    thumbnail={bun.image}
-                    price={bun.price}
-                />
+            <header className={`${styles.bunSection} mb-4 pl-8`}>
+                {
+                    bun ?
+                        <ConstructorElement
+                            isLocked
+                            type="top"
+                            text={`${bun.name} (верх)`}
+                            thumbnail={bun.image}
+                            price={bun.price}
+                        />
+                        :
+                        <div className="constructor-element constructor-element_pos_top" />
+                }
             </header>
 
             <ul className={styles.list}>
@@ -36,14 +41,19 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
                 )}
             </ul>
 
-            <footer className="mt-4 pl-8">
-                <ConstructorElement
-                    isLocked
-                    type="bottom"
-                    text={`${bun.name} (низ)`}
-                    thumbnail={bun.image}
-                    price={bun.price}
-                />
+            <footer className={`${styles.bunSection} mt-4 pl-8`}>
+                {
+                    bun ?
+                        <ConstructorElement
+                            isLocked
+                            type="bottom"
+                            text={`${bun.name} (низ)`}
+                            thumbnail={bun.image}
+                            price={bun.price}
+                        />
+                        :
+                        <div className="constructor-element constructor-element_pos_bottom" />
+                }
             </footer>
         </>
     );
