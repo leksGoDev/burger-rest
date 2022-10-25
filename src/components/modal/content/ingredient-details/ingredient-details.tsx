@@ -4,13 +4,10 @@ import styles from "./ingredient-details.module.css";
 import { Ingredient } from "../../../../models/ingredient";
 import IngredientDetailsSection from "./ingredient-details-section/ingredient-details-section";
 
-interface Props {
+type IIngredientDetails = Pick<Ingredient, "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
+
+interface Props extends IIngredientDetails {
     image: Ingredient["image_large"];
-    name: Ingredient["name"];
-    calories: Ingredient["calories"];
-    proteins: Ingredient["proteins"];
-    fat: Ingredient["fat"];
-    carbohydrates: Ingredient["carbohydrates"];
 }
 
 const IngredientDetails: React.FC<Props> = ({ image, name, calories, proteins, fat, carbohydrates }) => {

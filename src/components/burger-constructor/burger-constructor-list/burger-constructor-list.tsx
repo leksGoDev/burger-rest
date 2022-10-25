@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useDrop } from "react-dnd";
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-constructor-list.module.css";
 import { Ingredient, IngredientType } from "../../../models/ingredient";
 import { useAppDispatch } from "../../../hooks/redux";
 import { addIngredient, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
+import DragConstructorElement from "./drag-constructor-element/drag-constructor-element";
 
 interface Props {
     bun: Ingredient | null;
@@ -49,14 +50,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
 
             <ul ref={ingredientsDrop} className={styles.list}>
                 {otherIngredients.map(({ _id, name, image, price}) =>
-                    <li key={_id} className={styles.listItem}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text={name}
-                            thumbnail={image}
-                            price={price}
-                        />
-                    </li>
+                    <DragConstructorElement id={_id} name={name} price={price} image={image} />
                 )}
             </ul>
 
