@@ -49,8 +49,8 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
             </header>
 
             <ul ref={ingredientsDrop} className={styles.list}>
-                {otherIngredients.map(({ _id, name, image, price}) =>
-                    <DragConstructorElement id={_id} name={name} price={price} image={image} />
+                {otherIngredients.map(ingredient =>
+                    <DragConstructorElement key={ingredient._id} ingredient={ingredient} />
                 )}
             </ul>
 
