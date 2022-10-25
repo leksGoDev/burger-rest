@@ -1,22 +1,31 @@
 import * as React from 'react';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag } from "react-dnd";
 
 import styles from './burger-ingredients-card.module.css'
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
-import { Ingredient } from "../../../models/ingredient";
+import { Ingredient, IngredientType } from "../../../models/ingredient";
 
 interface Props {
     ingredient: Ingredient;
     count?: number;
 }
 
+interface DragItem {
+    id: Ingredient["_id"];
+}
+
 const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
-    const { image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
+    const { _id, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
     const [isModalVisible, setModalVisible] = React.useState(false);
+    const [, drag] = useDrag<DragItem, null, null>({
+        type: 'ingredient',
+        item: { id: _id }
+    });
 
     return (
-        <li>
+        <li ref={drag}>
             <figure className={styles.content} onClick={() => setModalVisible(true)}>
                 {count && <Counter count={count} />}
 

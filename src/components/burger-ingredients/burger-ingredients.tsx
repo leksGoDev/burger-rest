@@ -2,15 +2,16 @@ import * as React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-ingredients.module.css'
+import { useAppSelector } from "../../hooks/redux";
 import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
-import { DataContext, IDataContext } from "../../services/dataContext";
 
 type SectionRef = React.MutableRefObject<HTMLElement>;
 
 const BurgerIngredients: React.FC = () => {
+    const { data } = useAppSelector(store => store.ingredients);
+
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
-    const { data } = React.useContext<IDataContext>(DataContext);
 
     const bunsSectionRef = React.useRef() as SectionRef;
     const saucesSectionRef = React.useRef() as SectionRef;
