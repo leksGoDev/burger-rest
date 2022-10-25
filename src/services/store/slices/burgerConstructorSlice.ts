@@ -15,7 +15,7 @@ const burgerConstructorSlice = createSlice({
     name: 'burgerConstructor',
     initialState: initialState,
     reducers: {
-        changeBun(state, action: PayloadAction<Ingredient>) {
+        changeBun(state, action: PayloadAction<Ingredient | null>) {
             state.bun = action.payload;
         },
         addStuffing(state, action: PayloadAction<Ingredient>) {
