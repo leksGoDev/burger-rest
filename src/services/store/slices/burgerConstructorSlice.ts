@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Ingredient } from "../../../models/ingredient";
 
-type Id = Ingredient["_id"];
-
 interface State {
-    bun: Id | null;
-    ingredients: Id[];
+    bun: Ingredient | null;
+    ingredients: Ingredient[];
 }
 
 const initialState: State = {
@@ -17,10 +15,10 @@ const burgerConstructorSlice = createSlice({
     name: 'burgerConstructor',
     initialState: initialState,
     reducers: {
-        changeBun(state, action: PayloadAction<Id | null>) {
+        changeBun(state, action: PayloadAction<Ingredient>) {
             state.bun = action.payload;
         },
-        addIngredient(state, action: PayloadAction<Id>) {
+        addIngredient(state, action: PayloadAction<Ingredient>) {
             state.ingredients.push(action.payload);
         },
         removeIngredient(state, action: PayloadAction<number>) {

@@ -5,28 +5,28 @@ import { useDrag } from "react-dnd";
 import styles from './burger-ingredients-card.module.css'
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
-import { Ingredient, IngredientType } from "../../../models/ingredient";
+import { Ingredient } from "../../../models/ingredient";
 
 interface Props {
     ingredient: Ingredient;
     count?: number;
 }
 
-interface DragItem {
-    id: Ingredient["_id"];
-}
-
 const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
-    const { _id, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
+    const { image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
     const [isModalVisible, setModalVisible] = React.useState(false);
-    const [, drag] = useDrag<DragItem, null, null>({
-        type: 'ingredient',
-        item: { id: _id }
+    const [, drag] = useDrag<Ingredient>({
+        type: 'ingredientsDnd',
+        item: ingredient
     });
 
     return (
-        <li ref={drag}>
-            <figure className={styles.content} onClick={() => setModalVisible(true)}>
+        <li>
+            <figure
+                ref={drag}
+                className={styles.content}
+                onClick={() => setModalVisible(true)}
+            >
                 {count && <Counter count={count} />}
 
                 <img className="pl-4 pr-4" src={image} alt="image" />

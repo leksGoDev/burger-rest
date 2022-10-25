@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { useDrop } from "react-dnd";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-constructor-list.module.css";
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../../../models/ingredient";
+import { Ingredient, IngredientType } from "../../../models/ingredient";
+import { useAppDispatch } from "../../../hooks/redux";
+import { addIngredient, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
 
 interface Props {
     bun: Ingredient | null;
@@ -10,9 +13,17 @@ interface Props {
 }
 
 const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
+    const dispatch = useAppDispatch();
+    const [, drop] = useDrop<Ingredient>({
+       accept: 'ingredientsDnd',
+        drop(ingredient) {
+           if (ingredient.type === IngredientType.bun) dispatch(changeBun(ingredient));
+           else dispatch(addIngredient(ingredient));
+        }
+    });
 
     return (
-        <>
+        <div ref={drop}>
             <header className={`${styles.bunSection} mb-4 pl-8`}>
                 {
                     bun ?
@@ -55,7 +66,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
                         <div className="constructor-element constructor-element_pos_bottom" />
                 }
             </footer>
-        </>
+        </div>
     );
 };
 
