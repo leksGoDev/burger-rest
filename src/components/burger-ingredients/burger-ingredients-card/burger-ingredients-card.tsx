@@ -4,7 +4,8 @@ import { useDrag } from "react-dnd";
 
 import styles from './burger-ingredients-card.module.css'
 import { Ingredient, IngredientType } from "../../../models/ingredient";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
+import { closeDetails, openDetails } from "../../../services/store/slices/ingredientDetailsSlice";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
 
@@ -15,9 +16,11 @@ interface Props {
 const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
     const { _id, type, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
 
-    const { bun, stuffing } = useAppSelector(store => store.burgerConstructor);
+    const dispatch = useAppDispatch();
 
-    const [isModalVisible, setModalVisible] = React.useState(false);
+    const { bun, stuffing, isDetailsVisible } = useAppSelector(
+        store => ({ ...store.burgerConstructor, ...store.ingredientDetails})
+    );
 
     const [, drag] = useDrag<Ingredient>({
         type: type === IngredientType.bun ? type : 'stuffing',
@@ -32,12 +35,22 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
         }
     }, [bun, stuffing]);
 
+    const handleOpenDetails = React.useCallback(
+        () => dispatch(
+            openDetails({ image_large, name, calories, proteins, fat, carbohydrates })
+        ), [dispatch]);
+
+    const handleCloseDetails = React.useCallback(
+        () => dispatch(
+            closeDetails()
+        ), [dispatch]);
+
     return (
         <li>
             <figure
                 ref={drag}
                 className={styles.content}
-                onClick={() => setModalVisible(true)}
+                onClick={handleOpenDetails}
             >
                 {!!count && <Counter count={count} />}
 
@@ -53,16 +66,9 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
                 </figcaption>
             </figure>
 
-            {isModalVisible &&
-                <Modal title="Детали ингредиента" onClose={() => setModalVisible(false)}>
-                    <IngredientDetails
-                        image={image_large}
-                        name={name}
-                        calories={calories}
-                        proteins={proteins}
-                        fat={fat}
-                        carbohydrates={carbohydrates}
-                    />
+            {isDetailsVisible &&
+                <Modal title="Детали ингредиента" onClose={handleCloseDetails}>
+                    <IngredientDetails />
                 </Modal>}
         </li>
     );

@@ -1,20 +1,17 @@
 import * as React from 'react';
 
 import styles from "./ingredient-details.module.css";
-import { Ingredient } from "../../../../models/ingredient";
+import { useAppSelector } from "../../../../hooks/redux";
 import IngredientDetailsSection from "./ingredient-details-section/ingredient-details-section";
 
-type IIngredientDetails = Pick<Ingredient, "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
 
-interface Props extends IIngredientDetails {
-    image: Ingredient["image_large"];
-}
-
-const IngredientDetails: React.FC<Props> = ({ image, name, calories, proteins, fat, carbohydrates }) => {
+const IngredientDetails: React.FC = () => {
+    const { details } = useAppSelector(store => store.ingredientDetails);
+    const { image_large, name, calories, proteins, fat, carbohydrates } = details;
 
     return (
         <figure className={styles.content}>
-            <img className="pl-5 pr-5 mb-4" src={image} alt="image" />
+            <img className="pl-5 pr-5 mb-4" src={image_large} alt="image" />
 
             <figcaption>
                 <p className={`${styles.name} text text_type_main-medium mb-8`}>{name}</p>
