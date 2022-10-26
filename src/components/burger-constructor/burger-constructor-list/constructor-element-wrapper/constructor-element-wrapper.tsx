@@ -66,6 +66,11 @@ const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
 
     const opacity = isDrag ? 0 : 1;
 
+    const handleRemoveStuffing = React.useCallback(
+        () => dispatch(
+            removeStuffing(index)
+        ), [index, dispatch]);
+
     return (
         <li ref={ingredientRef} style={{ opacity }}>
             <div className={styles.listItem}>
@@ -74,7 +79,7 @@ const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
                     text={name}
                     thumbnail={image}
                     price={price}
-                    handleClose={dispatch.bind(null, removeStuffing(index))}
+                    handleClose={handleRemoveStuffing}
                 />
             </div>
         </li>
