@@ -51,7 +51,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
 
             <ul ref={stuffingDrop} className={styles.list}>
                 {stuffing.map((ingredient, index) =>
-                    <ConstructorElementWrapper key={Math.random()} index={index} ingredient={ingredient} />
+                    <ConstructorElementWrapper key={`${Math.random()}${ingredient._id}`} index={index} ingredient={ingredient} />
                 )}
             </ul>
 

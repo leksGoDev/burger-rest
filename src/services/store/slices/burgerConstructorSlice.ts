@@ -6,6 +6,11 @@ interface State {
     stuffing: Ingredient[];
 }
 
+interface SwapPayload {
+    dragIndex: number;
+    hoverIndex: number;
+}
+
 const initialState: State = {
     bun: null,
     stuffing: []
@@ -24,10 +29,16 @@ const burgerConstructorSlice = createSlice({
         removeStuffing(state, action: PayloadAction<number>) {
             const index = action.payload;
             state.stuffing = state.stuffing.filter((_, i) => i !== index);
+        },
+        swapStuffing(state, action: PayloadAction<SwapPayload>) {
+            const { dragIndex, hoverIndex } = action.payload;
+            const dragElement = state.stuffing[dragIndex];
+            state.stuffing.splice(dragIndex, 1, state.stuffing[hoverIndex]);
+            state.stuffing.splice(hoverIndex, 1, dragElement);
         }
     }
 });
 
-export const { changeBun, addStuffing, removeStuffing } = burgerConstructorSlice.actions;
+export const { changeBun, addStuffing, removeStuffing, swapStuffing } = burgerConstructorSlice.actions;
 
 export default burgerConstructorSlice.reducer;
