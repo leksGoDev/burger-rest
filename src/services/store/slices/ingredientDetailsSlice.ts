@@ -6,12 +6,12 @@ type IIngredientDetails = Pick<Ingredient, "image_large" | "name" | "calories" |
 
 interface State {
     isDetailsVisible: boolean;
-    details: IIngredientDetails;
+    details: IIngredientDetails | null;
 }
 
 const initialState: State = {
     isDetailsVisible: false,
-    details: {} as IIngredientDetails
+    details: null
 };
 
 const ingredientDetailsSlice = createSlice({
@@ -24,7 +24,7 @@ const ingredientDetailsSlice = createSlice({
         },
         closeDetails(state) {
             state.isDetailsVisible = false;
-            state.details = {} as IIngredientDetails;
+            state.details = null;
         }
     }
 });

@@ -7,7 +7,7 @@ import IngredientDetailsSection from "./ingredient-details-section/ingredient-de
 
 const IngredientDetails: React.FC = () => {
     const { details } = useAppSelector(store => store.ingredientDetails);
-    const { image_large, name, calories, proteins, fat, carbohydrates } = details;
+    const { image_large, name, calories, proteins, fat, carbohydrates } = details!;
 
     return (
         <figure className={styles.content}>

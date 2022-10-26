@@ -27,7 +27,7 @@ const BurgerConstructor: React.FC = () => {
 
             if (bun && !!stuffing.length) {
                 dispatch(
-                    makeOrder([bun._id, ...stuffing.map(({ _id }) => _id)])
+                    makeOrder([bun._id, ...stuffing.map(({ _id }) => _id), bun._id])
                 );
             }
         }, [dispatch, bun, stuffing]
