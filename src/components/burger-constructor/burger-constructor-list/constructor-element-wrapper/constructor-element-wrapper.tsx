@@ -3,13 +3,13 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { useDrag, useDrop } from "react-dnd";
 
 import styles from "./constructor-element-wrapper.module.css";
-import { Ingredient } from "../../../../models/ingredient";
+import { DragIngredient } from "../../../../models/ingredient";
 import { useAppDispatch } from "../../../../hooks/redux";
 import { removeStuffing, swapStuffing } from "../../../../services/store/slices/burgerConstructorSlice";
 
 interface Props {
     index: number;
-    ingredient: Ingredient;
+    ingredient: DragIngredient;
 }
 
 interface DndSortItem {
@@ -68,8 +68,8 @@ const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
 
     const handleRemoveStuffing = React.useCallback(
         () => dispatch(
-            removeStuffing(index)
-        ), [index, dispatch]);
+            removeStuffing(ingredient.dragId)
+        ), [ingredient, dispatch]);
 
     return (
         <li ref={ingredientRef} className={styles.listItem} style={{ opacity }}>

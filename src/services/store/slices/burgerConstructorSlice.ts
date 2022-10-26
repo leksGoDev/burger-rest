@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { v4 as uuid } from 'uuid';
 
-import { Ingredient } from "../../../models/ingredient";
+import { Ingredient, DragIngredient } from "../../../models/ingredient";
 
 interface State {
     bun: Ingredient | null;
-    stuffing: Ingredient[];
+    stuffing: DragIngredient[];
 }
 
 interface SwapPayload {
@@ -25,11 +26,11 @@ const burgerConstructorSlice = createSlice({
             state.bun = action.payload;
         },
         addStuffing(state, action: PayloadAction<Ingredient>) {
-            state.stuffing.push(action.payload);
+            state.stuffing.push({ dragId: uuid(), ...action.payload});
         },
-        removeStuffing(state, action: PayloadAction<number>) {
-            const index = action.payload;
-            state.stuffing = state.stuffing.filter((_, i) => i !== index);
+        removeStuffing(state, action: PayloadAction<DragIngredient["dragId"]>) {
+            const dragId = action.payload;
+            state.stuffing = state.stuffing.filter(entry => entry.dragId !== dragId);
         },
         swapStuffing(state, action: PayloadAction<SwapPayload>) {
             const { dragIndex, hoverIndex } = action.payload;

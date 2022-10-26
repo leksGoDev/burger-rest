@@ -3,14 +3,14 @@ import { useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-constructor-list.module.css";
-import { Ingredient, IngredientType } from "../../../models/ingredient";
+import { Ingredient, DragIngredient, IngredientType } from "../../../models/ingredient";
 import { useAppDispatch } from "../../../hooks/redux";
 import { addStuffing, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
 import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
 interface Props {
     bun: Ingredient | null;
-    stuffing: Ingredient[];
+    stuffing: DragIngredient[];
 }
 
 const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
@@ -56,7 +56,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
 
             <ul ref={stuffingDrop} className={styles.list}>
                 {stuffing.map((ingredient, index) =>
-                    <ConstructorElementWrapper key={`${Math.random()}${ingredient._id}`} index={index} ingredient={ingredient} />
+                    <ConstructorElementWrapper key={ingredient.dragId} index={index} ingredient={ingredient} />
                 )}
             </ul>
 
