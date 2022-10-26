@@ -28,17 +28,17 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
     }, [ingredient]);
 
     const count = React.useMemo(() => {
-        if (type == IngredientType.bun) {
+        if (type === IngredientType.bun) {
             return bun?._id === _id ? 1 : 0;
         } else {
             return stuffing.reduce((sum, el) => el._id === _id ? ++sum : sum, 0);
         }
-    }, [bun, stuffing]);
+    }, [type, _id, bun, stuffing]);
 
     const handleOpenDetails = React.useCallback(
         () => dispatch(
             openDetails({ image_large, name, calories, proteins, fat, carbohydrates })
-        ), [dispatch]);
+        ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
 
     const handleCloseDetails = React.useCallback(
         () => dispatch(
