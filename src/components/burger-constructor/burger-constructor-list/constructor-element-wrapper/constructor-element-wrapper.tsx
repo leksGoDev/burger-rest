@@ -72,16 +72,14 @@ const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
         ), [index, dispatch]);
 
     return (
-        <li ref={ingredientRef} style={{ opacity }}>
-            <div className={styles.listItem}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                    text={name}
-                    thumbnail={image}
-                    price={price}
-                    handleClose={handleRemoveStuffing}
-                />
-            </div>
+        <li ref={ingredientRef} className={styles.listItem} style={{ opacity }}>
+            <DragIcon type="primary" />
+            <ConstructorElement
+                text={name}
+                thumbnail={image}
+                price={price}
+                handleClose={handleRemoveStuffing}
+            />
         </li>
     );
 };
