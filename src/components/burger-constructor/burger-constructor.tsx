@@ -10,7 +10,7 @@ import { closeDetails, makeOrder } from "../../services/store/slices/orderDetail
 
 const BurgerConstructor: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { bun, stuffing, isDetailsVisible } = useAppSelector(
+    const { bun, stuffing, data } = useAppSelector(
         store => ({ ...store.burgerConstructor, ...store.orderDetails })
     );
 
@@ -64,7 +64,7 @@ const BurgerConstructor: React.FC = () => {
                 </form>
             </section>
 
-            {isDetailsVisible &&
+            {data &&
                 <Modal onClose={handleCloseDetails}>
                     <OrderDetails />
                 </Modal>}

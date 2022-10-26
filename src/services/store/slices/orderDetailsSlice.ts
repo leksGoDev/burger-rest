@@ -7,17 +7,15 @@ import { OrderResponse } from "../../../models/api";
 import { request } from "../../request";
 
 interface State {
-    isDetailsVisible: boolean;
     isLoading: boolean;
     hasError: boolean;
-    data: Order;
+    data: Order | null;
 }
 
 const initialState: State = {
-    isDetailsVisible: false,
     isLoading: false,
     hasError: false,
-    data: {} as Order
+    data: null
 };
 
 const orderDetailsSlice = createSlice({
@@ -30,17 +28,15 @@ const orderDetailsSlice = createSlice({
         failed(state) {
             state.hasError = true;
             state.isLoading = false;
-            state.data = {} as Order;
+            state.data = null;
         },
         received(state, action: PayloadAction<Order>) {
             state.hasError = false;
             state.isLoading = false;
             state.data = action.payload;
-            state.isDetailsVisible = true;
         },
         closeDetails(state) {
-            state.isDetailsVisible = false;
-            state.data = {} as Order;
+            state.data = null;
         }
     }
 });

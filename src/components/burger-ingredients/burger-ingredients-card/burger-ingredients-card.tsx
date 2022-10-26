@@ -18,7 +18,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
 
     const dispatch = useAppDispatch();
 
-    const { bun, stuffing, isDetailsVisible } = useAppSelector(
+    const { bun, stuffing, details } = useAppSelector(
         store => ({ ...store.burgerConstructor, ...store.ingredientDetails})
     );
 
@@ -66,7 +66,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
                 </figcaption>
             </figure>
 
-            {isDetailsVisible &&
+            {details &&
                 <Modal title="Детали ингредиента" onClose={handleCloseDetails}>
                     <IngredientDetails />
                 </Modal>}

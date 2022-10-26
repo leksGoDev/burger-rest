@@ -10,7 +10,7 @@ const OrderDetails: React.FC = () => {
     return (
         <figure className={styles.content}>
             <figcaption>
-                <p className={`${styles.text} text text_type_digits-large mb-8`}>{data.order.number}</p>
+                <p className={`${styles.text} text text_type_digits-large mb-8`}>{data!.order.number}</p>
 
                 <p className={`${styles.text} text text_type_main-medium`}>идентификатор заказа</p>
             </figcaption>
