@@ -2,20 +2,17 @@ import * as React from 'react';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.css'
-import { OrderResponse } from "../../models/api";
-import { request } from "../../services/request";
-import { useAppSelector } from "../../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../../hooks/redux";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
+import { closeDetails, makeOrder } from "../../services/store/slices/orderDetailsSlice";
 
 const BurgerConstructor: React.FC = () => {
-    const { bun, stuffing } = useAppSelector(store => store.burgerConstructor);
-
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [hasError, setHasError] = React.useState(false);
-    const [isModalVisible, setModalVisible] = React.useState(false);
-    const [orderNum, setOrderNum] = React.useState<number | null>(null);
+    const dispatch = useAppDispatch();
+    const { bun, stuffing, isDetailsVisible } = useAppSelector(
+        store => ({ ...store.burgerConstructor, ...store.orderDetails })
+    );
 
     const totalPrice = React.useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;
@@ -24,32 +21,21 @@ const BurgerConstructor: React.FC = () => {
         return sum;
     }, [bun, stuffing]);
 
-    React.useEffect(() => {
-        if (orderNum) {
-            setModalVisible(true);
-        }
-    }, [orderNum]);
+    const handleSubmitButton = React.useCallback(
+        (e: React.SyntheticEvent) => {
+            e.preventDefault();
 
-    const handleSubmitButton = (e: React.SyntheticEvent) => {
-        e.preventDefault();
+            if (bun && !!stuffing.length) {
+                dispatch(
+                    makeOrder([bun._id, ...stuffing.map(({ _id }) => _id)])
+                );
+            }
+        }, [dispatch, bun, stuffing]
+    );
 
-        if (bun && !!stuffing.length) {
-            setIsLoading(true);
-            const requestBody = {
-                ingredients:  [bun._id, ...stuffing.map(({ _id }) => _id)]
-            };
-            request<OrderResponse>('orders', requestBody)
-                .then(({ order, success }) => {
-                    if (success) setOrderNum(order.number);
-                    else setHasError(true);
-                })
-                .catch(err => {
-                    console.log(err.message)
-                    setHasError(true);
-                })
-                .finally(() => setIsLoading(false))
-        }
-    };
+    const handleCloseDetails = React.useCallback(
+        () => dispatch(closeDetails())
+    , [dispatch]);
 
     return (
         <article className={styles.article}>
@@ -78,9 +64,9 @@ const BurgerConstructor: React.FC = () => {
                 </form>
             </section>
 
-            {isModalVisible &&
-                <Modal onClose={() => setModalVisible(false)}>
-                    <OrderDetails orderNum={orderNum!} />
+            {isDetailsVisible &&
+                <Modal onClose={handleCloseDetails}>
+                    <OrderDetails />
                 </Modal>}
         </article>
     );

@@ -2,17 +2,15 @@ import * as React from 'react';
 
 import doneImg from "../../../../images/done.png";
 import styles from "./order-details.module.css";
+import { useAppSelector } from "../../../../hooks/redux";
 
-interface Props {
-    orderNum: number;
-}
-
-const OrderDetails: React.FC<Props> = ({ orderNum }) => {
+const OrderDetails: React.FC = () => {
+    const { data } = useAppSelector(store => store.orderDetails);
 
     return (
         <figure className={styles.content}>
             <figcaption>
-                <p className={`${styles.text} text text_type_digits-large mb-8`}>{orderNum}</p>
+                <p className={`${styles.text} text text_type_digits-large mb-8`}>{data.order.number}</p>
 
                 <p className={`${styles.text} text text_type_main-medium`}>идентификатор заказа</p>
             </figcaption>

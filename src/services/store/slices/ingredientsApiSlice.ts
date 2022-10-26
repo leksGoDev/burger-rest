@@ -27,6 +27,7 @@ const ingredientsApiSlice = createSlice({
         failed(state) {
             state.hasError = true;
             state.isLoading = false;
+            state.data = [];
         },
         received(state, action: PayloadAction<Ingredient[]>) {
             state.hasError = false;
