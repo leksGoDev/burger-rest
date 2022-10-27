@@ -29,7 +29,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
 
     const count = React.useMemo(() => {
         if (type === IngredientType.bun) {
-            return bun?._id === _id ? 1 : 0;
+            return bun?._id === _id ? 2 : 0;
         } else {
             return stuffing.reduce((sum, el) => el._id === _id ? ++sum : sum, 0);
         }

@@ -25,8 +25,13 @@ const burgerConstructorSlice = createSlice({
         changeBun(state, action: PayloadAction<Ingredient | null>) {
             state.bun = action.payload;
         },
-        addStuffing(state, action: PayloadAction<Ingredient>) {
-            state.stuffing.push({ dragId: uuid(), ...action.payload});
+        addStuffing: {
+            reducer(state, action: PayloadAction<DragIngredient>) {
+                state.stuffing.push(action.payload);
+            },
+            prepare(ingredient: Ingredient) {
+                return { payload: { dragId: uuid(), ...ingredient }}
+            }
         },
         removeStuffing(state, action: PayloadAction<DragIngredient["dragId"]>) {
             const dragId = action.payload;
