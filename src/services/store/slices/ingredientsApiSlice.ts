@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Ingredient } from "../../../models/ingredient";
 import { IngredientsResponse } from "../../../models/api";
 import { AppDispatch } from "../index";
-import { request } from "../../request";
+import { request } from "../../api/request";
 
 interface State {
     isLoading: boolean;

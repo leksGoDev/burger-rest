@@ -4,7 +4,7 @@ import { AppDispatch } from "../index";
 import { Order } from "../../../models/order";
 import { Ingredient } from "../../../models/ingredient";
 import { OrderResponse } from "../../../models/api";
-import { request } from "../../request";
+import { request } from "../../api/request";
 
 interface State {
     isLoading: boolean;
