@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
-import { Home } from "../../pages";
+import { Home, NotFound } from "../../pages";
 import { useAppDispatch } from "../../hooks/redux";
 import { fetchIngredients } from "../../services/store/slices/ingredientsApiSlice";
 
@@ -21,6 +21,10 @@ const App: FC = () => {
             <Switch>
                 <Route exact path="/">
                     <Home />
+                </Route>
+
+                <Route path="*">
+                    <NotFound />
                 </Route>
             </Switch>
         </BrowserRouter>
