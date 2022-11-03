@@ -1,16 +1,13 @@
 import { useEffect } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import type { FC } from 'react';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import styles from './app.module.css'
-import AppHeader  from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-
+import AppHeader from "../app-header/app-header";
+import { Home } from "../../pages";
 import { useAppDispatch } from "../../hooks/redux";
 import { fetchIngredients } from "../../services/store/slices/ingredientsApiSlice";
 
-const App = () => {
+const App: FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -18,16 +15,15 @@ const App = () => {
     }, [dispatch]);
 
     return (
-        <>
+        <BrowserRouter>
             <AppHeader />
 
-            <main className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
-                </DndProvider>
-            </main>
-        </>
+            <Switch>
+                <Route exact path="/">
+                    <Home />
+                </Route>
+            </Switch>
+        </BrowserRouter>
     );
 };
 
