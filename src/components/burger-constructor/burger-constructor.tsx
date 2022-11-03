@@ -2,63 +2,45 @@ import * as React from 'react';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.css'
+import { useAppSelector, useAppDispatch } from "../../hooks/redux";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
-import { IngredientType } from "../../models/ingredient";
-import { OrderResponse } from "../../models/api";
-import { DataContext, IDataContext } from "../../services/dataContext";
-import { request } from "../../services/request";
+import { closeDetails, makeOrder } from "../../services/store/slices/orderDetailsSlice";
 
 const BurgerConstructor: React.FC = () => {
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [hasError, setHasError] = React.useState(false);
-    const [isModalVisible, setModalVisible] = React.useState(false);
-    const [orderNum, setOrderNum] = React.useState<number | null>(null);
-    const { data } = React.useContext<IDataContext>(DataContext);
+    const dispatch = useAppDispatch();
+    const { bun, stuffing, data } = useAppSelector(
+        store => ({ ...store.burgerConstructor, ...store.orderDetails })
+    );
 
-    const bun = React.useMemo(() => data.filter(el => el.type === IngredientType.bun)[1], [data]);
-    const ingredients = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
     const totalPrice = React.useMemo(() => {
-        if (!bun?.price || !ingredients[0]?.price) {
-            return 0;
-        }
-
-        let sum = bun.price * 2;
-        sum += ingredients.reduce((sum, el) => sum + el.price, 0);
+        let sum = (bun?.price ?? 0) * 2;
+        sum += stuffing.reduce((sum, el) => sum + el.price, 0);
 
         return sum;
-    }, [data]);
+    }, [bun, stuffing]);
 
-    React.useEffect(() => {
-        if (orderNum) {
-            setModalVisible(true);
-        }
-    }, [orderNum]);
+    const handleSubmitButton = React.useCallback(
+        (e: React.SyntheticEvent) => {
+            e.preventDefault();
 
-    const handleSubmitButton = (e: React.SyntheticEvent) => {
-        e.preventDefault();
+            if (bun && !!stuffing.length) {
+                dispatch(
+                    makeOrder([bun._id, ...stuffing.map(({ _id }) => _id), bun._id])
+                );
+            }
+        }, [dispatch, bun, stuffing]
+    );
 
-        setIsLoading(true);
-        const requestBody = {
-            ingredients:  [bun._id, ...ingredients.map(({ _id }) => _id)]
-        };
-        request<OrderResponse>('orders', requestBody)
-            .then(({ order, success }) => {
-                if (success) setOrderNum(order.number);
-                else setHasError(true);
-            })
-            .catch(err => {
-                console.log(err.message)
-                setHasError(true);
-            })
-            .finally(() => setIsLoading(false))
-    };
+    const handleCloseDetails = React.useCallback(
+        () => dispatch(closeDetails())
+    , [dispatch]);
 
     return (
         <article className={styles.article}>
             <section className="mt-25 mb-10 ml-4">
-                {!!data?.length && <BurgerConstructorList bun={bun} otherIngredients={ingredients} />}
+                <BurgerConstructorList bun={bun} stuffing={stuffing} />
             </section>
 
             <section className="mr-4">
@@ -82,9 +64,9 @@ const BurgerConstructor: React.FC = () => {
                 </form>
             </section>
 
-            {isModalVisible &&
-                <Modal onClose={() => setModalVisible(false)}>
-                    <OrderDetails orderNum={orderNum!} />
+            {data &&
+                <Modal onClose={handleCloseDetails}>
+                    <OrderDetails />
                 </Modal>}
         </article>
     );

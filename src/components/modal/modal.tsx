@@ -23,7 +23,7 @@ const Modal: React.FC<Props> = ({ title , children, onClose }) => {
         window.addEventListener('keydown', close);
 
         return () => window.removeEventListener('keydown', close);
-    },[])
+    },[onClose])
 
     return (
         ReactDOM.createPortal((

@@ -1,0 +1,6 @@
+.listItem {
+    width: 568px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

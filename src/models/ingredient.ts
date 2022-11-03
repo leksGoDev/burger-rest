@@ -24,3 +24,7 @@ export interface Ingredient {
     image_large: string;
     __v: number;
 }
+
+export interface DragIngredient extends Ingredient {
+    dragId: string;
+}

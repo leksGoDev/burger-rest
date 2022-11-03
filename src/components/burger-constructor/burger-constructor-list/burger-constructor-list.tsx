@@ -1,49 +1,79 @@
 import * as React from 'react';
+import { useDrop } from "react-dnd";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-constructor-list.module.css";
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../../../models/ingredient";
+import { Ingredient, DragIngredient, IngredientType } from "../../../models/ingredient";
+import { useAppDispatch } from "../../../hooks/redux";
+import { addStuffing, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
+import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
 interface Props {
-    bun: Ingredient;
-    otherIngredients: Ingredient[];
+    bun: Ingredient | null;
+    stuffing: DragIngredient[];
 }
 
-const BurgerConstructorList: React.FC<Props> = ({ bun, otherIngredients }) => {
+const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
+    const dispatch = useAppDispatch();
+
+    const useBunDrop = () => useDrop<Ingredient>({
+        accept: IngredientType.bun,
+        drop(ingredient) {
+            dispatch(changeBun(ingredient));
+        }
+    }, [dispatch]);
+    const [, bunDropHeader] = useBunDrop();
+    const [, bunDropFooter] = useBunDrop();
+    const [, stuffingDrop] = useDrop<Ingredient>({
+        accept: 'stuffing',
+        drop(ingredient) {
+            dispatch(addStuffing(ingredient));
+        }
+    }, [dispatch]);
+
+    const handleRemoveBun = React.useCallback(
+        () => dispatch(
+            changeBun(null)
+        ), [dispatch]);
 
     return (
         <>
-            <header className="mb-4 pl-8">
-                <ConstructorElement
-                    isLocked
-                    type="top"
-                    text={`${bun.name} (верх)`}
-                    thumbnail={bun.image}
-                    price={bun.price}
-                />
+            <header ref={bunDropHeader} className={`${styles.bunSection} mb-4 pl-8`}>
+                {
+                    bun ?
+                        <ConstructorElement
+                            isLocked={!!stuffing.length}
+                            type="top"
+                            text={`${bun.name} (верх)`}
+                            thumbnail={bun.image}
+                            price={bun.price}
+                            handleClose={handleRemoveBun}
+                        />
+                        :
+                        <div className="constructor-element constructor-element_pos_top" />
+                }
             </header>
 
-            <ul className={styles.list}>
-                {otherIngredients.map(({ _id, name, image, price}) =>
-                    <li key={_id} className={styles.listItem}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text={name}
-                            thumbnail={image}
-                            price={price}
-                        />
-                    </li>
+            <ul ref={stuffingDrop} className={styles.list}>
+                {stuffing.map((ingredient, index) =>
+                    <ConstructorElementWrapper key={ingredient.dragId} index={index} ingredient={ingredient} />
                 )}
             </ul>
 
-            <footer className="mt-4 pl-8">
-                <ConstructorElement
-                    isLocked
-                    type="bottom"
-                    text={`${bun.name} (низ)`}
-                    thumbnail={bun.image}
-                    price={bun.price}
-                />
+            <footer ref={bunDropFooter} className={`${styles.bunSection} mt-4 pl-8`}>
+                {
+                    bun ?
+                        <ConstructorElement
+                            isLocked={!!stuffing.length}
+                            type="bottom"
+                            text={`${bun.name} (низ)`}
+                            thumbnail={bun.image}
+                            price={bun.price}
+                            handleClose={handleRemoveBun}
+                        />
+                        :
+                        <div className="constructor-element constructor-element_pos_bottom" />
+                }
             </footer>
         </>
     );

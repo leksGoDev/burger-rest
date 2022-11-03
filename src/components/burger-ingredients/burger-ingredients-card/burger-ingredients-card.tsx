@@ -1,24 +1,58 @@
 import * as React from 'react';
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag } from "react-dnd";
 
 import styles from './burger-ingredients-card.module.css'
+import { Ingredient, IngredientType } from "../../../models/ingredient";
+import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
+import { closeDetails, openDetails } from "../../../services/store/slices/ingredientDetailsSlice";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
-import { Ingredient } from "../../../models/ingredient";
 
 interface Props {
     ingredient: Ingredient;
-    count?: number;
 }
 
-const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
-    const { image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
-    const [isModalVisible, setModalVisible] = React.useState(false);
+const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
+    const { _id, type, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
+
+    const dispatch = useAppDispatch();
+
+    const { bun, stuffing, details } = useAppSelector(
+        store => ({ ...store.burgerConstructor, ...store.ingredientDetails})
+    );
+
+    const [, drag] = useDrag<Ingredient>({
+        type: type === IngredientType.bun ? type : 'stuffing',
+        item: {...ingredient}
+    }, [ingredient]);
+
+    const count = React.useMemo(() => {
+        if (type === IngredientType.bun) {
+            return bun?._id === _id ? 2 : 0;
+        } else {
+            return stuffing.reduce((sum, el) => el._id === _id ? ++sum : sum, 0);
+        }
+    }, [type, _id, bun, stuffing]);
+
+    const handleOpenDetails = React.useCallback(
+        () => dispatch(
+            openDetails({ image_large, name, calories, proteins, fat, carbohydrates })
+        ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
+
+    const handleCloseDetails = React.useCallback(
+        () => dispatch(
+            closeDetails()
+        ), [dispatch]);
 
     return (
         <li>
-            <figure className={styles.content} onClick={() => setModalVisible(true)}>
-                {count && <Counter count={count} />}
+            <figure
+                ref={drag}
+                className={styles.content}
+                onClick={handleOpenDetails}
+            >
+                {!!count && <Counter count={count} />}
 
                 <img className="pl-4 pr-4" src={image} alt="image" />
 
@@ -32,16 +66,9 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient, count }) => {
                 </figcaption>
             </figure>
 
-            {isModalVisible &&
-                <Modal title="Детали ингредиента" onClose={() => setModalVisible(false)}>
-                    <IngredientDetails
-                        image={image_large}
-                        name={name}
-                        calories={calories}
-                        proteins={proteins}
-                        fat={fat}
-                        carbohydrates={carbohydrates}
-                    />
+            {details &&
+                <Modal title="Детали ингредиента" onClose={handleCloseDetails}>
+                    <IngredientDetails />
                 </Modal>}
         </li>
     );
