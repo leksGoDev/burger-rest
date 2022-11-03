@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const ResetPassword: React.FC = () => {
+const ResetPassword: FC = () => {
     return (
         <div>
 

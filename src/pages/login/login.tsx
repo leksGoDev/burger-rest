@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const Login: React.FC = () => {
+const Login: FC = () => {
     return (
         <div>
 

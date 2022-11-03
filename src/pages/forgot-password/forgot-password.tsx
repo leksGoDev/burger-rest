@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const ForgotPassword: React.FC = () => {
+const ForgotPassword: FC = () => {
     return (
         <div>
 

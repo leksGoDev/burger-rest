@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const Register: React.FC = () => {
+const Register: FC = () => {
     return (
         <div>
 

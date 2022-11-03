@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const Profile: React.FC = () => {
+const Profile: FC = () => {
     return (
         <div>
 

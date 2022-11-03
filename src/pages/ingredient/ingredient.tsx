@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const Ingredient: React.FC = () => {
+const Ingredient: FC = () => {
     return (
         <div>
 

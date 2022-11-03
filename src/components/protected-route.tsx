@@ -1,6 +1,6 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
-const ProtectedRoute: React.FC = () => {
+const ProtectedRoute: FC = () => {
     return (
         <div>
 
