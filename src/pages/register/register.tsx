@@ -1,10 +1,11 @@
 import type { FC } from 'react';
 
-const Register: FC = () => {
-    return (
-        <div>
+import AuthForm from "../../components/auth/auth-form/auth-form";
 
-        </div>
+const Register: FC = () => {
+
+    return (
+        <AuthForm type="register" />
     );
 };
 
