@@ -3,8 +3,11 @@ import type { ChangeEvent, FC } from 'react';
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
+import { useReplaceHistory } from "../../hooks/router";
 
 const Register: FC = () => {
+    const replaceHistory = useReplaceHistory();
+
     const submitButton = useMemo(() => ({
         title: 'Зарегистрироваться',
         onClick: () => null
@@ -43,9 +46,9 @@ const Register: FC = () => {
         {
             paragraphText: 'Уже зарегистрированы?',
             buttonText: 'Войти',
-            onClick: () => null
+            onClick: replaceHistory.bind(null, "login")
         }
-    ], []);
+    ], [replaceHistory]);
 
     return (
         <AuthForm

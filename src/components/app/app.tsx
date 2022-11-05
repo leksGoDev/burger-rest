@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import type { FC } from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient } from "../../pages";
@@ -15,7 +15,7 @@ const App: FC = () => {
     }, [dispatch]);
 
     return (
-        <BrowserRouter>
+        <>
             <AppHeader />
 
             <Switch>
@@ -51,7 +51,7 @@ const App: FC = () => {
                     <NotFound />
                 </Route>
             </Switch>
-        </BrowserRouter>
+        </>
     );
 };
 
