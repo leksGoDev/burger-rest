@@ -2,13 +2,11 @@ import type { FC } from 'react';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./form-link-row.module.css";
+import { ILinkRowData } from "../../../../models/auth-form";
 
-interface Props {
-    paragraphText: string;
-    buttonText: string;
-}
+interface Props extends ILinkRowData {}
 
-const FormLinkRow: FC<Props> = ({ paragraphText, buttonText }) => {
+const FormLinkRow: FC<Props> = ({ paragraphText, buttonText, onClick }) => {
 
     return (
         <div className={styles.linkWrap}>
@@ -20,6 +18,7 @@ const FormLinkRow: FC<Props> = ({ paragraphText, buttonText }) => {
                 type="secondary"
                 htmlType="button"
                 extraClass={styles.link}
+                onClick={onClick}
             >
                 {buttonText}
             </Button>
