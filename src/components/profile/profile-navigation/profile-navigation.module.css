@@ -1,0 +1,23 @@
+.link {
+    width: 320px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.activeLink {
+    color: #fff;
+}
+
+.button {
+    composes: link;
+    border: none;
+    padding: 0;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.asideText {
+    width: 320px;
+    opacity: .4;
+}

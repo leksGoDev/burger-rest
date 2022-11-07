@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { Switch, Route } from "react-router-dom";
 
+import styles from "./profile.module.css";
 import ProfileOrderHistory from "./profile-orders-history/profile-order-history";
 import ProfileInformation from "./profile-information/profile-information";
 import ProfileNavigation from "../../components/profile/profile-navigation/profile-navigation";
@@ -8,16 +9,16 @@ import ProfileNavigation from "../../components/profile/profile-navigation/profi
 const Profile: FC = () => {
 
     return (
-        <main>
+        <main className={styles.main}>
             <ProfileNavigation />
 
             <article>
                 <Switch>
-                    <Route path="/">
+                    <Route exact path="/">
                         <ProfileInformation />
                     </Route>
 
-                    <Route>
+                    <Route exact path="/orders">
                         <ProfileOrderHistory />
                     </Route>
                 </Switch>

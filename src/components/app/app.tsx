@@ -39,7 +39,7 @@ const App: FC = () => {
                     <ResetPassword />
                 </Route>
 
-                <Route exact path="/profile">
+                <Route path="/profile">
                     <Profile />
                 </Route>
 
