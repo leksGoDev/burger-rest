@@ -4,13 +4,15 @@ import ingredientsApiSlice from "./slices/ingredientsApiSlice";
 import burgerConstructorSlice from "./slices/burgerConstructorSlice";
 import ingredientDetailsSlice from "./slices/ingredientDetailsSlice";
 import orderDetailsSlice from "./slices/orderDetailsSlice";
+import authApiSlice from "./slices/authApiSlice";
 
 export const store = configureStore({
     reducer: {
         ingredientsApi: ingredientsApiSlice,
         burgerConstructor: burgerConstructorSlice,
         ingredientDetails: ingredientDetailsSlice,
-        orderDetails: orderDetailsSlice
+        orderDetails: orderDetailsSlice,
+        authApi: authApiSlice
     }
 });
 
