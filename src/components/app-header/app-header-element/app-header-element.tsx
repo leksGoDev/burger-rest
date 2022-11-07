@@ -11,14 +11,14 @@ interface Props {
 const AppHeaderElement: React.FC<Props> = ({ icon, text, textInactive }) => {
 
     return (
-        <div className="pt-4 pb-4 pr-5 pl-5">
+        <article className="pt-4 pb-4 pr-5 pl-5">
             <a href="#" className={styles.placement}>
                 {icon}
                 <p className={`text text_type_main-default ${textInactive && "text_color_inactive"}`}>
                     {text}
                 </p>
             </a>
-        </div>
+        </article>
     );
 };
 

@@ -44,10 +44,10 @@ const BurgerIngredients: React.FC = () => {
 
     return (
         <article className={styles.article}>
-            <nav className="mt-10 mb-10">
+            <section className="mt-10 mb-10">
                 <p className="text text_type_main-large mb-5">Соберите бургер</p>
 
-                <div className={styles.tabs}>
+                <nav className={styles.tabs}>
                     <Tab
                         value={IngredientTypeName[IngredientType.bun]}
                         active={tabValue === IngredientType.bun}
@@ -69,8 +69,8 @@ const BurgerIngredients: React.FC = () => {
                     >
                         {IngredientTypeName[IngredientType.main]}
                     </Tab>
-                </div>
-            </nav>
+                </nav>
+            </section>
 
             <section className={styles.content} onScroll={handleScroll}>
                 <BurgerIngredientsSection ref={bunsSectionRef} type={IngredientType.bun} data={buns} />

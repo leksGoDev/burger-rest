@@ -20,21 +20,25 @@ const AuthForm: FC<Props> = ({ title, submitButton, inputs, linkRows }) => {
 
     return (
         <main className={styles.layout}>
-            <form className={`${styles.form} mb-20`}>
-                <p className="text text_type_main-medium">
-                    {title}
-                </p>
+            <article>
+                <form
+                    className={`${styles.form} mb-20`}
+                    onSubmit={e => {
+                        e.preventDefault();
+                        submitButton.onClick();
+                    }}>
+                    <p className="text text_type_main-medium">
+                        {title}
+                    </p>
 
-                {inputs.map((data, index) =>
-                    <FormInput key={index} {...data} />)}
+                    {inputs.map((data, index) =>
+                        <FormInput key={index} {...data} />)}
 
-                <Button
-                    htmlType="submit"
-                    onClick={submitButton.onClick}
-                >
-                    {submitButton.title}
-                </Button>
-            </form>
+                    <Button htmlType="submit">
+                        {submitButton.title}
+                    </Button>
+                </form>
+            </article>
 
             <aside className={styles.aside}>
                 {linkRows.map((data, index) =>

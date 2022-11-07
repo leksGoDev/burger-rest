@@ -9,7 +9,7 @@ interface Props extends ILinkRowData {}
 const FormLinkRow: FC<Props> = ({ paragraphText, buttonText, onClick }) => {
 
     return (
-        <div className={styles.linkWrap}>
+        <article className={styles.linkWrap}>
             <p className="text text_type_main-default text_color_inactive">
                 {paragraphText}
             </p>
@@ -22,7 +22,7 @@ const FormLinkRow: FC<Props> = ({ paragraphText, buttonText, onClick }) => {
             >
                 {buttonText}
             </Button>
-        </div>
+        </article>
     );
 };
 
