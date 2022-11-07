@@ -19,37 +19,21 @@ const App: FC = () => {
             <AppHeader />
 
             <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
+                <Route exact path="/" component={Home} />
 
-                <Route exact path="/login">
-                    <Login />
-                </Route>
+                <Route exact path="/login" component={Login} />
 
-                <Route exact path="/register">
-                    <Register />
-                </Route>
+                <Route exact path="/register" component={Register} />
 
-                <Route exact path="/forgot-password">
-                    <ForgotPassword />
-                </Route>
+                <Route exact path="/forgot-password" component={ForgotPassword} />
 
-                <Route exact path="/reset-password">
-                    <ResetPassword />
-                </Route>
+                <Route exact path="/reset-password" component={ResetPassword} />
 
-                <Route path="/profile">
-                    <Profile />
-                </Route>
+                <Route path="/profile" component={Profile} />
 
-                <Route exact path="/ingredients/:id">
-                    <Ingredient />
-                </Route>
+                <Route exact path="/ingredients/:id" component={Ingredient} />
 
-                <Route path="*">
-                    <NotFound />
-                </Route>
+                <Route path="*" component={NotFound} />
             </Switch>
         </>
     );
