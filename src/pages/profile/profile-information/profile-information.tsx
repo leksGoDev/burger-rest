@@ -25,7 +25,6 @@ const ProfileInformation: FC = () => {
                 name="email"
                 placeholder="Логин"
                 isIcon={true}
-                disabled={false}
                 value=""
                 onChange={() => null}
             />
@@ -33,7 +32,6 @@ const ProfileInformation: FC = () => {
             <PasswordInput
                 name="password"
                 icon="EditIcon"
-                disabled={false}
                 value=""
                 onChange={() => null}
             />
@@ -44,6 +42,7 @@ const ProfileInformation: FC = () => {
                         <Button
                             type="secondary"
                             htmlType="button"
+                            onClick={() => null}
                         >
                             Отмена
                         </Button>
