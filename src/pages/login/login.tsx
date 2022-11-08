@@ -1,36 +1,30 @@
-import { useMemo } from "react";
-import type { FC, ChangeEvent } from 'react';
+import { useMemo, useCallback } from "react";
+import type { FC } from 'react';
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { useReplaceHistory } from "../../hooks/router";
+import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
 
 const Login: FC = () => {
-    const replaceHistory = useReplaceHistory();
-
-    const submitButton = useMemo(() => ({
-        title: 'Войти',
-        onClick: () => null
-    }), []);
-
-    const inputs = useMemo(() => [
-        {
-            type: InputType.Email,
-            inputProps: {
-                name: 'email',
-                value: "",
-                onChange: (e: ChangeEvent<HTMLInputElement>) => null
-            }
-        },
-        {
-            type: InputType.Password,
-            inputProps: {
-                name: 'password',
-                value: "",
-                onChange: (e: ChangeEvent<HTMLInputElement>) => null
-            }
+    const { input: emailInput, state: email } = useInput({
+        type: InputType.Email,
+        inputProps: {
+            name: 'email'
         }
-    ], []);
+    });
+    const { input: passwordInput, state: password } = useInput({
+        type: InputType.Password,
+        inputProps: {
+            name: 'password'
+        }
+    });
+    const replaceHistory = useReplaceHistory();
+    const dispatch = useAppDispatch();
+
+    const handleSubmit = useCallback(
+        () => null,
+        [dispatch]
+    );
 
     const linkRows = useMemo(() => [
         {
@@ -48,9 +42,10 @@ const Login: FC = () => {
     return (
         <AuthForm
             title="Вход"
-            submitButton={submitButton}
-            inputs={inputs}
+            buttonText="Войти"
+            inputs={[emailInput, passwordInput]}
             linkRows={linkRows}
+            onSubmit={handleSubmit}
         />
     );
 };

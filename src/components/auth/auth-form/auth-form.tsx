@@ -1,4 +1,5 @@
-import type { FC } from 'react';
+import { useCallback } from "react";
+import type { FC, FormEvent } from 'react';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./auth-form.module.css";
@@ -8,25 +9,28 @@ import FormInput from "./form-input/form-input";
 
 interface Props {
     title: string;
-    submitButton: {
-        title: string;
-        onClick: () => void;
-    };
+    buttonText: string;
     inputs: IInputData[];
     linkRows: ILinkRowData[];
+    onSubmit: () => void;
 }
 
-const AuthForm: FC<Props> = ({ title, submitButton, inputs, linkRows }) => {
+const AuthForm: FC<Props> = ({ title, buttonText, inputs, linkRows, onSubmit }) => {
+    const handleSubmit = useCallback(
+        (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            onSubmit();
+        },
+        [onSubmit]
+    );
 
     return (
         <main className={styles.layout}>
             <article>
                 <form
                     className={`${styles.form} mb-20`}
-                    onSubmit={e => {
-                        e.preventDefault();
-                        submitButton.onClick();
-                    }}>
+                    onSubmit={handleSubmit}
+                >
                     <p className="text text_type_main-medium">
                         {title}
                     </p>
@@ -35,7 +39,7 @@ const AuthForm: FC<Props> = ({ title, submitButton, inputs, linkRows }) => {
                         <FormInput key={index} {...data} />)}
 
                     <Button htmlType="submit">
-                        {submitButton.title}
+                        {buttonText}
                     </Button>
                 </form>
             </article>

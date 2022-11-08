@@ -1,38 +1,32 @@
-import { useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import type { FC, ChangeEvent } from 'react';
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { useReplaceHistory } from "../../hooks/router";
+import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
 
 const ResetPassword: FC = () => {
-    const replaceHistory = useReplaceHistory();
-
-    const submitButton = useMemo(() => ({
-        title: 'Сохранить',
-        onClick: () => null
-    }), []);
-
-    const inputs = useMemo(() => [
-        {
-            type: InputType.Password,
-            inputProps: {
-                name: 'password',
-                placeholder: 'Введите новый пароль',
-                value: "",
-                onChange: (e: ChangeEvent<HTMLInputElement>) => null
-            }
-        },
-        {
-            type: InputType.Default,
-            inputProps: {
-                name: 'code',
-                placeholder: 'Введите код из письма',
-                value: "",
-                onChange: (e: ChangeEvent<HTMLInputElement>) => null
-            }
+    const { input: passwordInput, state: password } = useInput({
+        type: InputType.Password,
+        inputProps: {
+            name: 'password',
+            placeholder: 'Введите новый пароль'
         }
-    ], []);
+    });
+    const { input: codeInput, state: code } = useInput({
+        type: InputType.Default,
+        inputProps: {
+            name: 'code',
+            placeholder: 'Введите код из письма'
+        }
+    });
+    const replaceHistory = useReplaceHistory();
+    const dispatch = useAppDispatch();
+
+    const handleSubmit = useCallback(
+        () => null,
+        [dispatch]
+    );
 
     const linkRows = useMemo(() => [
         {
@@ -45,9 +39,10 @@ const ResetPassword: FC = () => {
     return (
         <AuthForm
             title="Восстановление пароля"
-            submitButton={submitButton}
-            inputs={inputs}
+            buttonText="Сохранить"
+            inputs={[passwordInput, codeInput]}
             linkRows={linkRows}
+            onSubmit={handleSubmit}
         />
     );
 };

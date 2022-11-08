@@ -2,11 +2,24 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../index";
 import { request } from "../../api/request";
+import { setCookie } from "../../api/cookie";
+
+enum AuthStatus {
+    Authorized,
+    NotAuthorized,
+    PassReset
+}
+
+interface IUser {
+    email: string;
+    name: string;
+}
 
 interface State {
     isLoading: boolean;
     hasError: boolean;
-    isAuthorized: boolean;
+    status: AuthStatus;
+    user: IUser | null;
 }
 
 const BASE_URL = 'auth/';
@@ -14,7 +27,8 @@ const BASE_URL = 'auth/';
 const initialState: State = {
     isLoading: false,
     hasError: false,
-    isAuthorized: false
+    status: AuthStatus.NotAuthorized,
+    user: null
 };
 
 const authApiSlice = createSlice({
@@ -24,33 +38,71 @@ const authApiSlice = createSlice({
         loading(state) {
             state.isLoading = true;
         },
-        failed(state) {
+        failedStatus(state) {
             state.hasError = true;
             state.isLoading = false;
+            state.status = AuthStatus.NotAuthorized;
         },
-        changeAuthStatus(state, action: PayloadAction<boolean>) {
+        receivedStatus(state, action: PayloadAction<AuthStatus>) {
             state.hasError = false;
             state.isLoading = false;
-            state.isAuthorized = action.payload;
+            state.status = action.payload;
+        },
+        failedUser(state) {
+            state.hasError = true;
+            state.isLoading = false;
+            state.user = null;
+        },
+        receivedUser(state, action: PayloadAction<IUser>) {
+            state.hasError = false;
+            state.isLoading = false;
+            state.user = action.payload;
         }
     }
 });
 
-const { loading, failed, changeAuthStatus } = authApiSlice.actions;
+const { loading, failedStatus, receivedStatus, failedUser, receivedUser } = authApiSlice.actions;
 
-export const register = () => async (dispatch: AppDispatch) => {
-   /* dispatch(loading());
+export const register = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
+    dispatch(loading());
 
     try {
-        const { data, success } = await request<>(`${BASE_URL}register`);
+        const body = JSON.stringify({ email, password, name });
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body
+        };
+        const { success, user, accessToken, refreshToken } =
+            await fetch("https://norma.nomoreparties.space/api/auth/register", options)
+            .then(res => res.ok ?
+                res.json()
+                : res.json()
+                    .then((err) => Promise.reject(err))
+            );
+
+
         if (success) {
-            dispatch(received(data));
+            if (accessToken.indexOf("Bearer") === 0) {
+                const token = accessToken.split('Bearer ')[1];
+                setCookie({
+                    accessToken: token,
+                    refreshToken
+                });
+            }
+
+            dispatch(receivedStatus(AuthStatus.Authorized));
+            dispatch(receivedUser(user))
         }
-        else dispatch(failed());
+        else {
+            dispatch(failedStatus());
+        }
     }
     catch (err) {
-        dispatch(failed());
-    }*/
+        dispatch(failedStatus());
+    }
 };
 
 export default authApiSlice.reducer;

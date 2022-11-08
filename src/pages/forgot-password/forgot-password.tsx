@@ -1,29 +1,25 @@
-import { useMemo } from "react";
-import type { FC, ChangeEvent } from 'react';
+import { useMemo, useCallback } from "react";
+import type { FC } from 'react';
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { useReplaceHistory } from "../../hooks/router";
+import { useInput, useAppDispatch, useReplaceHistory  } from "../../hooks";
 
 const ForgotPassword: FC = () => {
-    const replaceHistory = useReplaceHistory();
-
-    const submitButton = useMemo(() => ({
-        title: 'Восстановить',
-        onClick: () => null
-    }), []);
-
-    const inputs = useMemo(() => [
-        {
-            type: InputType.Email,
-            inputProps: {
-                name: 'email',
-                placeholder: 'Укажите e-mail',
-                value: "",
-                onChange: (e: ChangeEvent<HTMLInputElement>) => null
-            }
+    const { input: emailInput, state: email } = useInput({
+        type: InputType.Email,
+        inputProps: {
+            name: 'email',
+            placeholder: 'Укажите e-mail'
         }
-    ], []);
+    });
+    const replaceHistory = useReplaceHistory();
+    const dispatch = useAppDispatch();
+
+    const handleSubmit = useCallback(
+        () => null,
+        [dispatch]
+    );
 
     const linkRows = useMemo(() => [
         {
@@ -36,9 +32,10 @@ const ForgotPassword: FC = () => {
     return (
         <AuthForm
             title="Восстановление пароля"
-            submitButton={submitButton}
-            inputs={inputs}
+            buttonText="Восстановить"
+            inputs={[emailInput]}
             linkRows={linkRows}
+            onSubmit={handleSubmit}
         />
     );
 };
