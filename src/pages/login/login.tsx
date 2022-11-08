@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
+import { login } from "../../services/store/slices/authApiSlice";
 
 const Login: FC = () => {
     const { input: emailInput, state: email } = useInput({
@@ -22,8 +23,8 @@ const Login: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => null,
-        [dispatch]
+        () => dispatch(login(email, password)),
+        [dispatch, email, password]
     );
 
     const linkRows = useMemo(() => [

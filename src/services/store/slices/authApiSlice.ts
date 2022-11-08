@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../index";
 import { request } from "../../api/request";
-import { setCookie } from "../../api/cookie";
+import { saveTokens } from "../../api/cookie";
 
 enum AuthStatus {
     Authorized,
@@ -85,13 +85,44 @@ export const register = (email: string, password: string, name: string) => async
 
 
         if (success) {
-            if (accessToken.indexOf("Bearer") === 0) {
-                const token = accessToken.split('Bearer ')[1];
-                setCookie({
-                    accessToken: token,
-                    refreshToken
-                });
-            }
+            saveTokens(accessToken, refreshToken);
+
+            dispatch(receivedStatus(AuthStatus.Authorized));
+            dispatch(receivedUser(user))
+        }
+        else {
+            dispatch(failedStatus());
+        }
+    }
+    catch (err) {
+        dispatch(failedStatus());
+    }
+};
+
+
+export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
+    dispatch(loading());
+
+    try {
+        const body = JSON.stringify({ email, password });
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body
+        };
+        const { success, user, accessToken, refreshToken } =
+            await fetch("https://norma.nomoreparties.space/api/auth/login", options)
+                .then(res => res.ok ?
+                    res.json()
+                    : res.json()
+                        .then((err) => Promise.reject(err))
+                );
+
+
+        if (success) {
+            saveTokens(accessToken, refreshToken);
 
             dispatch(receivedStatus(AuthStatus.Authorized));
             dispatch(receivedUser(user))
