@@ -1,9 +1,10 @@
-import { useState, useMemo, useCallback } from "react";
-import type { FC, ChangeEvent } from 'react';
+import { useMemo, useCallback } from "react";
+import type { FC } from 'react';
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
+import { resetPassword } from "../../services/store/slices/authApiSlice";
 
 const ResetPassword: FC = () => {
     const { input: passwordInput, state: password } = useInput({
@@ -24,8 +25,8 @@ const ResetPassword: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => null,
-        [dispatch]
+        () => dispatch(resetPassword(password, code)),
+        [dispatch, password, code]
     );
 
     const linkRows = useMemo(() => [

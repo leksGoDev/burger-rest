@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useAppDispatch, useReplaceHistory  } from "../../hooks";
+import { forgotPassword } from "../../services/store/slices/authApiSlice";
 
 const ForgotPassword: FC = () => {
     const { input: emailInput, state: email } = useInput({
@@ -17,8 +18,8 @@ const ForgotPassword: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => null,
-        [dispatch]
+        () => dispatch(forgotPassword(email)),
+        [dispatch, email]
     );
 
     const linkRows = useMemo(() => [
