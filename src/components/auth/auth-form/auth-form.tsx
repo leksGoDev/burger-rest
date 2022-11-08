@@ -4,14 +4,14 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./auth-form.module.css";
 import FormLinkRow from "./form-link-row/form-link-row";
-import { IInputData, ILinkRowData } from "../../../models/auth-form";
+import { InputData, LinkRowData } from "../../../models/auth-form";
 import FormInput from "./form-input/form-input";
 
 interface Props {
     title: string;
     buttonText: string;
-    inputs: IInputData[];
-    linkRows: ILinkRowData[];
+    inputs: InputData[];
+    linkRows: LinkRowData[];
     onSubmit: () => void;
 }
 

@@ -2,9 +2,9 @@ import type { FC } from 'react';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./form-link-row.module.css";
-import { ILinkRowData } from "../../../../models/auth-form";
+import { LinkRowData } from "../../../../models/auth-form";
 
-interface Props extends ILinkRowData {}
+interface Props extends LinkRowData {}
 
 const FormLinkRow: FC<Props> = ({ paragraphText, buttonText, onClick }) => {
 

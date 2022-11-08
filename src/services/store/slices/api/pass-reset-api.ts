@@ -1,21 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../../index";
-import { Order } from "../../../../models/order";
-import { Ingredient } from "../../../../models/ingredient";
-import { OrderResponse } from "../../../../models/api";
+import { CheckEmailBodyData, PassResetBodyData, PassResetResponse } from "../../../../models/api";
 import { request } from "../../../api/request";
 
 interface State {
     isLoading: boolean;
     hasError: boolean;
-    data: Order | null;
+    isMessageSent: boolean;
 }
+
+const BASE_URL = "password-reset";
 
 const initialState: State = {
     isLoading: false,
     hasError: false,
-    data: null
+    isMessageSent: false
 };
 
 const passResetApi = createSlice({
@@ -28,30 +28,45 @@ const passResetApi = createSlice({
         failed(state) {
             state.hasError = true;
             state.isLoading = false;
-            state.data = null;
         },
-        received(state, action: PayloadAction<Order>) {
+        sent(state) {
             state.hasError = false;
             state.isLoading = false;
-            state.data = action.payload;
+            state.isMessageSent = true;
         },
-        closeDetails(state) {
-            state.data = null;
+        reset(state) {
+            state.hasError = false;
+            state.isLoading = false;
+            state.isMessageSent = false;
         }
     }
 });
 
-const { loading, failed, received } = passResetApi.actions;
+const { loading, failed, sent, reset } = passResetApi.actions;
 
-export const { closeDetails } = passResetApi.actions;
-
-export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatch: AppDispatch) => {
+export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {
-        const requestBody = { ingredients: ingredientsIds };
-        const { name, order, success } = await request<OrderResponse>('orders', requestBody);
-        if (success) dispatch(received({ order, name }));
+        const bodyData = { email };
+        const { success } = await request<PassResetResponse, CheckEmailBodyData>(`${BASE_URL}/`, bodyData);
+
+        if (success) dispatch(sent());
+        else dispatch(failed());
+    }
+    catch (err) {
+        dispatch(failed());
+    }
+};
+
+export const resetPassword = (password: string, token: string) => async (dispatch: AppDispatch) => {
+    dispatch(loading());
+
+    try {
+        const bodyData = { password, token };
+        const { success } = await request<PassResetResponse, PassResetBodyData>(`${BASE_URL}/reset`, bodyData);
+
+        if (success) dispatch(reset())
         else dispatch(failed());
     }
     catch (err) {

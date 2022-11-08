@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../../index";
+import { User } from "../../../../models/profile";
 import { request } from "../../../api/request";
 import { saveTokens } from "../../../api/cookie";
 
@@ -10,16 +11,11 @@ enum AuthStatus {
     PassReset
 }
 
-interface IUser {
-    email: string;
-    name: string;
-}
-
 interface State {
     isLoading: boolean;
     hasError: boolean;
     status: AuthStatus;
-    user: IUser | null;
+    user: User | null;
 }
 
 const BASE_URL = 'auth/';
@@ -57,7 +53,7 @@ const authApi = createSlice({
             state.isLoading = false;
             state.user = null;
         },
-        receivedUser(state, action: PayloadAction<IUser>) {
+        receivedUser(state, action: PayloadAction<User>) {
             state.hasError = false;
             state.isLoading = false;
             state.user = action.payload;
@@ -137,72 +133,6 @@ export const login = (email: string, password: string) => async (dispatch: AppDi
     }
     catch (err) {
         dispatch(failedStatus());
-    }
-};
-
-export const forgotPassword = (email: string) => async (dispatch: AppDispatch) => {
-    dispatch(loading());
-
-    try {
-        const body = JSON.stringify({ email });
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body
-        };
-        const { success } =
-            await fetch("https://norma.nomoreparties.space/api/password-reset", options)
-                .then(res => res.ok ?
-                    res.json()
-                    : res.json()
-                        .then((err) => Promise.reject(err))
-                );
-
-
-        if (success) {
-            dispatch(receivedStatus(AuthStatus.PassReset));
-        }
-        else {
-            dispatch(failedResetPass());
-        }
-    }
-    catch (err) {
-        dispatch(failedResetPass());
-    }
-};
-
-export const resetPassword = (password: string, token: string) => async (dispatch: AppDispatch) => {
-    dispatch(loading());
-
-    try {
-        const body = JSON.stringify({ password, token });
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body
-        };
-        const { success } =
-            await fetch("https://norma.nomoreparties.space/api/password-reset/reset", options)
-                .then(res => res.ok ?
-                    res.json()
-                    : res.json()
-                        .then((err) => Promise.reject(err))
-                );
-
-
-        if (success) {
-            dispatch(receivedStatus(AuthStatus.Authorized));
-        }
-        else {
-            dispatch(failedResetPass());
-        }
-    }
-    catch (err) {
-        dispatch(failedResetPass());
     }
 };
 

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../index";
 import { Order } from "../../../../models/order";
 import { Ingredient } from "../../../../models/ingredient";
-import { OrderResponse } from "../../../../models/api";
+import { OrderResponse, OrderBodyData } from "../../../../models/api";
 import { request } from "../../../api/request";
 
 interface State {
@@ -49,8 +49,8 @@ export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatc
     dispatch(loading());
 
     try {
-        const requestBody = { ingredients: ingredientsIds };
-        const { name, order, success } = await request<OrderResponse>('orders', requestBody);
+        const bodyData = { ingredients: ingredientsIds };
+        const { name, order, success } = await request<OrderResponse, OrderBodyData>('orders', bodyData);
         if (success) dispatch(received({ order, name }));
         else dispatch(failed());
     }

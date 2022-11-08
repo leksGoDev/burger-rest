@@ -1,13 +1,13 @@
 import { useState, useMemo } from "react";
 import type { ChangeEvent } from "react";
-import { IInputData, InputType } from "../models/auth-form";
+import { InputData, InputType } from "../models/auth-form";
 
-interface IInputHookProps {
+interface InputHookProps {
     type: InputType;
-    inputProps: Omit<IInputData["inputProps"], "value" | "onChange">;
+    inputProps: Omit<InputData["inputProps"], "value" | "onChange">;
 }
 
-export const useInput = (props: IInputHookProps) => {
+export const useInput = (props: InputHookProps) => {
     const { type, inputProps } = props;
     const [state, setState] = useState("");
 

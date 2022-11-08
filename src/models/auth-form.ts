@@ -6,7 +6,7 @@ export enum InputType {
     Password
 }
 
-export interface IInputData {
+export interface InputData {
     type: InputType;
     inputProps: {
         name: string;
@@ -17,7 +17,7 @@ export interface IInputData {
     };
 }
 
-export interface ILinkRowData {
+export interface LinkRowData {
     paragraphText: string;
     buttonText: string;
     onClick: () => void;

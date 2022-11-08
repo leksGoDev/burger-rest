@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useAppDispatch, useReplaceHistory  } from "../../hooks";
-import { forgotPassword } from "../../services/store/slices/api/auth-api";
+import { checkEmail } from "../../services/store/slices/api/pass-reset-api";
 
 const ForgotPassword: FC = () => {
     const { input: emailInput, state: email } = useInput({
@@ -18,7 +18,7 @@ const ForgotPassword: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => dispatch(forgotPassword(email)),
+        () => dispatch(checkEmail(email)),
         [dispatch, email]
     );
 
