@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-ingredients.module.css'
-import { useAppSelector } from "../../hooks/redux";
+import { useAppSelector } from "../../hooks";
 import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
 

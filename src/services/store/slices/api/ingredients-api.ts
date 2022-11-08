@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Ingredient } from "../../../models/ingredient";
-import { IngredientsResponse } from "../../../models/api";
-import { AppDispatch } from "../index";
-import { request } from "../../api/request";
+import { Ingredient } from "../../../../models/ingredient";
+import { IngredientsResponse } from "../../../../models/api";
+import { AppDispatch } from "../../index";
+import { request } from "../../../api/request";
 
 interface State {
     isLoading: boolean;
@@ -17,7 +17,7 @@ const initialState: State = {
     data: [],
 };
 
-const ingredientsApiSlice = createSlice({
+const ingredientsApi = createSlice({
     name: 'ingredientsApi',
     initialState: initialState,
     reducers: {
@@ -37,7 +37,7 @@ const ingredientsApiSlice = createSlice({
     }
 });
 
-const { loading, failed, received } = ingredientsApiSlice.actions;
+const { loading, failed, received } = ingredientsApi.actions;
 
 export const fetchIngredients = () => async (dispatch: AppDispatch) => {
     dispatch(loading());
@@ -52,4 +52,4 @@ export const fetchIngredients = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export default ingredientsApiSlice.reducer;
+export default ingredientsApi.reducer;

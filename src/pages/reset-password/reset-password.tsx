@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
-import { resetPassword } from "../../services/store/slices/authApiSlice";
+import { resetPassword } from "../../services/store/slices/api/auth-api";
 
 const ResetPassword: FC = () => {
     const { input: passwordInput, state: password } = useInput({

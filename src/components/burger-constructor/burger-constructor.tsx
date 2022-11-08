@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.css'
-import { useAppSelector, useAppDispatch } from "../../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/content/order-details/order-details";
-import { closeDetails, makeOrder } from "../../services/store/slices/orderDetailsSlice";
+import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
 
 const BurgerConstructor: React.FC = () => {
     const dispatch = useAppDispatch();
     const { bun, stuffing, data } = useAppSelector(
-        store => ({ ...store.burgerConstructor, ...store.orderDetails })
+        store => ({ ...store.burgerConstructor, ...store.orderDetailsApi })
     );
 
     const totalPrice = React.useMemo(() => {

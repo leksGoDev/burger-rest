@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
-import { register } from "../../services/store/slices/authApiSlice";
+import { register } from "../../services/store/slices/api/auth-api";
 
 const Register: FC = () => {
     const { input: nameInput, state: name } = useInput({

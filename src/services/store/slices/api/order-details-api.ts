@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppDispatch } from "../index";
-import { Order } from "../../../models/order";
-import { Ingredient } from "../../../models/ingredient";
-import { OrderResponse } from "../../../models/api";
-import { request } from "../../api/request";
+import { AppDispatch } from "../../index";
+import { Order } from "../../../../models/order";
+import { Ingredient } from "../../../../models/ingredient";
+import { OrderResponse } from "../../../../models/api";
+import { request } from "../../../api/request";
 
 interface State {
     isLoading: boolean;
@@ -18,8 +18,8 @@ const initialState: State = {
     data: null
 };
 
-const orderDetailsSlice = createSlice({
-    name: 'orderDetails',
+const orderDetailsApi = createSlice({
+    name: 'orderDetailsApi',
     initialState: initialState,
     reducers: {
         loading(state) {
@@ -41,9 +41,9 @@ const orderDetailsSlice = createSlice({
     }
 });
 
-const { loading, failed, received } = orderDetailsSlice.actions;
+const { loading, failed, received } = orderDetailsApi.actions;
 
-export const { closeDetails } = orderDetailsSlice.actions;
+export const { closeDetails } = orderDetailsApi.actions;
 
 export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatch: AppDispatch) => {
     dispatch(loading());
@@ -59,4 +59,4 @@ export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatc
     }
 };
 
-export default orderDetailsSlice.reducer;
+export default orderDetailsApi.reducer;

@@ -4,8 +4,8 @@ import { useDrag } from "react-dnd";
 
 import styles from './burger-ingredients-card.module.css'
 import { Ingredient, IngredientType } from "../../../models/ingredient";
-import { useAppSelector, useAppDispatch } from "../../../hooks/redux";
-import { closeDetails, openDetails } from "../../../services/store/slices/ingredientDetailsSlice";
+import { useAppSelector, useAppDispatch } from "../../../hooks";
+import { closeDetails, openDetails } from "../../../services/store/slices/ingredient-details";
 import Modal from "../../modal/modal";
 import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
 

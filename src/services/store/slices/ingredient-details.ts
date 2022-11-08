@@ -12,7 +12,7 @@ const initialState: State = {
     details: null
 };
 
-const ingredientDetailsSlice = createSlice({
+const ingredientDetails = createSlice({
     name: 'ingredientDetails',
     initialState: initialState,
     reducers: {
@@ -25,6 +25,6 @@ const ingredientDetailsSlice = createSlice({
     }
 });
 
-export const { openDetails, closeDetails } = ingredientDetailsSlice.actions;
+export const { openDetails, closeDetails } = ingredientDetails.actions;
 
-export default ingredientDetailsSlice.reducer;
+export default ingredientDetails.reducer;

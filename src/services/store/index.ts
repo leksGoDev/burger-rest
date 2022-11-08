@@ -1,18 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import ingredientsApiSlice from "./slices/ingredientsApiSlice";
-import burgerConstructorSlice from "./slices/burgerConstructorSlice";
-import ingredientDetailsSlice from "./slices/ingredientDetailsSlice";
-import orderDetailsSlice from "./slices/orderDetailsSlice";
-import authApiSlice from "./slices/authApiSlice";
+import ingredientsApi from "./slices/api/ingredients-api";
+import constructor from "./slices/constructor";
+import ingredientDetails from "./slices/ingredient-details";
+import orderDetailsApi from "./slices/api/order-details-api";
+import authApi from "./slices/api/auth-api";
+import profileApi from "./slices/api/profile-api";
+import passResetApi from "./slices/api/pass-reset-api";
 
 export const store = configureStore({
     reducer: {
-        ingredientsApi: ingredientsApiSlice,
-        burgerConstructor: burgerConstructorSlice,
-        ingredientDetails: ingredientDetailsSlice,
-        orderDetails: orderDetailsSlice,
-        authApi: authApiSlice
+        burgerConstructor: constructor,
+        ingredientDetails: ingredientDetails,
+        ingredientsApi: ingredientsApi,
+        orderDetailsApi: orderDetailsApi,
+        authApi: authApi,
+        profileApi: profileApi,
+        resetPassApi: passResetApi
     }
 });
 

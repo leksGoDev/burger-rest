@@ -18,7 +18,7 @@ const initialState: State = {
     stuffing: []
 };
 
-const burgerConstructorSlice = createSlice({
+const burgerConstructor = createSlice({
     name: 'burgerConstructor',
     initialState: initialState,
     reducers: {
@@ -46,6 +46,6 @@ const burgerConstructorSlice = createSlice({
     }
 });
 
-export const { changeBun, addStuffing, removeStuffing, swapStuffing } = burgerConstructorSlice.actions;
+export const { changeBun, addStuffing, removeStuffing, swapStuffing } = burgerConstructor.actions;
 
-export default burgerConstructorSlice.reducer;
+export default burgerConstructor.reducer;

@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import doneImg from "../../../../images/done.png";
 import styles from "./order-details.module.css";
-import { useAppSelector } from "../../../../hooks/redux";
+import { useAppSelector } from "../../../../hooks";
 
 const OrderDetails: React.FC = () => {
-    const { data } = useAppSelector(store => store.orderDetails);
+    const { data } = useAppSelector(store => store.orderDetailsApi);
 
     return (
         <figure className={styles.content}>

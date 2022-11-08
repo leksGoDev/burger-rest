@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppDispatch } from "../index";
-import { request } from "../../api/request";
-import { saveTokens } from "../../api/cookie";
+import { AppDispatch } from "../../index";
+import { request } from "../../../api/request";
+import { saveTokens } from "../../../api/cookie";
 
 enum AuthStatus {
     Authorized,
@@ -31,8 +31,8 @@ const initialState: State = {
     user: null
 };
 
-const authApiSlice = createSlice({
-    name: 'authApiSlice',
+const authApi = createSlice({
+    name: 'authApi',
     initialState: initialState,
     reducers: {
         loading(state) {
@@ -65,7 +65,7 @@ const authApiSlice = createSlice({
     }
 });
 
-const { loading, failedStatus, receivedStatus, failedUser, receivedUser, failedResetPass } = authApiSlice.actions;
+const { loading, failedStatus, receivedStatus, failedUser, receivedUser, failedResetPass } = authApi.actions;
 
 export const register = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
     dispatch(loading());
@@ -206,4 +206,4 @@ export const resetPassword = (password: string, token: string) => async (dispatc
     }
 };
 
-export default authApiSlice.reducer;
+export default authApi.reducer;

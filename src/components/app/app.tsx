@@ -4,8 +4,8 @@ import { Switch, Route } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient } from "../../pages";
-import { useAppDispatch } from "../../hooks/redux";
-import { fetchIngredients } from "../../services/store/slices/ingredientsApiSlice";
+import { useAppDispatch } from "../../hooks";
+import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 
 const App: FC = () => {
     const dispatch = useAppDispatch();

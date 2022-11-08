@@ -4,8 +4,8 @@ import { useDrag, useDrop } from "react-dnd";
 
 import styles from "./constructor-element-wrapper.module.css";
 import { DragIngredient } from "../../../../models/ingredient";
-import { useAppDispatch } from "../../../../hooks/redux";
-import { removeStuffing, swapStuffing } from "../../../../services/store/slices/burgerConstructorSlice";
+import { useAppDispatch } from "../../../../hooks";
+import { removeStuffing, swapStuffing } from "../../../../services/store/slices/constructor";
 
 interface Props {
     index: number;

@@ -4,8 +4,8 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 
 import styles from "./burger-constructor-list.module.css";
 import { Ingredient, DragIngredient, IngredientType } from "../../../models/ingredient";
-import { useAppDispatch } from "../../../hooks/redux";
-import { addStuffing, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
+import { useAppDispatch } from "../../../hooks";
+import { addStuffing, changeBun } from "../../../services/store/slices/constructor";
 import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
 interface Props {
