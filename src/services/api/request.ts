@@ -1,5 +1,5 @@
-import { AuthResponse, Response as ApiResponse } from "../../models/api";
-import { getCookie, saveTokens } from "./cookie";
+import { AuthResponse, RefreshBodyData, Response as ApiResponse } from "../../models/api";
+import { deleteTokens, getCookie, saveTokens } from "./cookie";
 
 const BASE_URL = 'https://norma.nomoreparties.space/api/';
 
@@ -36,19 +36,23 @@ export const request = <TResponse>(url: string, options?: RequestInit): Promise<
         .then(data => data as TResponse);
 
 export const requestWithAuth = async <TResponse>(url: string, options?: any): Promise<TResponse> => {
-    options.headers.Authorization = getCookie("accessToken");
+    options.headers.Authorization = "Bearer " + (getCookie("accessToken") ?? "");
+
     try {
         return request<TResponse>(url, options);
     }
     catch (_) {
         try {
-            const refreshToken = getCookie("refreshToken");
-            const tokenData = await request<AuthResponse>(`${BASE_URL}/auth/token`);
-            options.headers.Authorization = tokenData.accessToken;
-            return request<TResponse>(url, options);
+            const token = getCookie("refreshToken") ?? "";
+            const tokenOptions = createOptionsWithJSON<RefreshBodyData>("POST", { token });
+            const { accessToken } = await request<AuthResponse>(`${BASE_URL}/auth/token`, tokenOptions);
+            options.headers.Authorization = "Bearer " + accessToken;
         }
         catch (err) {
+            deleteTokens();
             return Promise.reject(err);
         }
+
+        return request<TResponse>(url, options);
     }
 };
