@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
@@ -23,6 +23,7 @@ const ResetPassword: FC = () => {
         }
     });
     const { isMailSent } = useAppSelector(store => store.passResetApi);
+    const { state } = useLocation<{ from?: string }>();
     const history = useHistory();
     const dispatch = useAppDispatch();
 
@@ -41,7 +42,7 @@ const ResetPassword: FC = () => {
 
     if (!isMailSent) {
         return (
-            <Redirect to="/" />
+            <Redirect to={state?.from ?? "/"} />
         );
     }
 
