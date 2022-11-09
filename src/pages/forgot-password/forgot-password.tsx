@@ -1,9 +1,10 @@
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useEffect } from "react";
 import type { FC } from 'react';
+import { useHistory } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { useInput, useAppDispatch, useReplaceHistory  } from "../../hooks";
+import { useInput, useAppDispatch, useAppSelector  } from "../../hooks";
 import { checkEmail } from "../../services/store/slices/api/pass-reset-api";
 
 const ForgotPassword: FC = () => {
@@ -14,8 +15,15 @@ const ForgotPassword: FC = () => {
             placeholder: 'Укажите e-mail'
         }
     });
-    const replaceHistory = useReplaceHistory();
+    const { isMailSent } = useAppSelector(store => store.passResetApi);
+    const history = useHistory();
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (isMailSent) {
+            history.push("/reset-password");
+        }
+    }, [history, isMailSent]);
 
     const handleSubmit = useCallback(
         () => dispatch(checkEmail(email)),
@@ -26,9 +34,9 @@ const ForgotPassword: FC = () => {
         {
             paragraphText: 'Вспомнили пароль?',
             buttonText: 'Войти',
-            onClick: replaceHistory.bind(null, "login")
+            onClick: history.push.bind(null, "login")
         }
-    ], [replaceHistory]);
+    ], [history]);
 
     return (
         <AuthForm

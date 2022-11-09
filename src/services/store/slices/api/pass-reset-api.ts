@@ -7,7 +7,7 @@ import { request } from "../../../api/request";
 interface State {
     isLoading: boolean;
     hasError: boolean;
-    isMessageSent: boolean;
+    isMailSent: boolean;
 }
 
 const BASE_URL = "password-reset";
@@ -15,7 +15,7 @@ const BASE_URL = "password-reset";
 const initialState: State = {
     isLoading: false,
     hasError: false,
-    isMessageSent: false
+    isMailSent: false
 };
 
 const passResetApi = createSlice({
@@ -32,12 +32,12 @@ const passResetApi = createSlice({
         sent(state) {
             state.hasError = false;
             state.isLoading = false;
-            state.isMessageSent = true;
+            state.isMailSent = true;
         },
         reset(state) {
             state.hasError = false;
             state.isLoading = false;
-            state.isMessageSent = false;
+            state.isMailSent = false;
         }
     }
 });

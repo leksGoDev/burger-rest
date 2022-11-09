@@ -16,7 +16,7 @@ export const store = configureStore({
         orderDetailsApi: orderDetailsApi,
         authApi: authApi,
         profileApi: profileApi,
-        resetPassApi: passResetApi
+        passResetApi: passResetApi
     }
 });
 

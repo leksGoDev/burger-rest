@@ -1,9 +1,10 @@
 import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
+import { useHistory } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { useInput, useReplaceHistory, useAppDispatch } from "../../hooks";
+import { useInput, useAppDispatch } from "../../hooks";
 import { register } from "../../services/store/slices/api/auth-api";
 
 const Register: FC = () => {
@@ -28,7 +29,7 @@ const Register: FC = () => {
         }
     });
     const dispatch = useAppDispatch();
-    const replaceHistory = useReplaceHistory();
+    const history = useHistory();
 
     const handleSubmit = useCallback(
         () => dispatch(register(email, password, name)),
@@ -39,9 +40,9 @@ const Register: FC = () => {
         {
             paragraphText: 'Уже зарегистрированы?',
             buttonText: 'Войти',
-            onClick: replaceHistory.bind(null, "login")
+            onClick: history.push.bind(null, "login")
         }
-    ], [replaceHistory]);
+    ], [history]);
 
     return (
         <AuthForm
