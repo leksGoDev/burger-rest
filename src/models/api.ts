@@ -28,3 +28,19 @@ export interface PassResetResponse {
     success: boolean;
     message: string;
 }
+
+export type LoginBodyData = Omit<User, "name">;
+
+export interface RefreshBodyData {
+    token: string;
+}
+
+export interface AuthResponse {
+    success: boolean;
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface AuthResponseWithUser extends AuthResponse {
+    user: Omit<User, "password">;
+}
