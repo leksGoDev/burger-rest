@@ -1,19 +1,20 @@
 import { Ingredient } from "./ingredient";
 import { Order } from "./order";
-import { User } from "./profile";
+import { User, UserInfo } from "./profile";
 
-export interface IngredientsResponse {
-    data: Ingredient[];
+export interface Response {
     success: boolean;
+}
+
+export interface IngredientsResponse extends Response {
+    data: Ingredient[];
 }
 
 export interface OrderBodyData {
     ingredients: Ingredient["_id"][];
 }
 
-export interface OrderResponse extends Order {
-    success: boolean;
-}
+export interface OrderResponse extends Order, Response {}
 
 export interface CheckEmailBodyData {
     email: User["email"];
@@ -24,8 +25,7 @@ export interface PassResetBodyData {
     token: string;
 }
 
-export interface PassResetResponse {
-    success: boolean;
+export interface PassResetResponse extends Response {
     message: string;
 }
 
@@ -35,12 +35,15 @@ export interface RefreshBodyData {
     token: string;
 }
 
-export interface AuthResponse {
-    success: boolean;
+export interface AuthResponse extends Response {
     accessToken: string;
     refreshToken: string;
 }
 
 export interface AuthResponseWithUser extends AuthResponse {
-    user: Omit<User, "password">;
+    user: UserInfo;
+}
+
+export interface UserResponse extends Response {
+    user: UserInfo;
 }

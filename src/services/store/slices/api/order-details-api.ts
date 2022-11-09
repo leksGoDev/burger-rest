@@ -4,7 +4,7 @@ import { AppDispatch } from "../../index";
 import { Order } from "../../../../models/order";
 import { Ingredient } from "../../../../models/ingredient";
 import { OrderResponse, OrderBodyData } from "../../../../models/api";
-import { request } from "../../../api/request";
+import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";
 
 interface State {
     isLoading: boolean;
@@ -49,10 +49,9 @@ export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatc
     dispatch(loading());
 
     try {
-        const bodyData = { ingredients: ingredientsIds };
-        const { name, order, success } = await request<OrderResponse, OrderBodyData>('orders', bodyData);
-        if (success) dispatch(received({ order, name }));
-        else dispatch(failed());
+        const options = createOptionsWithJSON<OrderBodyData>("POST", { ingredients: ingredientsIds });
+        const { name, order } = await requestWithAuth<OrderResponse>('orders', options);
+        dispatch(received({ order, name }));
     }
     catch (err) {
         dispatch(failed());

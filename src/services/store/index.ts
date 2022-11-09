@@ -5,7 +5,6 @@ import constructor from "./slices/constructor";
 import ingredientDetails from "./slices/ingredient-details";
 import orderDetailsApi from "./slices/api/order-details-api";
 import authApi from "./slices/api/auth-api";
-import profileApi from "./slices/api/profile-api";
 import passResetApi from "./slices/api/pass-reset-api";
 
 export const store = configureStore({
@@ -15,7 +14,6 @@ export const store = configureStore({
         ingredientsApi: ingredientsApi,
         orderDetailsApi: orderDetailsApi,
         authApi: authApi,
-        profileApi: profileApi,
         passResetApi: passResetApi
     }
 });

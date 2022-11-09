@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../../index";
 import { CheckEmailBodyData, PassResetBodyData, PassResetResponse } from "../../../../models/api";
-import { request } from "../../../api/request";
+import { createOptionsWithJSON, request } from "../../../api/request";
 
 interface State {
     isLoading: boolean;
@@ -48,11 +48,9 @@ export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {
-        const bodyData = { email };
-        const { success } = await request<PassResetResponse, CheckEmailBodyData>(`${BASE_URL}/`, bodyData);
-
-        if (success) dispatch(sent());
-        else dispatch(failed());
+        const options = createOptionsWithJSON<CheckEmailBodyData>("POST", { email })
+        await request<PassResetResponse>(`${BASE_URL}/`, options);
+        dispatch(sent());
     }
     catch (err) {
         dispatch(failed());
@@ -63,11 +61,9 @@ export const resetPassword = (password: string, token: string) => async (dispatc
     dispatch(loading());
 
     try {
-        const bodyData = { password, token };
-        const { success } = await request<PassResetResponse, PassResetBodyData>(`${BASE_URL}/reset`, bodyData);
-
-        if (success) dispatch(reset())
-        else dispatch(failed());
+        const options = createOptionsWithJSON<PassResetBodyData>("POST", { password, token })
+        await request<PassResetResponse>(`${BASE_URL}/reset`, options);
+        dispatch(reset());
     }
     catch (err) {
         dispatch(failed());

@@ -1,6 +1,3 @@
-type ICookieProps = { [key: string]: string };
-
-
 export const saveTokens = (accessToken: string, refreshToken: string) => {
     if (accessToken?.indexOf("Bearer") === 0) {
         const token = accessToken.split('Bearer ')[1];

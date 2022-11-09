@@ -43,9 +43,8 @@ export const fetchIngredients = () => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {
-        const { data, success } = await request<IngredientsResponse>('ingredients');
-        if (success) dispatch(received(data));
-        else dispatch(failed());
+        const { data } = await request<IngredientsResponse>('ingredients');
+        dispatch(received(data));
     }
     catch (err) {
         dispatch(failed());
