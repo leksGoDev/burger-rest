@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styles from "./ingredient-details.module.css";
 import { useAppSelector } from "../../hooks";
-import IngredientDetailsSection from "./ingredient-details-section/ingredient-details-section";
+import IngredientDetailsArticle from "./ingredient-details-article/ingredient-details-article";
 
 const IngredientDetails: React.FC = () => {
     const { details } = useAppSelector(store => store.ingredientDetails);
@@ -14,23 +14,31 @@ const IngredientDetails: React.FC = () => {
     const { image_large, name, calories, proteins, fat, carbohydrates } = details;
 
     return (
-        <figure className={styles.content}>
-            <img className="pl-5 pr-5 mb-4" src={image_large} alt="image" />
+        <>
+            <header className={styles.header}>
+                <p className="text text_type_main-large">Детали ингредиента</p>
+            </header>
 
-            <figcaption>
-                <p className={`${styles.name} text text_type_main-medium mb-8`}>{name}</p>
-            </figcaption>
+            <main>
+                <figure className={styles.figure}>
+                    <img className="pl-5 pr-5 mb-4" src={image_large} alt="image" />
 
-            <figcaption className={styles.stats}>
-                <IngredientDetailsSection name="Калории,ккал" value={calories} width={120} />
+                    <figcaption className="mb-8">
+                        <p className={`${styles.name} text text_type_main-medium`}>{name}</p>
+                    </figcaption>
 
-                <IngredientDetailsSection name="Белки, г" value={proteins} width={112} />
+                    <figcaption className={styles.stats}>
+                        <IngredientDetailsArticle name="Калории,ккал" value={calories} width={120} />
 
-                <IngredientDetailsSection name="Жиры, г" value={fat} width={112} />
+                        <IngredientDetailsArticle name="Белки, г" value={proteins} width={112} />
 
-                <IngredientDetailsSection name="Углеводы, г" value={carbohydrates} width={112} />
-            </figcaption>
-        </figure>
+                        <IngredientDetailsArticle name="Жиры, г" value={fat} width={112} />
+
+                        <IngredientDetailsArticle name="Углеводы, г" value={carbohydrates} width={112} />
+                    </figcaption>
+                </figure>
+            </main>
+        </>
     );
 };
 

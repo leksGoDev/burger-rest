@@ -16,8 +16,22 @@
     border-radius: 40px;
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    height: 64px;
+.ingredientStyles {
+    composes: article;
+    padding: 40px 40px 60px 40px;
+    height: 538px;
+}
+
+.orderStyles {
+    composes: article;
+}
+
+.button {
+    border: none;
+    padding: 0;
+    background-color: inherit;
+    cursor: pointer;
+    position: absolute;
+    top: 60px;
+    right: 40px;
 }

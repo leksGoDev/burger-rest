@@ -54,7 +54,7 @@ const App: FC = () => {
 
             {background &&
                 <Route exact path="/ingredients/:id">
-                    <Modal title="Детали ингредиента" onClose={handleCloseDetails}>
+                    <Modal onClose={handleCloseDetails}>
                         <IngredientDetails />
                     </Modal>
                 </Route>}
