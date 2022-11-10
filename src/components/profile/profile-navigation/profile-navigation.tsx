@@ -1,11 +1,14 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { NavLink, useRouteMatch } from "react-router-dom";
 
 import styles from "./profile-navigation.module.css";
+import { useAppDispatch } from "../../../hooks";
+import { logout } from "../../../services/store/slices/api/auth-api";
 
 const ProfileNavigation: FC = () => {
     const { url } = useRouteMatch();
+    const dispatch = useAppDispatch();
 
     const linkClassesProps = useMemo(
         () => ({
@@ -13,6 +16,11 @@ const ProfileNavigation: FC = () => {
             activeClassName: styles.activeLink
         }),
         []
+    );
+
+    const handleLogout = useCallback(
+        () => dispatch(logout()),
+        [dispatch]
     );
 
     return (
@@ -26,7 +34,10 @@ const ProfileNavigation: FC = () => {
                     История заказов
                 </NavLink>
 
-                <button className={`${styles.button} text text_type_main-medium text_color_inactive`}>
+                <button
+                    className={`${styles.button} text text_type_main-medium text_color_inactive`}
+                    onClick={handleLogout}
+                >
                     Выход
                 </button>
             </nav>

@@ -7,7 +7,7 @@ import {
     LogoutResponse, RegisterBodyData, UserResponse
 } from "../../../../models/api";
 import { createOptionsWithJSON, request, requestWithAuth } from "../../../api/request";
-import { getCookie } from "../../../api/cookie";
+import { getCookie, deleteTokens } from "../../../api/cookie";
 
 interface State {
     isLoading: boolean;
@@ -79,7 +79,8 @@ export const logout = () => async (dispatch: AppDispatch) => {
     try {
         const token = getCookie("refreshToken") ?? "";
         const options = createOptionsWithJSON<LogoutBodyData>("POST", { token });
-        await request<LogoutResponse>(`${BASE_URL}/login`, options);
+        await request<LogoutResponse>(`${BASE_URL}/logout`, options);
+        deleteTokens()
         dispatch(received(null));
     }
     catch (err) {
