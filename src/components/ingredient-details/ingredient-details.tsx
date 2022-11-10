@@ -1,10 +1,14 @@
-import * as React from 'react';
+import type { FC } from 'react';
+import { useLocation } from "react-router-dom";
+import type { Location } from "history";
 
 import styles from "./ingredient-details.module.css";
 import { useAppSelector } from "../../hooks";
 import IngredientDetailsArticle from "./ingredient-details-article/ingredient-details-article";
 
-const IngredientDetails: React.FC = () => {
+const IngredientDetails: FC = () => {
+    const { state } = useLocation<{ background?: Location<unknown> }>();
+
     const { details } = useAppSelector(store => store.ingredientDetails);
 
     if (!details) {
@@ -15,7 +19,10 @@ const IngredientDetails: React.FC = () => {
 
     return (
         <>
-            <header className={styles.header}>
+            <header
+                className={styles.header}
+                style={{ justifyContent: state?.background ? "flex-start" : "center" }}
+            >
                 <p className="text text_type_main-large">Детали ингредиента</p>
             </header>
 
