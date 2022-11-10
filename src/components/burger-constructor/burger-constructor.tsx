@@ -18,8 +18,7 @@ const BurgerConstructor: FC = () => {
         ...store.burgerConstructor,
         ...store.orderDetailsApi,
         ...store.authApi
-    })
-    );
+    }));
 
     const totalPrice = useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;

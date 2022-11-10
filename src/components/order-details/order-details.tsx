@@ -7,23 +7,27 @@ import { useAppSelector } from "../../hooks";
 const OrderDetails: React.FC = () => {
     const { data } = useAppSelector(store => store.orderDetailsApi);
 
+    if (!data) {
+        return null;
+    }
+
     return (
-        <figure className={styles.content}>
-            <figcaption>
-                <p className={`${styles.text} text text_type_digits-large mb-8`}>{data!.order.number}</p>
+        <>
+            <main className={styles.main}>
+                <p className="text text_type_digits-large mb-8">{data.order.number}</p>
 
-                <p className={`${styles.text} text text_type_main-medium`}>идентификатор заказа</p>
-            </figcaption>
+                <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
 
-            <img className="mt-15 mb-15" src={doneImg} alt="image" />
+                <img src={doneImg} alt="image" />
+            </main>
 
-            <figcaption>
+            <footer className="mt-15">
                 <p className={`${styles.text} text text_type_main-default mb-2`}>Ваш заказ начали готовить</p>
 
                 <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
-            </figcaption>
-        </figure>
-    );
+            </footer>
+        </>
+    )
 };
 
 export default OrderDetails;
