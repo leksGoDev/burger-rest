@@ -1,15 +1,32 @@
+import { useEffect } from "react";
 import type { FC } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import type { Location } from "history";
 
 import styles from "./ingredient-details.module.css";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import IngredientDetailsArticle from "./ingredient-details-article/ingredient-details-article";
+import { setDetails } from "../../services/store/slices/ingredient-details";
 
 const IngredientDetails: FC = () => {
+    const { id } = useParams<{ id: string }>();
     const { state } = useLocation<{ background?: Location<unknown> }>();
+    const { hasDeallocated, details, data } = useAppSelector(
+        store => ({ ...store.ingredientDetails, ...store.ingredientsApi })
+    );
+    const dispatch = useAppDispatch();
 
-    const { details } = useAppSelector(store => store.ingredientDetails);
+    useEffect(() => {
+        if (!details && !hasDeallocated) {
+            const ingredient = data.find(entry => entry._id === id);
+            if (ingredient) {
+                const { image_large, name, calories, proteins, fat, carbohydrates } = ingredient;
+                dispatch(
+                    setDetails({ image_large, name, calories, proteins, fat, carbohydrates })
+                );
+            }
+        }
+    }, [details, data, state, id, dispatch]);
 
     if (!details) {
         return null;

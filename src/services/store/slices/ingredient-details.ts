@@ -6,10 +6,12 @@ type IIngredientDetails = Pick<Ingredient, "image_large" | "name" | "calories" |
 
 interface State {
     details: IIngredientDetails | null;
+    hasDeallocated: boolean;
 }
 
 const initialState: State = {
-    details: null
+    details: null,
+    hasDeallocated: false
 };
 
 const ingredientDetails = createSlice({
@@ -18,9 +20,11 @@ const ingredientDetails = createSlice({
     reducers: {
         setDetails(state, action: PayloadAction<IIngredientDetails>) {
             state.details = { ...action.payload };
+            state.hasDeallocated = false;
         },
         deleteDetails(state) {
             state.details = null;
+            state.hasDeallocated = true;
         }
     }
 });
