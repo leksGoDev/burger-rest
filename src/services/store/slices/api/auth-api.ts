@@ -98,7 +98,7 @@ export const fetchUser = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const pathUser = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
+export const patchUser = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {
