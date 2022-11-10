@@ -1,4 +1,4 @@
-import { AuthResponse, RefreshBodyData, Response as ApiResponse } from "../../models/api";
+import { TokenBodyData, Response as ApiResponse, TokenResponse } from "../../models/api";
 import { deleteTokens, getCookie, saveTokens } from "./cookie";
 
 const BASE_URL = 'https://norma.nomoreparties.space/api/';
@@ -8,7 +8,7 @@ interface AuthResponsePartial extends ApiResponse {
     refreshToken?: string;
 }
 
-export const createOptionsWithJSON = <IBodyData>(method: "POST" | "PATH", bodyData: IBodyData): RequestInit => ({
+export const createOptionsWithJSON = <TBodyData>(method: "POST" | "PATH", bodyData: TBodyData): RequestInit => ({
     method,
     headers: {
         "Accept": "application/json",
@@ -44,8 +44,8 @@ export const requestWithAuth = async <TResponse>(url: string, options?: any): Pr
     catch (_) {
         try {
             const token = getCookie("refreshToken") ?? "";
-            const tokenOptions = createOptionsWithJSON<RefreshBodyData>("POST", { token });
-            const { accessToken } = await request<AuthResponse>(`${BASE_URL}/auth/token`, tokenOptions);
+            const tokenOptions = createOptionsWithJSON<TokenBodyData>("POST", { token });
+            const { accessToken } = await request<TokenResponse>(`${BASE_URL}/auth/token`, tokenOptions);
             options.headers.Authorization = "Bearer " + accessToken;
         }
         catch (err) {

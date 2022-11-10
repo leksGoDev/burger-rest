@@ -2,143 +2,121 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../../index";
 import { User, UserInfo } from "../../../../models/profile";
-import {AuthResponse, AuthResponseWithUser, LoginBodyData, RefreshBodyData, UserResponse} from "../../../../models/api";
-import {createOptionsWithJSON, request, requestWithAuth} from "../../../api/request";
-import { getCookie, saveTokens } from "../../../api/cookie";
+import {
+    AuthResponse, LoginBodyData, LogoutBodyData,
+    LogoutResponse, RegisterBodyData, UserResponse
+} from "../../../../models/api";
+import { createOptionsWithJSON, request, requestWithAuth } from "../../../api/request";
+import { getCookie } from "../../../api/cookie";
 
 interface State {
-    status: {
-        isLoading: boolean;
-        hasError: boolean;
-        isAuthorized: boolean;
-    };
-    user: {
-        isLoading: boolean;
-        hasError: boolean;
-        user: UserInfo | null;
-    }
+    isLoading: boolean;
+    hasError: boolean;
+    user: UserInfo | null;
 }
 
 const BASE_URL = 'auth';
 
 const initialState: State = {
-    status: {
-        isLoading: false,
-        hasError: false,
-        isAuthorized: false
-    },
-    user: {
-        isLoading: false,
-        hasError: false,
-        user: null
-    }
+    isLoading: false,
+    hasError: false,
+    user: null
 };
 
 const authApi = createSlice({
     name: 'authApi',
     initialState: initialState,
     reducers: {
-        statusLoading(state) {
-            state.status.isLoading = true;
+        loading(state) {
+            state.isLoading = true;
         },
-        userLoading(state) {
-            state.user.isLoading = true;
+        failed(state) {
+            state.hasError = true;
+            state.isLoading = false;
         },
-        statusFailed(state, action: PayloadAction<boolean | undefined> ) {
-            state.status.hasError = true;
-            state.status.isLoading = false;
-            state.status.isAuthorized = action?.payload ?? state.status.isAuthorized;
+        received(state, action: PayloadAction<UserInfo | null>) {
+            state.hasError = false;
+            state.isLoading = false;
+            state.user = action.payload;
         },
-        userFailed(state) {
-            state.user.hasError = true;
-            state.user.isLoading = false;
-            state.user.user = null;
-            state.status.isAuthorized = false;
-        },
-        statusReceived(state, action: PayloadAction<boolean>) {
-            state.status.hasError = false;
-            state.status.isLoading = false;
-            state.status.isAuthorized = action.payload;
-        },
-        userReceived(state, action: PayloadAction<UserInfo | null>) {
-            state.user.hasError = false;
-            state.user.isLoading = false;
-            state.user.user = action.payload;
+        reset(state) {
+            state.user = null;
         }
     }
 });
 
-const { statusLoading, userLoading, statusFailed, userFailed, statusReceived, userReceived } = authApi.actions;
+const { loading, failed, received, reset } = authApi.actions;
 
 export const register = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
-    dispatch(statusLoading());
+    dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<User>("POST", { email, password, name });
-        const { user } = await request<AuthResponseWithUser>(`${BASE_URL}/register`, options);
-        dispatch(statusReceived(true));
-        dispatch(userReceived(user));
+        const options = createOptionsWithJSON<RegisterBodyData>("POST", { email, password, name });
+        const { user } = await request<AuthResponse>(`${BASE_URL}/register`, options);
+        dispatch(received(user));
     }
     catch (err) {
-        dispatch(statusFailed());
+        dispatch(failed());
     }
 };
 
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
-    dispatch(statusLoading());
+    dispatch(loading());
 
     try {
         const options = createOptionsWithJSON<LoginBodyData>("POST", { email, password });
-        const { user } = await request<AuthResponseWithUser>(`${BASE_URL}/login`, options);
-        dispatch(statusReceived(true));
-        dispatch(userReceived(user));
+        const { user } = await request<AuthResponse>(`${BASE_URL}/login`, options);
+        dispatch(received(user));
     }
     catch (err) {
-        dispatch(statusFailed());
+        dispatch(failed());
     }
 };
 
 export const logout = () => async (dispatch: AppDispatch) => {
-
-};
-
-export const refresh = () => async (dispatch: AppDispatch) => {
-    dispatch(statusLoading());
+    dispatch(loading());
 
     try {
-        const token = getCookie("refreshToken");
-        if (token) {
-            const options = createOptionsWithJSON<RefreshBodyData>("POST", { token });
-            await request<AuthResponse>(`${BASE_URL}/token`, options);
-            dispatch(statusReceived(true));
-        } else {
-            dispatch(statusReceived(false));
-        }
-    } catch (err) {
-        dispatch(statusFailed(false));
+        const token = getCookie("refreshToken") ?? "";
+        const options = createOptionsWithJSON<LogoutBodyData>("POST", { token });
+        await request<LogoutResponse>(`${BASE_URL}/login`, options);
+        dispatch(received(null));
+    }
+    catch (err) {
+        dispatch(failed());
     }
 };
 
 export const getUser = () => async (dispatch: AppDispatch) => {
-    dispatch(userLoading());
+    dispatch(loading());
 
     try {
         const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`);
-        dispatch(userReceived(user));
+        dispatch(received(user));
     } catch (err) {
-        dispatch(userFailed());
+        dispatch(failed());
     }
 };
 
 export const pathUser = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
-    dispatch(userLoading());
+    dispatch(loading());
 
     try {
         const options = createOptionsWithJSON<User>("PATH", { email, password, name });
         const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`, options);
-        dispatch(userReceived(user));
+        dispatch(received(user));
     } catch (err) {
-        dispatch(userFailed());
+        dispatch(failed());
+        dispatch(checkAuth());
+    }
+};
+
+export const checkAuth = () => async (dispatch: AppDispatch) => {
+    const accessToken = getCookie("accessToken");
+    const refreshToken = getCookie("refreshToken");
+
+    if (!accessToken && !refreshToken) {
+        dispatch(reset());
     }
 };
 

@@ -5,6 +5,7 @@ import { Order } from "../../../../models/order";
 import { Ingredient } from "../../../../models/ingredient";
 import { OrderResponse, OrderBodyData } from "../../../../models/api";
 import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";
+import { checkAuth } from "./auth-api";
 
 interface State {
     isLoading: boolean;
@@ -55,6 +56,7 @@ export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatc
     }
     catch (err) {
         dispatch(failed());
+        dispatch(checkAuth());
     }
 };
 

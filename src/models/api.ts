@@ -10,11 +10,32 @@ export interface IngredientsResponse extends Response {
     data: Ingredient[];
 }
 
+export interface OrderResponse extends Order, Response {}
+
+export interface PassResetResponse extends Response {
+    message: string;
+}
+
+export interface LogoutResponse extends Response {
+    message: string;
+}
+
+export interface TokenResponse extends Response {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export interface AuthResponse extends TokenResponse {
+    user: UserInfo;
+}
+
+export interface UserResponse extends Response {
+    user: UserInfo;
+}
+
 export interface OrderBodyData {
     ingredients: Ingredient["_id"][];
 }
-
-export interface OrderResponse extends Order, Response {}
 
 export interface CheckEmailBodyData {
     email: User["email"];
@@ -25,25 +46,14 @@ export interface PassResetBodyData {
     token: string;
 }
 
-export interface PassResetResponse extends Response {
-    message: string;
-}
-
-export type LoginBodyData = Omit<User, "name">;
-
-export interface RefreshBodyData {
+export interface LogoutBodyData {
     token: string;
 }
 
-export interface AuthResponse extends Response {
-    accessToken: string;
-    refreshToken: string;
-}
+export interface RegisterBodyData extends User {}
 
-export interface AuthResponseWithUser extends AuthResponse {
-    user: UserInfo;
-}
+export interface LoginBodyData extends Omit<User, "name"> {}
 
-export interface UserResponse extends Response {
-    user: UserInfo;
+export interface TokenBodyData {
+    token: string;
 }
