@@ -41,12 +41,17 @@ export const request = <TResponse>(url: string, options?: RequestInit): Promise<
         .then(data => data as TResponse);
 
 export const requestWithAuth = async <TResponse>(url: string, options: any = {}): Promise<TResponse> => {
-    options.headers = {
-        ...options.headers,
-        "Authorization": "Bearer " + (getCookie("accessToken") ?? "")
-    };
-
     try {
+        const accessToken = getCookie("accessToken");
+        if (!accessToken) {
+            await Promise.reject();
+        }
+
+        options.headers = {
+            ...options.headers,
+            "Authorization": "Bearer " +  accessToken
+        };
+
         return await request<TResponse>(url, options);
     }
     catch (_) {

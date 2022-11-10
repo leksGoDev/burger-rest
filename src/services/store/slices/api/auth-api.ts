@@ -80,7 +80,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
         const token = getCookie("refreshToken") ?? "";
         const options = createOptionsWithJSON<LogoutBodyData>("POST", { token });
         await request<LogoutResponse>(`${BASE_URL}/logout`, options);
-        deleteTokens()
+        deleteTokens();
         dispatch(received(null));
     }
     catch (err) {
