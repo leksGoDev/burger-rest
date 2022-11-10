@@ -47,6 +47,7 @@ const ProfileInformation: FC = () => {
                 name="name"
                 placeholder="Имя"
                 icon="EditIcon"
+                minLength={3}
                 value={name}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             />
@@ -55,6 +56,7 @@ const ProfileInformation: FC = () => {
                 name="email"
                 placeholder="Логин"
                 isIcon={true}
+                minLength={5}
                 value={email}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
@@ -62,6 +64,7 @@ const ProfileInformation: FC = () => {
             <PasswordInput
                 name="password"
                 icon="EditIcon"
+                minLength={6}
                 value={password}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             />

@@ -11,6 +11,7 @@ export interface InputData {
     inputProps: {
         name: string;
         type?: 'text' | 'email' | 'password';
+        minLength?: number;
         placeholder?: string;
         value: string;
         onChange: (e: ChangeEvent<HTMLInputElement>) => void;
