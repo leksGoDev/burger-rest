@@ -8,12 +8,17 @@ interface AuthResponsePartial extends ApiResponse {
     refreshToken?: string;
 }
 
-export const createOptionsWithJSON = <TBodyData>(method: "POST" | "PATH", bodyData: TBodyData): RequestInit => ({
+export const createOptionsWithJSON = <TBodyData>(method: "POST" | "PATCH", bodyData: TBodyData): RequestInit => ({
     method,
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
     },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
     body: JSON.stringify(bodyData)
 });
 
@@ -35,18 +40,21 @@ export const request = <TResponse>(url: string, options?: RequestInit): Promise<
         .then(checkCookie)
         .then(data => data as TResponse);
 
-export const requestWithAuth = async <TResponse>(url: string, options?: any): Promise<TResponse> => {
-    options.headers.Authorization = "Bearer " + (getCookie("accessToken") ?? "");
+export const requestWithAuth = async <TResponse>(url: string, options: any = {}): Promise<TResponse> => {
+    options.headers = {
+        ...options.headers,
+        "Authorization": "Bearer " + (getCookie("accessToken") ?? "")
+    };
 
     try {
-        return request<TResponse>(url, options);
+        return await request<TResponse>(url, options);
     }
     catch (_) {
         try {
             const token = getCookie("refreshToken") ?? "";
             const tokenOptions = createOptionsWithJSON<TokenBodyData>("POST", { token });
-            const { accessToken } = await request<TokenResponse>(`${BASE_URL}/auth/token`, tokenOptions);
-            options.headers.Authorization = "Bearer " + accessToken;
+            const { accessToken } = await request<TokenResponse>("auth/token", tokenOptions);
+            options.headers.Authorization = accessToken;
         }
         catch (err) {
             deleteTokens();

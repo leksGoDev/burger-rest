@@ -102,7 +102,7 @@ export const patchUser = (email: string, password: string, name: string) => asyn
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<User>("PATH", { email, password, name });
+        const options = createOptionsWithJSON<User>("PATCH", { email, password, name });
         const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`, options);
         dispatch(received(user));
     } catch (err) {

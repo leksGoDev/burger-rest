@@ -17,7 +17,7 @@ const ProfileInformation: FC = () => {
     useEffect(() => {
         const hasDifference = !!password.length || (email !== user!.email) || (name !== user!.name);
         setFooterVisible(hasDifference);
-    }, [email, name, password]);
+    }, [user, email, name, password]);
 
     const handleCancel = useCallback(
         () => {
