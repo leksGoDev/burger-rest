@@ -27,7 +27,10 @@ const BurgerIngredients: React.FC = () => {
     const main = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
 
     const handleSwitchTab = React.useCallback((type: IngredientType) => {
-        sectionsRefs[type].current?.scrollIntoView({ behavior: "smooth" });
+        sectionsRefs[type].current?.scrollIntoView({
+            behavior: "smooth",
+            block: type === IngredientType.bun ? "end" : "start"
+        });
 
         setTabValue(type);
     }, [sectionsRefs]);
