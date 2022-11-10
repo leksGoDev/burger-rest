@@ -87,7 +87,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const getUser = () => async (dispatch: AppDispatch) => {
+export const fetchUser = () => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {

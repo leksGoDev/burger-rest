@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { Switch, Route } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
+import ProtectedRoute from "../auth/protected-route";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient } from "../../pages";
 import { useAppDispatch } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
@@ -29,7 +30,9 @@ const App: FC = () => {
 
                 <Route exact path="/reset-password" component={ResetPassword} />
 
-                <Route path="/profile" component={Profile} />
+                <ProtectedRoute path="/profile">
+                    <Profile />
+                </ProtectedRoute>
 
                 <Route exact path="/ingredients/:id" component={Ingredient} />
 
