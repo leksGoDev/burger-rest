@@ -5,12 +5,12 @@ import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
-import IngredientDetails from "../modal/content/ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient } from "../../pages";
 import { useAppDispatch } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
-import { closeDetails } from "../../services/store/slices/ingredient-details";
+import { deleteDetails } from "../../services/store/slices/ingredient-details";
 
 const App: FC = () => {
     const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const App: FC = () => {
 
     const handleCloseDetails = useCallback(
         () => {
-            dispatch(closeDetails());
+            dispatch(deleteDetails());
             history.goBack();
         },
         [dispatch, history]

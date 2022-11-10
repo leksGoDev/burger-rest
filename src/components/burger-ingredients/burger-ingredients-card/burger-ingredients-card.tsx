@@ -6,7 +6,7 @@ import { useDrag } from "react-dnd";
 import styles from './burger-ingredients-card.module.css'
 import { Ingredient, IngredientType } from "../../../models/ingredient";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
-import { closeDetails, openDetails } from "../../../services/store/slices/ingredient-details";
+import { setDetails } from "../../../services/store/slices/ingredient-details";
 
 interface Props {
     ingredient: Ingredient;
@@ -35,7 +35,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
 
     const handleOpenDetails = React.useCallback(
         () => dispatch(
-            openDetails({ image_large, name, calories, proteins, fat, carbohydrates })
+            setDetails({ image_large, name, calories, proteins, fat, carbohydrates })
         ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
 
     return (

@@ -7,7 +7,7 @@ import styles from './burger-constructor.module.css'
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import Modal from "../modal/modal";
-import OrderDetails from "../modal/content/order-details/order-details";
+import OrderDetails from "../order-details/order-details";
 import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
 
 const BurgerConstructor: FC = () => {

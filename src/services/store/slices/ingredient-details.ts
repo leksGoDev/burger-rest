@@ -16,15 +16,15 @@ const ingredientDetails = createSlice({
     name: 'ingredientDetails',
     initialState: initialState,
     reducers: {
-        openDetails(state, action: PayloadAction<IIngredientDetails>) {
+        setDetails(state, action: PayloadAction<IIngredientDetails>) {
             state.details = { ...action.payload };
         },
-        closeDetails(state) {
+        deleteDetails(state) {
             state.details = null;
         }
     }
 });
 
-export const { openDetails, closeDetails } = ingredientDetails.actions;
+export const { setDetails, deleteDetails } = ingredientDetails.actions;
 
 export default ingredientDetails.reducer;

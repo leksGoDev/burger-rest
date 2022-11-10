@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import doneImg from "../../../../images/done.png";
+import doneImg from "../../images/done.png";
 import styles from "./order-details.module.css";
-import { useAppSelector } from "../../../../hooks";
+import { useAppSelector } from "../../hooks";
 
 const OrderDetails: React.FC = () => {
     const { data } = useAppSelector(store => store.orderDetailsApi);
