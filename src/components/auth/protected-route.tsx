@@ -6,11 +6,11 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchUser } from "../../services/store/slices/api/auth-api";
 
 interface Props {
-    children: ReactNode;
+    component: ReactNode;
     path: string;
 }
 
-const ProtectedRoute: FC<Props> = ({ children, ...props }) => {
+const ProtectedRoute: FC<Props> = ({ component, ...props }) => {
     const dispatch = useAppDispatch();
     const { user } = useAppSelector(store => store.authApi);
 
@@ -23,7 +23,7 @@ const ProtectedRoute: FC<Props> = ({ children, ...props }) => {
             {...props}
             render={({ location }) =>
                 user ? (
-                        children
+                        component
                     ) : (
                         <Redirect
                             to={{

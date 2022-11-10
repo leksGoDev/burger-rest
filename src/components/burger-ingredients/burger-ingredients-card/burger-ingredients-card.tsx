@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link, useLocation } from "react-router-dom";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 
@@ -6,8 +7,6 @@ import styles from './burger-ingredients-card.module.css'
 import { Ingredient, IngredientType } from "../../../models/ingredient";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
 import { closeDetails, openDetails } from "../../../services/store/slices/ingredient-details";
-import Modal from "../../modal/modal";
-import IngredientDetails from "../../modal/content/ingredient-details/ingredient-details";
 
 interface Props {
     ingredient: Ingredient;
@@ -16,11 +15,10 @@ interface Props {
 const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
     const { _id, type, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
 
+    const location = useLocation();
     const dispatch = useAppDispatch();
 
-    const { bun, stuffing, details } = useAppSelector(
-        store => ({ ...store.burgerConstructor, ...store.ingredientDetails})
-    );
+    const { bun, stuffing } = useAppSelector(store => store.burgerConstructor);
 
     const [, drag] = useDrag<Ingredient>({
         type: type === IngredientType.bun ? type : 'stuffing',
@@ -40,37 +38,34 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
             openDetails({ image_large, name, calories, proteins, fat, carbohydrates })
         ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
 
-    const handleCloseDetails = React.useCallback(
-        () => dispatch(
-            closeDetails()
-        ), [dispatch]);
-
     return (
-        <li>
-            <figure
-                ref={drag}
-                className={styles.content}
-                onClick={handleOpenDetails}
-            >
-                {!!count && <Counter count={count} />}
+        <Link to={{
+            pathname: `/ingredients/${_id}`,
+            state: {
+                background: location
+            }
+        }}>
+            <li>
+                <figure
+                    ref={drag}
+                    className={styles.content}
+                    onClick={handleOpenDetails}
+                >
+                    {!!count && <Counter count={count} />}
 
-                <img className="pl-4 pr-4" src={image} alt="image" />
+                    <img className="pl-4 pr-4" src={image} alt="image" />
 
-                <figcaption className={styles.price}>
-                    <p className="text text_type_digits-default pr-2">{price}</p>
-                    <CurrencyIcon type="primary" />
-                </figcaption>
+                    <figcaption className={styles.price}>
+                        <p className="text text_type_digits-default pr-2">{price}</p>
+                        <CurrencyIcon type="primary" />
+                    </figcaption>
 
-                <figcaption>
-                    <p className={`${styles.name} text text_type_main-default pb-6`}>{name}</p>
-                </figcaption>
-            </figure>
-
-            {details &&
-                <Modal title="Детали ингредиента" onClose={handleCloseDetails}>
-                    <IngredientDetails />
-                </Modal>}
-        </li>
+                    <figcaption>
+                        <p className={`${styles.name} text text_type_main-default pb-6`}>{name}</p>
+                    </figcaption>
+                </figure>
+            </li>
+        </Link>
     );
 };
 

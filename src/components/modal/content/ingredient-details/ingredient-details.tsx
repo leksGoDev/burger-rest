@@ -1,13 +1,17 @@
 import * as React from 'react';
 
 import styles from "./ingredient-details.module.css";
-import { useAppSelector } from "../../../../hooks/redux";
+import { useAppSelector } from "../../../../hooks";
 import IngredientDetailsSection from "./ingredient-details-section/ingredient-details-section";
-
 
 const IngredientDetails: React.FC = () => {
     const { details } = useAppSelector(store => store.ingredientDetails);
-    const { image_large, name, calories, proteins, fat, carbohydrates } = details!;
+
+    if (!details) {
+        return null;
+    }
+
+    const { image_large, name, calories, proteins, fat, carbohydrates } = details;
 
     return (
         <figure className={styles.content}>
