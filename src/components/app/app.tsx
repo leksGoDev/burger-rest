@@ -37,15 +37,39 @@ const App: FC = () => {
             <Switch location={background ?? location}>
                 <Route exact path="/" component={Home} />
 
-                <Route exact path="/login" component={Login} />
+                <ProtectedRoute
+                    exact
+                    path="/login"
+                    onlyUnAuth={true}
+                    component={<Login />}
+                />
 
-                <Route exact path="/register" component={Register} />
+                <ProtectedRoute
+                    exact
+                    path="/register"
+                    onlyUnAuth={true}
+                    component={<Register />}
+                />
 
-                <Route exact path="/forgot-password" component={ForgotPassword} />
+                <ProtectedRoute
+                    exact
+                    path="/forgot-password"
+                    onlyUnAuth={true}
+                    component={<ForgotPassword />}
+                />
 
-                <Route exact path="/reset-password" component={ResetPassword} />
+                <ProtectedRoute
+                    exact
+                    path="/reset-password"
+                    onlyUnAuth={true}
+                    component={<ResetPassword />}
+                />
 
-                <ProtectedRoute path="/profile" component={<Profile />} />
+                <ProtectedRoute
+                    path="/profile"
+                    onlyUnAuth={false}
+                    component={<Profile />}
+                />
 
                 <Route exact path="/ingredients/:id" component={Ingredient} />
 

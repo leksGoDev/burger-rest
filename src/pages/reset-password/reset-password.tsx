@@ -22,7 +22,7 @@ const ResetPassword: FC = () => {
             placeholder: 'Введите код из письма'
         }
     });
-    const { isMailSent, user } = useAppSelector(store => ({ ...store.passResetApi, ...store.authApi }));
+    const { isMailSent } = useAppSelector(store => ({ ...store.passResetApi, ...store.authApi }));
     const { state } = useLocation<{ from?: string; }>();
     const history = useHistory();
     const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ const ResetPassword: FC = () => {
         }
     ], [history]);
 
-    if (!isMailSent || user) {
+    if (!isMailSent) {
         return (
             <Redirect to={state?.from ?? "/"} />
         );

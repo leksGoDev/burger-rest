@@ -1,6 +1,6 @@
 import { useMemo, useCallback, useEffect } from "react";
 import type { FC } from 'react';
-import { useHistory, Redirect, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
@@ -15,9 +15,8 @@ const ForgotPassword: FC = () => {
             placeholder: 'Укажите e-mail'
         }
     });
-    const { isMailSent, user } = useAppSelector(store => ({ ...store.passResetApi, ...store.authApi }));
+    const { isMailSent } = useAppSelector(store => store.passResetApi);
     const history = useHistory();
-    const { state } = useLocation<{ from?: string; }>();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -38,12 +37,6 @@ const ForgotPassword: FC = () => {
             onClick: () => history.push("/login")
         }
     ], [history]);
-
-    if (user) {
-        return (
-            <Redirect to={state?.from ?? "/"} />
-        )
-    }
 
     return (
         <AuthForm

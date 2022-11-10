@@ -1,10 +1,10 @@
 import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
+import { useInput, useAppDispatch } from "../../hooks";
 import { register } from "../../services/store/slices/api/auth-api";
 
 const Register: FC = () => {
@@ -30,8 +30,6 @@ const Register: FC = () => {
     });
     const dispatch = useAppDispatch();
     const history = useHistory();
-    const { state } = useLocation<{ from?: string; }>();
-    const { user } = useAppSelector(store => store.authApi);
 
     const handleSubmit = useCallback(
         () => dispatch(register(email, password, name)),
@@ -45,12 +43,6 @@ const Register: FC = () => {
             onClick: () => history.push("/login")
         }
     ], [history]);
-
-    if (user) {
-        return (
-            <Redirect to={state?.from ?? "/"} />
-        )
-    }
 
     return (
         <AuthForm
