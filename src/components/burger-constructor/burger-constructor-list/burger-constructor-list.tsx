@@ -31,23 +31,17 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
         }
     }, [dispatch]);
 
-    const handleRemoveBun = React.useCallback(
-        () => dispatch(
-            changeBun(null)
-        ), [dispatch]);
-
     return (
         <>
             <header ref={bunDropHeader} className={`${styles.bunSection} mb-4 pl-8`}>
                 {
                     bun ?
                         <ConstructorElement
-                            isLocked={!!stuffing.length}
+                            isLocked
                             type="top"
                             text={`${bun.name} (верх)`}
                             thumbnail={bun.image}
                             price={bun.price}
-                            handleClose={handleRemoveBun}
                         />
                         :
                         <div className="constructor-element constructor-element_pos_top" />
@@ -64,12 +58,11 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
                 {
                     bun ?
                         <ConstructorElement
-                            isLocked={!!stuffing.length}
+                            isLocked
                             type="bottom"
                             text={`${bun.name} (низ)`}
                             thumbnail={bun.image}
                             price={bun.price}
-                            handleClose={handleRemoveBun}
                         />
                         :
                         <div className="constructor-element constructor-element_pos_bottom" />
