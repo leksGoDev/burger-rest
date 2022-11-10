@@ -4,7 +4,6 @@ import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { LocationState } from "../../models/router";
 import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
 import { login } from "../../services/store/slices/api/auth-api";
 
@@ -22,7 +21,7 @@ const Login: FC = () => {
         }
     });
     const history = useHistory();
-    const { state } = useLocation<LocationState>();
+    const { state } = useLocation<{ from?: string; }>();
     const dispatch = useAppDispatch();
     const { user } = useAppSelector(store => store.authApi);
 

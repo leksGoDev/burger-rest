@@ -4,7 +4,6 @@ import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import AuthForm from "../../components/auth/auth-form/auth-form";
 import { InputType } from "../../models/auth-form";
-import { LocationState } from "../../models/router";
 import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
 import { resetPassword } from "../../services/store/slices/api/pass-reset-api";
 
@@ -24,7 +23,7 @@ const ResetPassword: FC = () => {
         }
     });
     const { isMailSent, user } = useAppSelector(store => ({ ...store.passResetApi, ...store.authApi }));
-    const { state } = useLocation<LocationState>();
+    const { state } = useLocation<{ from?: string; }>();
     const history = useHistory();
     const dispatch = useAppDispatch();
 
