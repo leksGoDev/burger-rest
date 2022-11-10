@@ -31,9 +31,10 @@ const ProfileInformation: FC = () => {
     const handleSubmit = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            dispatch(patchUser(email, password, name))
+            dispatch(patchUser(email, password, name));
+            setPassword("");
         },
-        [dispatch, email, password, name]
+        [dispatch, email, password, name, setPassword]
     );
 
     return (
