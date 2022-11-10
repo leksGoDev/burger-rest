@@ -37,7 +37,7 @@ const ResetPassword: FC = () => {
         {
             paragraphText: 'Вспомнили пароль?',
             buttonText: 'Войти',
-            onClick: history.push.bind(null, "login")
+            onClick: () => history.push("/login")
         }
     ], [history]);
 

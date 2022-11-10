@@ -43,7 +43,7 @@ const Register: FC = () => {
         {
             paragraphText: 'Уже зарегистрированы?',
             buttonText: 'Войти',
-            onClick: history.push.bind(null, "login")
+            onClick: () => history.push("/login")
         }
     ], [history]);
 

@@ -35,12 +35,12 @@ const Login: FC = () => {
         {
             paragraphText: 'Вы — новый пользователь?',
             buttonText: 'Зарегистрироваться',
-            onClick: history.push.bind(null, "register")
+            onClick: () => history.push("/register")
         },
         {
             paragraphText: 'Забыли пароль?',
             buttonText: 'Восстановить пароль',
-            onClick: history.push.bind(null, "forgot-password")
+            onClick: () => history.push("/forgot-password")
         }
     ], [history]);
 
