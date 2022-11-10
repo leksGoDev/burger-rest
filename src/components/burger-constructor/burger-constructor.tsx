@@ -40,7 +40,7 @@ const BurgerConstructor: FC = () => {
             } else {
                 history.push("/login", { from: location });
             }
-        }, [dispatch, bun, stuffing, history, location]
+        }, [dispatch, bun, stuffing, history, location, user]
     );
 
     const handleCloseDetails = useCallback(

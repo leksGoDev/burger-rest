@@ -26,7 +26,7 @@ const IngredientDetails: FC = () => {
                 );
             }
         }
-    }, [details, data, state, id, dispatch]);
+    }, [hasDeallocated, details, data, state, id, dispatch]);
 
     if (!details) {
         return null;

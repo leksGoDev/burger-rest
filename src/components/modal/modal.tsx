@@ -46,7 +46,7 @@ const Modal: FC<Props> = ({ children, onClose }) => {
                 <ModalOverlay onClick={onClose} />
 
                 <article
-                    className={type == ModalType.Ingredient
+                    className={type === ModalType.Ingredient
                         ? styles.ingredientStyles
                         : styles.orderStyles}
                 >
