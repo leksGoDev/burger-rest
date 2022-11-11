@@ -5,8 +5,8 @@ import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient } from "../../pages";
 import { useAppDispatch } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";

@@ -16,18 +16,6 @@
     border-radius: 40px;
 }
 
-.ingredientStyles {
-    composes: article;
-    padding: 40px 40px 60px 40px;
-    height: 538px;
-}
-
-.orderStyles {
-    composes: article;
-    height: 718px;
-    padding: 120px 100px 120px 100px;
-}
-
 .button {
     border: none;
     padding: 0;

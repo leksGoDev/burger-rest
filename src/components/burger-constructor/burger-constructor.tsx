@@ -6,8 +6,8 @@ import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-co
 import styles from './burger-constructor.module.css'
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
-import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
 
 const BurgerConstructor: FC = () => {

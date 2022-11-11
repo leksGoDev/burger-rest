@@ -1,3 +1,8 @@
+.wrap {
+    height: 538px;
+    padding: 40px 40px 60px 40px;
+}
+
 .header {
     height: 64px;
     display: flex;
