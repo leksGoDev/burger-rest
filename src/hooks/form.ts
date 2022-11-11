@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import type { ChangeEvent } from "react";
 
-import { InputData, InputType } from "../models/auth-form";
+import { InputData, InputType } from "../models/form";
 
 interface InputHookProps {
     type: InputType;

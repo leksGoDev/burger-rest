@@ -4,8 +4,8 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./form.module.css";
 import FormLinkRow from "./form-link-row/form-link-row";
-import { InputData, LinkRowData } from "../../models/auth-form";
 import FormInput from "./form-input/form-input";
+import { InputData, LinkRowData } from "../../models/form";
 
 interface Props {
     title: string;

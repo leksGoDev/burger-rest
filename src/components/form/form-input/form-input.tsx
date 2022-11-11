@@ -1,11 +1,9 @@
 import type { FC } from 'react';
 import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { InputData, InputType } from "../../../models/auth-form";
+import { InputData, InputType } from "../../../models/form";
 
-interface Props extends InputData {}
-
-const FormInput: FC<Props> = ({ type , inputProps }) => {
+const FormInput: FC<InputData> = ({ type , inputProps }) => {
 
     return (
         <>
