@@ -1,3 +1,6 @@
+const ACCESS_TOKEN_MAX_AGE = 1200;
+const REFRESH_TOKEN_MAX_AGE = 14400;
+
 const setCookie = (key: string, value: string, maxAge: number) => {
     value = encodeURIComponent(value);
     document.cookie = `${key}=${value}; max-age=${maxAge}`;
@@ -15,10 +18,10 @@ export const deleteCookie = (key: string) => setCookie(key, "", -1);
 export const saveTokens = (accessToken: string, refreshToken: string) => {
     if (accessToken?.indexOf("Bearer") === 0) {
         const token = accessToken.split('Bearer ')[1];
-        setCookie("accessToken", token, 1200);
+        setCookie("accessToken", token, ACCESS_TOKEN_MAX_AGE);
     }
     if (refreshToken) {
-        setCookie("refreshToken", refreshToken, 14400);
+        setCookie("refreshToken", refreshToken, REFRESH_TOKEN_MAX_AGE);
     }
 };
 
