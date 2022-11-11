@@ -10,23 +10,31 @@ const ProfileInformation: FC = () => {
     const dispatch = useAppDispatch();
     const { user } = useAppSelector(store => store.authApi);
     const [footerVisible, setFooterVisible] = useState(false);
-    const [email, setEmail] = useState(user!.email);
-    const [name, setName] = useState(user!.name);
+    const [email, setEmail] = useState(user?.email ?? "");
+    const [name, setName] = useState(user?.name ?? "");
     const [password, setPassword] = useState("");
 
-    useEffect(() => {
-        const hasDifference = !!password.length || (email !== user!.email) || (name !== user!.name);
-        setFooterVisible(hasDifference);
-    }, [user, email, name, password]);
-
-    const handleCancel = useCallback(
+    const handleReset = useCallback(
         () => {
             setPassword("");
-            setEmail(user!.email);
-            setName(user!.name);
+            setEmail(user?.email ?? "");
+            setName(user?.name ?? "");
         },
         [user, setPassword, setName, setEmail]
     );
+
+    useEffect(() => {
+        handleReset()
+    }, [user]);
+
+    useEffect(() => {
+        const hasDifference =
+            !!password.length
+            || (email !== (user?.email ?? ""))
+            || (name !== (user?.name ?? ""));
+
+        setFooterVisible(hasDifference);
+    }, [user, email, name, password]);
 
     const handleSubmit = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
@@ -75,7 +83,7 @@ const ProfileInformation: FC = () => {
                         <Button
                             type="secondary"
                             htmlType="button"
-                            onClick={handleCancel}
+                            onClick={handleReset}
                         >
                             Отмена
                         </Button>

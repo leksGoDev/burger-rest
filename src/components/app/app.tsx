@@ -11,7 +11,7 @@ import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile
 import { useAppDispatch } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { deleteDetails } from "../../services/store/slices/ingredient-details";
-import { fetchUser} from "../../services/store/slices/api/auth-api";
+import { fetchUser } from "../../services/store/slices/api/auth-api";
 
 const App: FC = () => {
     const dispatch = useAppDispatch();
