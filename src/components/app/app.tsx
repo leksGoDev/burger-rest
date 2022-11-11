@@ -11,6 +11,7 @@ import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile
 import { useAppDispatch } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { deleteDetails } from "../../services/store/slices/ingredient-details";
+import { fetchUser} from "../../services/store/slices/api/auth-api";
 
 const App: FC = () => {
     const dispatch = useAppDispatch();
@@ -19,7 +20,8 @@ const App: FC = () => {
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(fetchIngredients())
+        dispatch(fetchIngredients());
+        dispatch(fetchUser());
     }, [dispatch]);
 
     const handleCloseDetails = useCallback(

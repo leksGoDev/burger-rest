@@ -1,11 +1,10 @@
-import { useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import type { FC, ReactNode } from 'react';
 import { Route, Redirect,  } from "react-router-dom";
 import type { RouteComponentProps } from "react-router-dom";
 import type { Location } from "history";
 
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchUser } from "../../services/store/slices/api/auth-api";
+import { useAppSelector } from "../../hooks";
 
 interface Props {
     component: ReactNode;
@@ -15,19 +14,12 @@ interface Props {
 }
 
 const ProtectedRoute: FC<Props> = ({ component, onlyUnAuth, ...props  }) => {
-    const dispatch = useAppDispatch();
     const { user } = useAppSelector(store => store.authApi);
-
-    useEffect(() => {
-        if (!onlyUnAuth) {
-            dispatch(fetchUser());
-        }
-    }, [dispatch]);
 
     const chooseRender = useCallback(
         (props: RouteComponentProps) => {
             const { location } = props;
-            const { state } = location as Location<{ from?: string; }>;
+            const { state } = location as Location<{ from?: Location<unknown>; }>;
 
             if (onlyUnAuth) {
                 return !user ? (
