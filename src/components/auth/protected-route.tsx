@@ -19,7 +19,9 @@ const ProtectedRoute: FC<Props> = ({ component, onlyUnAuth, ...props  }) => {
     const { user } = useAppSelector(store => store.authApi);
 
     useEffect(() => {
-        dispatch(fetchUser())
+        if (!onlyUnAuth) {
+            dispatch(fetchUser());
+        }
     }, [dispatch]);
 
     const chooseRender = useCallback(
