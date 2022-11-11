@@ -2,7 +2,7 @@ import { useMemo, useCallback, useEffect } from "react";
 import type { FC } from 'react';
 import { useHistory } from "react-router-dom";
 
-import AuthForm from "../../components/auth/auth-form/auth-form";
+import Form from "../../components/form/form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useAppDispatch, useAppSelector  } from "../../hooks";
 import { checkEmail } from "../../services/store/slices/api/pass-reset-api";
@@ -39,7 +39,7 @@ const ForgotPassword: FC = () => {
     ], [history]);
 
     return (
-        <AuthForm
+        <Form
             title="Восстановление пароля"
             buttonText="Восстановить"
             inputs={[emailInput]}

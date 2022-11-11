@@ -2,7 +2,7 @@ import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 
-import AuthForm from "../../components/auth/auth-form/auth-form";
+import Form from "../../components/form/form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
 import { resetPassword } from "../../services/store/slices/api/pass-reset-api";
@@ -47,7 +47,7 @@ const ResetPassword: FC = () => {
     }
 
     return (
-        <AuthForm
+        <Form
             title="Восстановление пароля"
             buttonText="Сохранить"
             inputs={[passwordInput, codeInput]}

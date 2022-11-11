@@ -2,7 +2,7 @@ import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { useHistory } from "react-router-dom";
 
-import AuthForm from "../../components/auth/auth-form/auth-form";
+import Form from "../../components/form/form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useAppDispatch } from "../../hooks";
 import { login } from "../../services/store/slices/api/auth-api";
@@ -42,7 +42,7 @@ const Login: FC = () => {
     ], [history]);
 
     return (
-        <AuthForm
+        <Form
             title="Вход"
             buttonText="Войти"
             inputs={[emailInput, passwordInput]}

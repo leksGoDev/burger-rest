@@ -2,9 +2,9 @@ import { useCallback } from "react";
 import type { FC, FormEvent } from 'react';
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from "./auth-form.module.css";
+import styles from "./form.module.css";
 import FormLinkRow from "./form-link-row/form-link-row";
-import { InputData, LinkRowData } from "../../../models/auth-form";
+import { InputData, LinkRowData } from "../../models/auth-form";
 import FormInput from "./form-input/form-input";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
     onSubmit: () => void;
 }
 
-const AuthForm: FC<Props> = ({ title, buttonText, inputs, linkRows, onSubmit }) => {
+const Form: FC<Props> = ({ title, buttonText, inputs, linkRows, onSubmit }) => {
     const handleSubmit = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
@@ -52,4 +52,4 @@ const AuthForm: FC<Props> = ({ title, buttonText, inputs, linkRows, onSubmit }) 
     );
 };
 
-export default AuthForm;
+export default Form;

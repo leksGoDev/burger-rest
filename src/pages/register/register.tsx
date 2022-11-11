@@ -2,7 +2,7 @@ import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { useHistory } from "react-router-dom";
 
-import AuthForm from "../../components/auth/auth-form/auth-form";
+import Form from "../../components/form/form";
 import { InputType } from "../../models/auth-form";
 import { useInput, useAppDispatch } from "../../hooks";
 import { register } from "../../services/store/slices/api/auth-api";
@@ -45,7 +45,7 @@ const Register: FC = () => {
     ], [history]);
 
     return (
-        <AuthForm
+        <Form
             title="Регистрация"
             buttonText="Зарегистрироваться"
             inputs={[nameInput, emailInput, passwordInput]}
