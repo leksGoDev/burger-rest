@@ -12,7 +12,7 @@ const OrderDetails: FC = () => {
     const { state } = useLocation<{ background?: Location<unknown> }>();
 
     const createWrapForModal = useCallback(
-        (component: ReactNode) => state?.background ?
+        (component: ReactNode) => true ? // Временный мок для стиля в режиме модалки
             <section className={styles.wrap}>
                 {component}
             </section>
