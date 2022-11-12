@@ -13,6 +13,7 @@ const BurgerIngredients: React.FC = () => {
 
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
 
+    const parentRef = React.useRef() as SectionRef;
     const bunsSectionRef = React.useRef() as SectionRef;
     const saucesSectionRef = React.useRef() as SectionRef;
     const mainSectionRef = React.useRef() as SectionRef;
@@ -27,10 +28,10 @@ const BurgerIngredients: React.FC = () => {
     const main = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
 
     const handleSwitchTab = React.useCallback((type: IngredientType) => {
-        sectionsRefs[type].current?.scrollIntoView({
-            behavior: "smooth",
-            block: type === IngredientType.bun ? "end" : "start"
-        });
+        const parent = parentRef.current;
+        const section = sectionsRefs[type].current;
+        const scrollY = Math.abs(parent?.offsetTop - section?.offsetTop);
+        parent?.scroll({ top: scrollY, behavior: "smooth" })
 
         setTabValue(type);
     }, [sectionsRefs]);
@@ -75,7 +76,7 @@ const BurgerIngredients: React.FC = () => {
                 </nav>
             </section>
 
-            <section className={styles.content} onScroll={handleScroll}>
+            <section ref={parentRef} className={styles.content} onScroll={handleScroll}>
                 <BurgerIngredientsSection ref={bunsSectionRef} type={IngredientType.bun} data={buns} />
 
                 <BurgerIngredientsSection ref={saucesSectionRef} type={IngredientType.sauce} data={sauces} />
