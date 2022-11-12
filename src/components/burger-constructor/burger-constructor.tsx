@@ -14,11 +14,8 @@ const BurgerConstructor: FC = () => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useAppDispatch();
-    const { bun, stuffing, data, user } = useAppSelector(store => ({
-        ...store.burgerConstructor,
-        ...store.orderDetailsApi,
-        ...store.authApi
-    }));
+    const { bun, stuffing, user } = useAppSelector(store => ({ ...store.burgerConstructor, ...store.authApi }));
+    const { data, isLoading } = useAppSelector(store => store.orderDetailsApi);
 
     const totalPrice = useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;
@@ -67,6 +64,7 @@ const BurgerConstructor: FC = () => {
                         type="primary"
                         size="large"
                         htmlType="submit"
+                        disabled={isLoading}
                         onClick={handleSubmitButton}
                     >
                         Оформить заказ
