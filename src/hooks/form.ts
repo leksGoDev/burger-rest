@@ -5,7 +5,7 @@ import { InputData, InputType } from "../models/form";
 
 interface InputHookProps {
     type: InputType;
-    inputProps: Omit<InputData["inputProps"], "minLength" | "value" | "onChange">;
+    inputProps: Omit<InputData["inputProps"], "required" | "minLength" | "value" | "onChange">;
 }
 
 export const useInput = (props: InputHookProps) => {
@@ -22,6 +22,7 @@ export const useInput = (props: InputHookProps) => {
         inputProps: {
             ...inputProps,
             minLength: checkMinLength(),
+            required: true,
             value: state,
             onChange: (e: ChangeEvent<HTMLInputElement>) => setState(e.target.value)
         }

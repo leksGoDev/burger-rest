@@ -45,6 +45,11 @@ const ProfileInformation: FC = () => {
         [dispatch, email, password, name, setPassword]
     );
 
+    const isSubmitDisabled = useCallback(
+        () => email.length < 5 || name.length < 3 || (!!password.length && password.length < 6),
+        [email, name, password]
+    );
+
     return (
         <form
             className={styles.form}
@@ -56,6 +61,7 @@ const ProfileInformation: FC = () => {
                 placeholder="Имя"
                 icon="EditIcon"
                 minLength={3}
+                required={true}
                 value={name}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
             />
@@ -65,6 +71,7 @@ const ProfileInformation: FC = () => {
                 placeholder="Логин"
                 isIcon={true}
                 minLength={5}
+                required={true}
                 value={email}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
@@ -73,6 +80,7 @@ const ProfileInformation: FC = () => {
                 name="password"
                 icon="EditIcon"
                 minLength={6}
+                required={false}
                 value={password}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             />
@@ -91,6 +99,7 @@ const ProfileInformation: FC = () => {
                         <Button
                             type="primary"
                             htmlType="submit"
+                            disabled={isSubmitDisabled()}
                         >
                             Сохранить
                         </Button>
