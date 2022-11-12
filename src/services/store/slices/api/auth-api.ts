@@ -88,11 +88,11 @@ export const logout = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const fetchUser = () => async (dispatch: AppDispatch) => {
+export const fetchUser = (signal: AbortController["signal"]) => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {
-        const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`);
+        const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`, { signal });
         dispatch(received(user));
     } catch (err) {
         dispatch(failed());

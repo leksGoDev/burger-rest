@@ -55,11 +55,18 @@ export const requestWithAuth = async <TResponse>(url: string, options: any = {})
         return await request<TResponse>(url, options);
     }
     catch (_) {
+        if (options.signal?.aborted) {
+            return Promise.reject();
+        }
+
         try {
             const token = getCookie("refreshToken") ?? "";
             const tokenOptions = createOptionsWithJSON<TokenBodyData>("POST", { token });
             const { accessToken } = await request<TokenResponse>("auth/token", tokenOptions);
-            options.headers.Authorization = accessToken;
+            options.headers = {
+                ...options.headers,
+                "Authorization": accessToken
+            };
         }
         catch (err) {
             deleteTokens();

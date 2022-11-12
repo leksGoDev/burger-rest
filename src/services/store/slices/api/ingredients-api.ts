@@ -39,11 +39,11 @@ const ingredientsApi = createSlice({
 
 const { loading, failed, received } = ingredientsApi.actions;
 
-export const fetchIngredients = () => async (dispatch: AppDispatch) => {
+export const fetchIngredients = (signal: AbortController["signal"]) => async (dispatch: AppDispatch) => {
     dispatch(loading());
 
     try {
-        const { data } = await request<IngredientsResponse>('ingredients');
+        const { data } = await request<IngredientsResponse>('ingredients', { signal });
         dispatch(received(data));
     }
     catch (err) {

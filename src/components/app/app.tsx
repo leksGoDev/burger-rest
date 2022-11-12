@@ -20,8 +20,13 @@ const App: FC = () => {
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(fetchIngredients());
-        dispatch(fetchUser());
+        const controller = new AbortController();
+        const { signal } = controller;
+
+        dispatch(fetchIngredients(signal));
+        dispatch(fetchUser(signal));
+
+        return () => controller.abort();
     }, [dispatch]);
 
     const handleCloseDetails = useCallback(
