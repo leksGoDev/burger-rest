@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import type { FC, ChangeEvent, FormEvent } from 'react';
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -45,7 +45,7 @@ const ProfileInformation: FC = () => {
         [dispatch, email, password, name, setPassword]
     );
 
-    const isSubmitDisabled = useCallback(
+    const isSubmitDisabled = useMemo(
         () => email.length < 5 || name.length < 3 || (!!password.length && password.length < 6),
         [email, name, password]
     );
@@ -99,7 +99,7 @@ const ProfileInformation: FC = () => {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            disabled={isSubmitDisabled()}
+                            disabled={isSubmitDisabled}
                         >
                             Сохранить
                         </Button>
