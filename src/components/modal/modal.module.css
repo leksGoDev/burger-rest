@@ -16,8 +16,12 @@
     border-radius: 40px;
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    height: 64px;
+.button {
+    border: none;
+    padding: 0;
+    background-color: inherit;
+    cursor: pointer;
+    position: absolute;
+    top: 60px;
+    right: 40px;
 }

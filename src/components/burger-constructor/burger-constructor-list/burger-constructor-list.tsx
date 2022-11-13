@@ -4,8 +4,8 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 
 import styles from "./burger-constructor-list.module.css";
 import { Ingredient, DragIngredient, IngredientType } from "../../../models/ingredient";
-import { useAppDispatch } from "../../../hooks/redux";
-import { addStuffing, changeBun } from "../../../services/store/slices/burgerConstructorSlice";
+import { useAppDispatch } from "../../../hooks";
+import { addStuffing, changeBun } from "../../../services/store/slices/constructor";
 import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
 interface Props {
@@ -31,23 +31,17 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
         }
     }, [dispatch]);
 
-    const handleRemoveBun = React.useCallback(
-        () => dispatch(
-            changeBun(null)
-        ), [dispatch]);
-
     return (
         <>
             <header ref={bunDropHeader} className={`${styles.bunSection} mb-4 pl-8`}>
                 {
                     bun ?
                         <ConstructorElement
-                            isLocked={!!stuffing.length}
+                            isLocked
                             type="top"
                             text={`${bun.name} (верх)`}
                             thumbnail={bun.image}
                             price={bun.price}
-                            handleClose={handleRemoveBun}
                         />
                         :
                         <div className="constructor-element constructor-element_pos_top" />
@@ -64,12 +58,11 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
                 {
                     bun ?
                         <ConstructorElement
-                            isLocked={!!stuffing.length}
+                            isLocked
                             type="bottom"
                             text={`${bun.name} (низ)`}
                             thumbnail={bun.image}
                             price={bun.price}
-                            handleClose={handleRemoveBun}
                         />
                         :
                         <div className="constructor-element constructor-element_pos_bottom" />

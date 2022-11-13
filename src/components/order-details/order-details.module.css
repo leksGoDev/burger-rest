@@ -1,0 +1,14 @@
+.wrap {
+    height: 718px;
+    padding: 120px 100px 120px 100px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text {
+    text-align: center;
+}

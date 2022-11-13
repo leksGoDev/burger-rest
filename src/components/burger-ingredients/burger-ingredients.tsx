@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-ingredients.module.css'
-import { useAppSelector } from "../../hooks/redux";
+import { useAppSelector } from "../../hooks";
 import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
 
@@ -13,6 +13,7 @@ const BurgerIngredients: React.FC = () => {
 
     const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
 
+    const parentRef = React.useRef() as SectionRef;
     const bunsSectionRef = React.useRef() as SectionRef;
     const saucesSectionRef = React.useRef() as SectionRef;
     const mainSectionRef = React.useRef() as SectionRef;
@@ -27,7 +28,10 @@ const BurgerIngredients: React.FC = () => {
     const main = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
 
     const handleSwitchTab = React.useCallback((type: IngredientType) => {
-        sectionsRefs[type].current?.scrollIntoView({ behavior: "smooth" });
+        const parent = parentRef.current;
+        const section = sectionsRefs[type].current;
+        const scrollY = Math.abs(parent?.offsetTop - section?.offsetTop);
+        parent?.scroll({ top: scrollY, behavior: "smooth" })
 
         setTabValue(type);
     }, [sectionsRefs]);
@@ -44,10 +48,10 @@ const BurgerIngredients: React.FC = () => {
 
     return (
         <article className={styles.article}>
-            <nav className="mt-10 mb-10">
+            <section className="mt-10 mb-10">
                 <p className="text text_type_main-large mb-5">Соберите бургер</p>
 
-                <div className={styles.tabs}>
+                <nav className={styles.tabs}>
                     <Tab
                         value={IngredientTypeName[IngredientType.bun]}
                         active={tabValue === IngredientType.bun}
@@ -69,10 +73,10 @@ const BurgerIngredients: React.FC = () => {
                     >
                         {IngredientTypeName[IngredientType.main]}
                     </Tab>
-                </div>
-            </nav>
+                </nav>
+            </section>
 
-            <section className={styles.content} onScroll={handleScroll}>
+            <section ref={parentRef} className={styles.content} onScroll={handleScroll}>
                 <BurgerIngredientsSection ref={bunsSectionRef} type={IngredientType.bun} data={buns} />
 
                 <BurgerIngredientsSection ref={saucesSectionRef} type={IngredientType.sauce} data={sauces} />

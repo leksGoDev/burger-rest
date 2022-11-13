@@ -1,39 +1,46 @@
-import * as React from 'react';
+import { useMemo, useCallback } from "react";
+import type { FC, SyntheticEvent } from 'react';
+import { useHistory, useLocation } from "react-router-dom";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.css'
-import { useAppSelector, useAppDispatch } from "../../hooks/redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
+import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import OrderDetails from "../modal/content/order-details/order-details";
-import { closeDetails, makeOrder } from "../../services/store/slices/orderDetailsSlice";
+import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
 
-const BurgerConstructor: React.FC = () => {
+const BurgerConstructor: FC = () => {
+    const history = useHistory();
+    const location = useLocation();
     const dispatch = useAppDispatch();
-    const { bun, stuffing, data } = useAppSelector(
-        store => ({ ...store.burgerConstructor, ...store.orderDetails })
-    );
+    const { bun, stuffing, user } = useAppSelector(store => ({ ...store.burgerConstructor, ...store.authApi }));
+    const { data, isLoading } = useAppSelector(store => store.orderDetailsApi);
 
-    const totalPrice = React.useMemo(() => {
+    const totalPrice = useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;
         sum += stuffing.reduce((sum, el) => sum + el.price, 0);
 
         return sum;
     }, [bun, stuffing]);
 
-    const handleSubmitButton = React.useCallback(
-        (e: React.SyntheticEvent) => {
+    const handleSubmitButton = useCallback(
+        (e: SyntheticEvent) => {
             e.preventDefault();
 
-            if (bun && !!stuffing.length) {
-                dispatch(
-                    makeOrder([bun._id, ...stuffing.map(({ _id }) => _id), bun._id])
-                );
+            if (user) {
+                if (bun && !!stuffing.length) {
+                    dispatch(
+                        makeOrder([bun._id, ...stuffing.map(({ _id }) => _id), bun._id])
+                    );
+                }
+            } else {
+                history.push("/login", { from: location });
             }
-        }, [dispatch, bun, stuffing]
+        }, [dispatch, bun, stuffing, history, location, user]
     );
 
-    const handleCloseDetails = React.useCallback(
+    const handleCloseDetails = useCallback(
         () => dispatch(closeDetails())
     , [dispatch]);
 
@@ -57,6 +64,7 @@ const BurgerConstructor: React.FC = () => {
                         type="primary"
                         size="large"
                         htmlType="submit"
+                        disabled={isLoading}
                         onClick={handleSubmitButton}
                     >
                         Оформить заказ
