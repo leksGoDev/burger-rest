@@ -4,6 +4,7 @@ import { Route, Redirect,  } from "react-router-dom";
 import type { RouteComponentProps } from "react-router-dom";
 import type { Location } from "history";
 
+import { TFromState } from "../../models/router";
 import { useAppSelector } from "../../hooks";
 
 interface IProps {
@@ -19,7 +20,7 @@ const ProtectedRoute: FC<IProps> = ({ component, onlyUnAuth, ...props  }) => {
 
     const chooseRender = useCallback(
         ({ location }: RouteComponentProps) => {
-            const { state } = location as Location<{ from?: Location<unknown>; }>;
+            const { state } = location as Location<TFromState>;
 
             if (onlyUnAuth) {
                 return !user ? (
