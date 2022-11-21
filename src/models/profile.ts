@@ -1,7 +1,7 @@
-export interface User {
+export interface IUser {
     email: string;
     password: string;
     name: string;
 }
 
-export type UserInfo = Omit<User, "password">;
+export type TUserInfo = Omit<IUser, "password">;

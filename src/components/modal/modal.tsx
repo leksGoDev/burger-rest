@@ -6,14 +6,14 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
 
-interface Props {
+interface IProps {
     children: ReactNode;
     onClose: () => void;
 }
 
 const modalRoot = document.getElementById("modal");
 
-const Modal: FC<Props> = ({ children, onClose }) => {
+const Modal: FC<IProps> = ({ children, onClose }) => {
     useEffect(() => {
         const close = (e: KeyboardEvent) => {
             if (e.code === "Escape"){
@@ -24,6 +24,10 @@ const Modal: FC<Props> = ({ children, onClose }) => {
 
         return () => window.removeEventListener('keydown', close);
     },[onClose])
+
+    if (!modalRoot) {
+        return null;
+    }
 
     return (
         createPortal((
@@ -38,7 +42,7 @@ const Modal: FC<Props> = ({ children, onClose }) => {
                     {children}
                 </article>
             </section>
-        ), modalRoot!)
+        ), modalRoot)
     );
 };
 

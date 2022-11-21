@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppDispatch } from "../../index";
-import { Order } from "../../../../models/order";
-import { Ingredient } from "../../../../models/ingredient";
-import { OrderResponse, OrderBodyData } from "../../../../models/api";
+import { TAppDispatch } from "../../index";
+import { IOrder } from "../../../../models/order";
+import { IIngredient } from "../../../../models/ingredient";
+import { IOrderResponse, IOrderBodyData } from "../../../../models/api";
 import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";
 import { checkAuth } from "./auth-api";
 
-interface State {
+interface IState {
     isLoading: boolean;
     hasError: boolean;
-    data: Order | null;
+    data: IOrder | null;
 }
 
-const initialState: State = {
+const initialState: IState = {
     isLoading: false,
     hasError: false,
     data: null
@@ -31,7 +31,7 @@ const orderDetailsApi = createSlice({
             state.isLoading = false;
             state.data = null;
         },
-        received(state, action: PayloadAction<Order>) {
+        received(state, action: PayloadAction<IOrder>) {
             state.hasError = false;
             state.isLoading = false;
             state.data = action.payload;
@@ -46,12 +46,12 @@ const { loading, failed, received } = orderDetailsApi.actions;
 
 export const { closeDetails } = orderDetailsApi.actions;
 
-export const makeOrder = (ingredientsIds: Ingredient["_id"][]) => async (dispatch: AppDispatch) => {
+export const makeOrder = (ingredientsIds: IIngredient["_id"][]) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<OrderBodyData>("POST", { ingredients: ingredientsIds });
-        const { name, order } = await requestWithAuth<OrderResponse>('orders', options);
+        const options = createOptionsWithJSON<IOrderBodyData>("POST", { ingredients: ingredientsIds });
+        const { name, order } = await requestWithAuth<IOrderResponse>('orders', options);
         dispatch(received({ order, name }));
     }
     catch (err) {

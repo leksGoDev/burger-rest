@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuid } from 'uuid';
 
-import { Ingredient, DragIngredient } from "../../../models/ingredient";
+import { IIngredient, IDragIngredient } from "../../../models/ingredient";
 
-interface State {
-    bun: Ingredient | null;
-    stuffing: DragIngredient[];
+interface IState {
+    bun: IIngredient | null;
+    stuffing: IDragIngredient[];
 }
 
-interface SwapPayload {
+interface ISwapPayload {
     dragIndex: number;
     hoverIndex: number;
 }
 
-const initialState: State = {
+const initialState: IState = {
     bun: null,
     stuffing: []
 };
@@ -22,22 +22,22 @@ const burgerConstructor = createSlice({
     name: 'burgerConstructor',
     initialState: initialState,
     reducers: {
-        changeBun(state, action: PayloadAction<Ingredient>) {
+        changeBun(state, action: PayloadAction<IIngredient>) {
             state.bun = action.payload;
         },
         addStuffing: {
-            reducer(state, action: PayloadAction<DragIngredient>) {
+            reducer(state, action: PayloadAction<IDragIngredient>) {
                 state.stuffing.push(action.payload);
             },
-            prepare(ingredient: Ingredient) {
+            prepare(ingredient: IIngredient) {
                 return { payload: { dragId: uuid(), ...ingredient }}
             }
         },
-        removeStuffing(state, action: PayloadAction<DragIngredient["dragId"]>) {
+        removeStuffing(state, action: PayloadAction<IDragIngredient["dragId"]>) {
             const dragId = action.payload;
             state.stuffing = state.stuffing.filter(entry => entry.dragId !== dragId);
         },
-        swapStuffing(state, action: PayloadAction<SwapPayload>) {
+        swapStuffing(state, action: PayloadAction<ISwapPayload>) {
             const { dragIndex, hoverIndex } = action.payload;
             const dragElement = state.stuffing[dragIndex];
             state.stuffing.splice(dragIndex, 1, state.stuffing[hoverIndex]);

@@ -10,7 +10,7 @@ export enum IngredientTypeName {
     main = "Начинки"
 }
 
-export interface Ingredient {
+export interface IIngredient {
     _id: string;
     name: string;
     type: IngredientType;
@@ -25,6 +25,6 @@ export interface Ingredient {
     __v: number;
 }
 
-export interface DragIngredient extends Ingredient {
+export interface IDragIngredient extends IIngredient {
     dragId: string;
 }

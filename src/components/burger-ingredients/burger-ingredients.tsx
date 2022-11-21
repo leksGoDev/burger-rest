@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useState, useRef, useMemo, useCallback } from "react";
+import type { FC, UIEvent as ReactUIEvent } from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-ingredients.module.css'
@@ -6,37 +7,37 @@ import { useAppSelector } from "../../hooks";
 import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
 
-type SectionRef = React.MutableRefObject<HTMLElement>;
-
-const BurgerIngredients: React.FC = () => {
+const BurgerIngredients: FC = () => {
     const { data } = useAppSelector(store => store.ingredientsApi);
 
-    const [tabValue, setTabValue] = React.useState<IngredientType>(IngredientType.bun);
+    const [tabValue, setTabValue] = useState<IngredientType>(IngredientType.bun);
 
-    const parentRef = React.useRef() as SectionRef;
-    const bunsSectionRef = React.useRef() as SectionRef;
-    const saucesSectionRef = React.useRef() as SectionRef;
-    const mainSectionRef = React.useRef() as SectionRef;
-    const sectionsRefs = React.useMemo(() => ({
+    const parentRef = useRef<HTMLElement>(null);
+    const bunsSectionRef = useRef<HTMLElement>(null);
+    const saucesSectionRef = useRef<HTMLElement>(null);
+    const mainSectionRef = useRef<HTMLElement>(null);
+    const sectionsRefs = useMemo(() => ({
         [IngredientType.bun]: bunsSectionRef,
         [IngredientType.sauce]: saucesSectionRef,
         [IngredientType.main]: mainSectionRef
     }), [bunsSectionRef, saucesSectionRef, mainSectionRef]);
 
-    const buns = React.useMemo(() => data.filter(el => el.type === IngredientType.bun), [data]);
-    const sauces = React.useMemo(() => data.filter(el => el.type === IngredientType.sauce), [data]);
-    const main = React.useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
+    const buns = useMemo(() => data.filter(el => el.type === IngredientType.bun), [data]);
+    const sauces = useMemo(() => data.filter(el => el.type === IngredientType.sauce), [data]);
+    const main = useMemo(() => data.filter(el => el.type === IngredientType.main), [data]);
 
-    const handleSwitchTab = React.useCallback((type: IngredientType) => {
+    const handleSwitchTab = useCallback((type: IngredientType) => {
         const parent = parentRef.current;
         const section = sectionsRefs[type].current;
-        const scrollY = Math.abs(parent?.offsetTop - section?.offsetTop);
+        const parentOffset = parent?.offsetTop ?? 0;
+        const sectionOffset = section?.offsetTop ?? 0;
+        const scrollY = Math.abs(parentOffset - sectionOffset);
         parent?.scroll({ top: scrollY, behavior: "smooth" })
 
         setTabValue(type);
     }, [sectionsRefs]);
 
-    const handleScroll = React.useCallback((e:  React.UIEvent<HTMLElement, UIEvent>) => {
+    const handleScroll = useCallback((e: ReactUIEvent<HTMLElement, UIEvent>) => {
         let offset = 0;
         if (e.target instanceof HTMLElement) {
             offset = e.target.offsetTop;

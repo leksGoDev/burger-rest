@@ -6,19 +6,19 @@ import type { Location } from "history";
 
 import { useAppSelector } from "../../hooks";
 
-interface Props {
+interface IProps {
     component: ReactNode;
-    exact?: boolean;
     path: string;
     onlyUnAuth: boolean;
+
+    exact?: boolean;
 }
 
-const ProtectedRoute: FC<Props> = ({ component, onlyUnAuth, ...props  }) => {
+const ProtectedRoute: FC<IProps> = ({ component, onlyUnAuth, ...props  }) => {
     const { user } = useAppSelector(store => store.authApi);
 
     const chooseRender = useCallback(
-        (props: RouteComponentProps) => {
-            const { location } = props;
+        ({ location }: RouteComponentProps) => {
             const { state } = location as Location<{ from?: Location<unknown>; }>;
 
             if (onlyUnAuth) {

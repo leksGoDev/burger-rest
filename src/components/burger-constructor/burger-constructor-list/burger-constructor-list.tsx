@@ -1,22 +1,22 @@
-import * as React from 'react';
+import type { FC } from 'react';
 import { useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-constructor-list.module.css";
-import { Ingredient, DragIngredient, IngredientType } from "../../../models/ingredient";
+import { IIngredient, IDragIngredient, IngredientType } from "../../../models/ingredient";
 import { useAppDispatch } from "../../../hooks";
 import { addStuffing, changeBun } from "../../../services/store/slices/constructor";
 import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
-interface Props {
-    bun: Ingredient | null;
-    stuffing: DragIngredient[];
+interface IProps {
+    bun: IIngredient | null;
+    stuffing: IDragIngredient[];
 }
 
-const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
+const BurgerConstructorList: FC<IProps> = ({ bun, stuffing }) => {
     const dispatch = useAppDispatch();
 
-    const useBunDrop = () => useDrop<Ingredient>({
+    const useBunDrop = () => useDrop<IIngredient>({
         accept: IngredientType.bun,
         drop(ingredient) {
             dispatch(changeBun(ingredient));
@@ -24,7 +24,7 @@ const BurgerConstructorList: React.FC<Props> = ({ bun, stuffing }) => {
     }, [dispatch]);
     const [, bunDropHeader] = useBunDrop();
     const [, bunDropFooter] = useBunDrop();
-    const [, stuffingDrop] = useDrop<Ingredient>({
+    const [, stuffingDrop] = useDrop<IIngredient>({
         accept: 'stuffing',
         drop(ingredient) {
             dispatch(addStuffing(ingredient));

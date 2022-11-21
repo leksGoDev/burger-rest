@@ -1,59 +1,59 @@
-import { Ingredient } from "./ingredient";
-import { Order } from "./order";
-import { User, UserInfo } from "./profile";
+import { IIngredient } from "./ingredient";
+import { IOrder } from "./order";
+import { IUser, TUserInfo } from "./profile";
 
-export interface Response {
+export interface IResponse {
     success: boolean;
 }
 
-export interface IngredientsResponse extends Response {
-    data: Ingredient[];
+export interface IIngredientsResponse extends IResponse {
+    data: IIngredient[];
 }
 
-export interface OrderResponse extends Order, Response {}
+export interface IOrderResponse extends IOrder, IResponse {}
 
-export interface PassResetResponse extends Response {
+export interface IPassResetResponse extends IResponse {
     message: string;
 }
 
-export interface LogoutResponse extends Response {
+export interface ILogoutResponse extends IResponse {
     message: string;
 }
 
-export interface TokenResponse extends Response {
+export interface ITokenResponse extends IResponse {
     accessToken: string;
     refreshToken: string;
 }
 
-export interface AuthResponse extends TokenResponse {
-    user: UserInfo;
+export interface IAuthResponse extends ITokenResponse {
+    user: TUserInfo;
 }
 
-export interface UserResponse extends Response {
-    user: UserInfo;
+export interface IUserResponse extends IResponse {
+    user: TUserInfo;
 }
 
-export interface OrderBodyData {
-    ingredients: Ingredient["_id"][];
+export interface IOrderBodyData {
+    ingredients: IIngredient["_id"][];
 }
 
-export interface CheckEmailBodyData {
-    email: User["email"];
+export interface ICheckEmailBodyData {
+    email: IUser["email"];
 }
 
-export interface PassResetBodyData {
-    password: User["password"];
+export interface IPassResetBodyData {
+    password: IUser["password"];
     token: string;
 }
 
-export interface LogoutBodyData {
+export interface ILogoutBodyData {
     token: string;
 }
 
-export interface RegisterBodyData extends User {}
+export interface IRegisterBodyData extends IUser {}
 
-export interface LoginBodyData extends Omit<User, "name"> {}
+export interface ILoginBodyData extends Omit<IUser, "name"> {}
 
-export interface TokenBodyData {
+export interface ITokenBodyData {
     token: string;
 }

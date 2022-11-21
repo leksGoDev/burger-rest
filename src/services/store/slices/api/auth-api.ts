@@ -1,23 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { AppDispatch } from "../../index";
-import { User, UserInfo } from "../../../../models/profile";
+import { TAppDispatch } from "../../index";
+import { IUser, TUserInfo } from "../../../../models/profile";
 import {
-    AuthResponse, LoginBodyData, LogoutBodyData,
-    LogoutResponse, RegisterBodyData, UserResponse
+    IAuthResponse, ILoginBodyData, ILogoutBodyData,
+    ILogoutResponse, IRegisterBodyData, IUserResponse
 } from "../../../../models/api";
 import { createOptionsWithJSON, request, requestWithAuth } from "../../../api/request";
 import { getCookie, deleteTokens } from "../../../api/cookie";
 
-interface State {
+interface IState {
     isLoading: boolean;
     hasError: boolean;
-    user: UserInfo | null;
+    user: TUserInfo | null;
 }
 
 const BASE_URL = 'auth';
 
-const initialState: State = {
+const initialState: IState = {
     isLoading: false,
     hasError: false,
     user: null
@@ -34,7 +34,7 @@ const authApi = createSlice({
             state.hasError = true;
             state.isLoading = false;
         },
-        received(state, action: PayloadAction<UserInfo | null>) {
+        received(state, action: PayloadAction<TUserInfo | null>) {
             state.hasError = false;
             state.isLoading = false;
             state.user = action.payload;
@@ -47,12 +47,12 @@ const authApi = createSlice({
 
 const { loading, failed, received, reset } = authApi.actions;
 
-export const register = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
+export const register = (email: string, password: string, name: string) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<RegisterBodyData>("POST", { email, password, name });
-        const { user } = await request<AuthResponse>(`${BASE_URL}/register`, options);
+        const options = createOptionsWithJSON<IRegisterBodyData>("POST", { email, password, name });
+        const { user } = await request<IAuthResponse>(`${BASE_URL}/register`, options);
         dispatch(received(user));
     }
     catch (err) {
@@ -60,12 +60,12 @@ export const register = (email: string, password: string, name: string) => async
     }
 };
 
-export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
+export const login = (email: string, password: string) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<LoginBodyData>("POST", { email, password });
-        const { user } = await request<AuthResponse>(`${BASE_URL}/login`, options);
+        const options = createOptionsWithJSON<ILoginBodyData>("POST", { email, password });
+        const { user } = await request<IAuthResponse>(`${BASE_URL}/login`, options);
         dispatch(received(user));
     }
     catch (err) {
@@ -73,13 +73,13 @@ export const login = (email: string, password: string) => async (dispatch: AppDi
     }
 };
 
-export const logout = () => async (dispatch: AppDispatch) => {
+export const logout = () => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
         const token = getCookie("refreshToken") ?? "";
-        const options = createOptionsWithJSON<LogoutBodyData>("POST", { token });
-        await request<LogoutResponse>(`${BASE_URL}/logout`, options);
+        const options = createOptionsWithJSON<ILogoutBodyData>("POST", { token });
+        await request<ILogoutResponse>(`${BASE_URL}/logout`, options);
         deleteTokens();
         dispatch(received(null));
     }
@@ -88,23 +88,23 @@ export const logout = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const fetchUser = (signal: AbortController["signal"]) => async (dispatch: AppDispatch) => {
+export const fetchUser = (signal: AbortController["signal"]) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`, { signal });
+        const { user } = await requestWithAuth<IUserResponse>(`${BASE_URL}/user`, { signal });
         dispatch(received(user));
     } catch (err) {
         dispatch(failed());
     }
 };
 
-export const patchUser = (email: string, password: string, name: string) => async (dispatch: AppDispatch) => {
+export const patchUser = (email: string, password: string, name: string) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<User>("PATCH", { email, password, name });
-        const { user } = await requestWithAuth<UserResponse>(`${BASE_URL}/user`, options);
+        const options = createOptionsWithJSON<IUser>("PATCH", { email, password, name });
+        const { user } = await requestWithAuth<IUserResponse>(`${BASE_URL}/user`, options);
         dispatch(received(user));
     } catch (err) {
         dispatch(failed());
@@ -112,7 +112,7 @@ export const patchUser = (email: string, password: string, name: string) => asyn
     }
 };
 
-export const checkAuth = () => async (dispatch: AppDispatch) => {
+export const checkAuth = () => async (dispatch: TAppDispatch) => {
     const accessToken = getCookie("accessToken");
     const refreshToken = getCookie("refreshToken");
 

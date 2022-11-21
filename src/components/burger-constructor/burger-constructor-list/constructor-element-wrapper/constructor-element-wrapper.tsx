@@ -1,33 +1,30 @@
-import * as React from 'react';
+import { useRef, useEffect, useCallback } from "react";
+import type { FC } from 'react';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
 
 import styles from "./constructor-element-wrapper.module.css";
-import { DragIngredient } from "../../../../models/ingredient";
+import { IDragIngredient } from "../../../../models/ingredient";
 import { useAppDispatch } from "../../../../hooks";
 import { removeStuffing, swapStuffing } from "../../../../services/store/slices/constructor";
 
-interface Props {
+interface IProps {
     index: number;
-    ingredient: DragIngredient;
+    ingredient: IDragIngredient;
 }
 
-interface DndSortItem {
-    index: number;
-}
+type TDndSortItem = { index: number; };
 
-interface DragProps {
-    isDrag: boolean;
-}
+type TDragProps = { isDrag: boolean; };
 
-const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
+const ConstructorElementWrapper: FC<IProps> = ({ index, ingredient }) => {
     const { name, image, price } = ingredient;
 
     const dispatch = useAppDispatch();
 
-    const ingredientRef: React.MutableRefObject<HTMLLIElement | null> = React.useRef(null);
+    const ingredientRef = useRef<HTMLLIElement>(null);
 
-    const [{ isDrag }, drag] = useDrag<DndSortItem, null, DragProps>({
+    const [{ isDrag }, drag] = useDrag<TDndSortItem, null, TDragProps>({
         type: 'sort',
         item: { index },
         collect: monitor => ({
@@ -35,7 +32,7 @@ const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
         })
     }, [ingredient]);
 
-    const [, drop] = useDrop<DndSortItem>({
+    const [, drop] = useDrop<TDndSortItem>({
         accept: 'sort',
         hover(item, monitor) {
             if (!ingredientRef.current) return;
@@ -60,13 +57,13 @@ const ConstructorElementWrapper: React.FC<Props> = ({ index, ingredient }) => {
         }
     }, [dispatch, ingredientRef]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         drag(drop(ingredientRef));
     }, [drag, drop, ingredientRef]);
 
     const opacity = isDrag ? 0 : 1;
 
-    const handleRemoveStuffing = React.useCallback(
+    const handleRemoveStuffing = useCallback(
         () => dispatch(
             removeStuffing(ingredient.dragId)
         ), [ingredient, dispatch]);

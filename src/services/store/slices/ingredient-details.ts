@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Ingredient } from "../../../models/ingredient";
+import { IIngredient } from "../../../models/ingredient";
 
-type IIngredientDetails = Pick<Ingredient, "image_large" | "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
+type IIngredientDetails = Pick<IIngredient, "image_large" | "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
 
-interface State {
+interface IState {
     details: IIngredientDetails | null;
     hasDeallocated: boolean;
 }
 
-const initialState: State = {
+const initialState: IState = {
     details: null,
     hasDeallocated: false
 };
