@@ -1,6 +1,7 @@
-.main {
+.content {
+    width: 1240px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     gap: 40px;
-    padding: 0 340px;
 }
