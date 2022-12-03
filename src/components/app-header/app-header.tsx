@@ -19,35 +19,37 @@ const AppHeader = () => {
     );
 
     return (
-        <header className={styles.content}>
-            <section className={styles.placement}>
-                <AppHeaderElement
-                    textInactive={!checkActive("/", true)}
-                    icon={<BurgerIcon type={checkIconType("/", true)} />}
-                    text="Конструктор"
-                    linkRoute="/"
-                />
+        <header className={styles.wrap}>
+            <div className={styles.content}>
+                <section className={styles.leftSection}>
+                    <AppHeaderElement
+                        textInactive={!checkActive("/", true)}
+                        icon={<BurgerIcon type={checkIconType("/", true)} />}
+                        text="Конструктор"
+                        linkRoute="/"
+                    />
 
-                <AppHeaderElement
-                    textInactive={!checkActive("mock", true)}
-                    icon={<ListIcon type={checkIconType("mock", true)} />}
-                    text="Лента заказов"
-                    linkRoute="mock"
-                />
-            </section>
+                    <AppHeaderElement
+                        textInactive={!checkActive("mock", true)}
+                        icon={<ListIcon type={checkIconType("mock", true)} />}
+                        text="Лента заказов"
+                        linkRoute="mock"
+                    />
+                </section>
 
-            <section className={styles.logo}>
-                <Logo />
-            </section>
+                <section className={styles.logo}>
+                    <Logo />
+                </section>
 
-            <section>
-                <AppHeaderElement
-                    textInactive={!checkActive("/profile")}
-                    icon={<ProfileIcon type={checkIconType("/profile")} />}
-                    text="Личный кабинет"
-                    linkRoute="/profile"
-                />
-            </section>
+                <section>
+                    <AppHeaderElement
+                        textInactive={!checkActive("/profile")}
+                        icon={<ProfileIcon type={checkIconType("/profile")} />}
+                        text="Личный кабинет"
+                        linkRoute="/profile"
+                    />
+                </section>
+            </div>
         </header>
     );
 };
