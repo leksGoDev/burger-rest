@@ -5,17 +5,17 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./form.module.css";
 import FormLinkRow from "./form-link-row/form-link-row";
 import FormInput from "./form-input/form-input";
-import { InputData, LinkRowData } from "../../models/form";
+import { IInputData, ILinkRowData } from "../../models/form";
 
-interface Props {
+interface IProps {
     title: string;
     buttonText: string;
-    inputs: InputData[];
-    linkRows: LinkRowData[];
+    inputs: IInputData[];
+    linkRows: ILinkRowData[];
     onSubmit: () => void;
 }
 
-const Form: FC<Props> = ({ title, buttonText, inputs, linkRows, onSubmit }) => {
+const Form: FC<IProps> = ({ title, buttonText, inputs, linkRows, onSubmit }) => {
     const handleSubmit = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();

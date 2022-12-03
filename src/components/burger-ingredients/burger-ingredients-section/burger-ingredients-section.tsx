@@ -1,15 +1,15 @@
-import * as React from 'react';
+import { forwardRef } from 'react';
 
 import styles from './burger-ingredients-section.module.css'
 import BurgerIngredientsCard from "../burger-ingredients-card/burger-ingredients-card";
-import { Ingredient, IngredientType, IngredientTypeName } from "../../../models/ingredient";
+import { IIngredient, IngredientType, IngredientTypeName } from "../../../models/ingredient";
 
-interface Props {
+interface IProps {
     type: IngredientType;
-    data: Ingredient[];
+    data: IIngredient[];
 }
 
-const BurgerIngredientsSection = React.forwardRef<HTMLElement, Props>(({ type, data }, ref) => {
+const BurgerIngredientsSection = forwardRef<HTMLElement, IProps>(({ type, data }, ref) => {
 
     return (
         <section ref={ref} className="mb-10">

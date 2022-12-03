@@ -6,20 +6,21 @@ export enum InputType {
     Password
 }
 
-export interface InputData {
+export interface IInputData {
     type: InputType;
     inputProps: {
         name: string;
-        type?: 'text' | 'email' | 'password';
         minLength: number;
         required: boolean;
-        placeholder?: string;
         value: string;
         onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+
+        type?: 'text' | 'email' | 'password';
+        placeholder?: string;
     };
 }
 
-export interface LinkRowData {
+export interface ILinkRowData {
     paragraphText: string;
     buttonText: string;
     onClick: () => void;

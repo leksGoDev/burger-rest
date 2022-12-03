@@ -1,14 +1,14 @@
 import { useState, useMemo } from "react";
 import type { ChangeEvent } from "react";
 
-import { InputData, InputType } from "../models/form";
+import { IInputData, InputType } from "../models/form";
 
-interface InputHookProps {
+interface IInputHookProps {
     type: InputType;
-    inputProps: Omit<InputData["inputProps"], "required" | "minLength" | "value" | "onChange">;
+    inputProps: Omit<IInputData["inputProps"], "required" | "minLength" | "value" | "onChange">;
 }
 
-export const useInput = (props: InputHookProps) => {
+export const useInput = (props: IInputHookProps) => {
     const { type, inputProps } = props;
     const [state, setState] = useState("");
 

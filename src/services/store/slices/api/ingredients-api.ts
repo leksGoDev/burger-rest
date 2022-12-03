@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Ingredient } from "../../../../models/ingredient";
-import { IngredientsResponse } from "../../../../models/api";
-import { AppDispatch } from "../../index";
+import { IIngredient } from "../../../../models/ingredient";
+import { IIngredientsResponse } from "../../../../models/api";
+import { TAppDispatch } from "../../index";
 import { request } from "../../../api/request";
 
-interface State {
+interface IState {
     isLoading: boolean;
     hasError: boolean;
-    data: Ingredient[];
+    data: IIngredient[];
 }
 
-const initialState: State = {
+const initialState: IState = {
     isLoading: false,
     hasError: false,
     data: [],
@@ -29,7 +29,7 @@ const ingredientsApi = createSlice({
             state.isLoading = false;
             state.data = [];
         },
-        received(state, action: PayloadAction<Ingredient[]>) {
+        received(state, action: PayloadAction<IIngredient[]>) {
             state.hasError = false;
             state.isLoading = false;
             state.data = action.payload;
@@ -39,11 +39,11 @@ const ingredientsApi = createSlice({
 
 const { loading, failed, received } = ingredientsApi.actions;
 
-export const fetchIngredients = (signal: AbortController["signal"]) => async (dispatch: AppDispatch) => {
+export const fetchIngredients = (signal: AbortController["signal"]) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const { data } = await request<IngredientsResponse>('ingredients', { signal });
+        const { data } = await request<IIngredientsResponse>('ingredients', { signal });
         dispatch(received(data));
     }
     catch (err) {

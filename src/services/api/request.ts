@@ -1,9 +1,9 @@
-import { TokenBodyData, Response as ApiResponse, TokenResponse } from "../../models/api";
+import { ITokenBodyData, IResponse as IApiResponse, ITokenResponse } from "../../models/api";
 import { deleteTokens, getCookie, saveTokens } from "./cookie";
 
 const BASE_URL = 'https://norma.nomoreparties.space/api/';
 
-interface AuthResponsePartial extends ApiResponse {
+interface IAuthResponsePartial extends IApiResponse {
     accessToken?: string;
     refreshToken?: string;
 }
@@ -23,8 +23,8 @@ export const createOptionsWithJSON = <TBodyData>(method: "POST" | "PATCH", bodyD
 });
 
 const checkOk = (res: Response) => res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-const checkSuccess = (data: ApiResponse) => data.success ? data : Promise.reject(data);
-const checkCookie = (data: AuthResponsePartial) => {
+const checkSuccess = (data: IApiResponse) => data.success ? data : Promise.reject(data);
+const checkCookie = (data: IAuthResponsePartial) => {
     const { accessToken, refreshToken } = data;
     if (accessToken && refreshToken) {
         saveTokens(accessToken, refreshToken)
@@ -61,8 +61,8 @@ export const requestWithAuth = async <TResponse>(url: string, options: any = {})
 
         try {
             const token = getCookie("refreshToken") ?? "";
-            const tokenOptions = createOptionsWithJSON<TokenBodyData>("POST", { token });
-            const { accessToken } = await request<TokenResponse>("auth/token", tokenOptions);
+            const tokenOptions = createOptionsWithJSON<ITokenBodyData>("POST", { token });
+            const { accessToken } = await request<ITokenResponse>("auth/token", tokenOptions);
             options.headers = {
                 ...options.headers,
                 "Authorization": accessToken

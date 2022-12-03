@@ -4,22 +4,23 @@ import { Route, Redirect,  } from "react-router-dom";
 import type { RouteComponentProps } from "react-router-dom";
 import type { Location } from "history";
 
+import { TFromState } from "../../models/router";
 import { useAppSelector } from "../../hooks";
 
-interface Props {
+interface IProps {
     component: ReactNode;
-    exact?: boolean;
     path: string;
     onlyUnAuth: boolean;
+
+    exact?: boolean;
 }
 
-const ProtectedRoute: FC<Props> = ({ component, onlyUnAuth, ...props  }) => {
+const ProtectedRoute: FC<IProps> = ({ component, onlyUnAuth, ...props  }) => {
     const { user } = useAppSelector(store => store.authApi);
 
     const chooseRender = useCallback(
-        (props: RouteComponentProps) => {
-            const { location } = props;
-            const { state } = location as Location<{ from?: Location<unknown>; }>;
+        ({ location }: RouteComponentProps) => {
+            const { state } = location as Location<TFromState>;
 
             if (onlyUnAuth) {
                 return !user ? (

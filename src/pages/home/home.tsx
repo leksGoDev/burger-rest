@@ -9,7 +9,7 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 const Home: FC = () => {
 
     return (
-        <main className={styles.main}>
+        <main className={styles.content}>
             <DndProvider backend={HTML5Backend}>
                 <BurgerIngredients />
                 <BurgerConstructor />

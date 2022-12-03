@@ -1,18 +1,19 @@
-import * as React from 'react';
+import { useMemo, useCallback } from "react";
+import type { FC } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 
 import styles from './burger-ingredients-card.module.css'
-import { Ingredient, IngredientType } from "../../../models/ingredient";
+import { IIngredient, IngredientType } from "../../../models/ingredient";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
 import { setDetails } from "../../../services/store/slices/ingredient-details";
 
-interface Props {
-    ingredient: Ingredient;
+interface IProps {
+    ingredient: IIngredient;
 }
 
-const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
+const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
     const { _id, type, image, price, name, calories, proteins, fat, carbohydrates, image_large } = ingredient;
 
     const location = useLocation();
@@ -20,12 +21,12 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
 
     const { bun, stuffing } = useAppSelector(store => store.burgerConstructor);
 
-    const [, drag] = useDrag<Ingredient>({
+    const [, drag] = useDrag<IIngredient>({
         type: type === IngredientType.bun ? type : 'stuffing',
         item: {...ingredient}
     }, [ingredient]);
 
-    const count = React.useMemo(() => {
+    const count = useMemo(() => {
         if (type === IngredientType.bun) {
             return bun?._id === _id ? 2 : 0;
         } else {
@@ -33,7 +34,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
         }
     }, [type, _id, bun, stuffing]);
 
-    const handleOpenDetails = React.useCallback(
+    const handleOpenDetails = useCallback(
         () => dispatch(
             setDetails({ image_large, name, calories, proteins, fat, carbohydrates })
         ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
@@ -41,9 +42,7 @@ const BurgerIngredientsCard: React.FC<Props> = ({ ingredient }) => {
     return (
         <Link to={{
             pathname: `/ingredients/${_id}`,
-            state: {
-                background: location
-            }
+            state: { background: location }
         }}>
             <li>
                 <figure

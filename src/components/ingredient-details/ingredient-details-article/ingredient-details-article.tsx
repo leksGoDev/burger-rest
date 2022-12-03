@@ -1,14 +1,14 @@
-import * as React from 'react';
+import type { FC } from 'react';
 
 import styles from "./ingredient-details-article.module.css";
 
-interface Props {
+interface IProps {
     name: string;
     value: number;
     width: number;
 }
 
-const IngredientDetailsArticle: React.FC<Props> = ({ name, value, width }) => {
+const IngredientDetailsArticle: FC<IProps> = ({ name, value, width }) => {
 
     return (
         <article className={styles.article} style={{ width: `${width}px` }}>

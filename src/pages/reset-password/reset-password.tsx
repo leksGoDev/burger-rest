@@ -1,10 +1,10 @@
 import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
-import type { Location } from "history";
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import Form from "../../components/form/form";
 import { InputType } from "../../models/form";
+import { TFromState } from "../../models/router";
 import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
 import { resetPassword } from "../../services/store/slices/api/pass-reset-api";
 
@@ -24,7 +24,7 @@ const ResetPassword: FC = () => {
         }
     });
     const { isMailSent } = useAppSelector(store => ({ ...store.passResetApi, ...store.authApi }));
-    const { state } = useLocation<{ from?: Location<unknown>; }>();
+    const { state } = useLocation<TFromState>();
     const history = useHistory();
     const dispatch = useAppDispatch();
 

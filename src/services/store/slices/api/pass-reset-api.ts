@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { AppDispatch } from "../../index";
-import { CheckEmailBodyData, PassResetBodyData, PassResetResponse } from "../../../../models/api";
+import { TAppDispatch } from "../../index";
+import { ICheckEmailBodyData, IPassResetBodyData, IPassResetResponse } from "../../../../models/api";
 import { createOptionsWithJSON, request } from "../../../api/request";
 
-interface State {
+interface IState {
     isLoading: boolean;
     hasError: boolean;
     isMailSent: boolean;
@@ -12,7 +12,7 @@ interface State {
 
 const BASE_URL = "password-reset";
 
-const initialState: State = {
+const initialState: IState = {
     isLoading: false,
     hasError: false,
     isMailSent: false
@@ -44,12 +44,12 @@ const passResetApi = createSlice({
 
 const { loading, failed, sent, reset } = passResetApi.actions;
 
-export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
+export const checkEmail = (email: string) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<CheckEmailBodyData>("POST", { email })
-        await request<PassResetResponse>(`${BASE_URL}/`, options);
+        const options = createOptionsWithJSON<ICheckEmailBodyData>("POST", { email })
+        await request<IPassResetResponse>(`${BASE_URL}/`, options);
         dispatch(sent());
     }
     catch (err) {
@@ -57,12 +57,12 @@ export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
     }
 };
 
-export const resetPassword = (password: string, token: string) => async (dispatch: AppDispatch) => {
+export const resetPassword = (password: string, token: string) => async (dispatch: TAppDispatch) => {
     dispatch(loading());
 
     try {
-        const options = createOptionsWithJSON<PassResetBodyData>("POST", { password, token })
-        await request<PassResetResponse>(`${BASE_URL}/reset`, options);
+        const options = createOptionsWithJSON<IPassResetBodyData>("POST", { password, token })
+        await request<IPassResetResponse>(`${BASE_URL}/reset`, options);
         dispatch(reset());
     }
     catch (err) {

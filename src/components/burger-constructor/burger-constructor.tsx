@@ -3,7 +3,7 @@ import type { FC, SyntheticEvent } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from './burger-constructor.module.css'
+import styles from './burger-constructor.module.css';
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderDetails from "../order-details/order-details";

@@ -1,3 +1,5 @@
 .placement {
     composes: placement from "../app-header.module.css";
+    justify-content: space-between;
+    gap: 8px;
 }
