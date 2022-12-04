@@ -19,16 +19,16 @@ const initialState: IState = {
 
 export const checkEmail = createAsyncThunk<void, ICheckEmailBodyData>(
     'passResetApi/checkEmail',
-    async ({ email }) => {
-        const options = createOptionsWithJSON<ICheckEmailBodyData>("POST", { email })
+    async (data) => {
+        const options = createOptionsWithJSON<ICheckEmailBodyData>("POST", data)
         await request<IPassResetResponse>(`${BASE_URL}/`, options);
     }
 );
 
 export const resetPassword = createAsyncThunk<void, IPassResetBodyData>(
     'passResetApi/resetPassword',
-    async ({ password, token }) => {
-        const options = createOptionsWithJSON<IPassResetBodyData>("POST", { password, token })
+    async (data) => {
+        const options = createOptionsWithJSON<IPassResetBodyData>("POST", data)
         await request<IPassResetResponse>(`${BASE_URL}/reset`, options);
     }
 );

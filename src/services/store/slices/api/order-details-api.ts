@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { IOrder } from "../../../../models/order";
-import { IIngredient } from "../../../../models/ingredient";
 import { IOrderResponse, IOrderBodyData } from "../../../../models/api";
 import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";
 
@@ -17,13 +16,13 @@ const initialState: IState = {
     data: null
 };
 
-export const makeOrder = createAsyncThunk<IOrder, IIngredient["_id"][]>(
+export const makeOrder = createAsyncThunk<IOrder, IOrderBodyData>(
     'orderDetailsApi/makeOrder',
-    async (ingredients) => {
-        const options = createOptionsWithJSON<IOrderBodyData>("POST", { ingredients });
-        const data = await requestWithAuth<IOrderResponse>('orders', options);
+    async (data) => {
+        const options = createOptionsWithJSON<IOrderBodyData>("POST", data);
+        const res = await requestWithAuth<IOrderResponse>('orders', options);
 
-        return data;
+        return res;
     }
 );
 

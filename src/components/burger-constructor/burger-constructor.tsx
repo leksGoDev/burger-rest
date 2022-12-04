@@ -31,13 +31,14 @@ const BurgerConstructor: FC = () => {
 
             if (user) {
                 if (bun && !!stuffing.length) {
-                    dispatch(makeOrder(
-                        [
-                            bun._id,
-                            ...stuffing.map(({ _id }) => _id),
-                            bun._id
-                        ]
-                    )).catch(() => {
+                    const ingredientsArr = [
+                        bun._id,
+                        ...stuffing.map(({ _id }) => _id),
+                        bun._id
+                    ];
+                    dispatch(makeOrder({
+                        ingredients: ingredientsArr
+                    })).catch(() => {
                         dispatch(checkAuth())
                     });
                 }

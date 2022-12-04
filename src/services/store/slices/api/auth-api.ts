@@ -22,20 +22,20 @@ const initialState: IState = {
     user: null
 };
 
-export const register = createAsyncThunk<TUserInfo, IUser>(
+export const register = createAsyncThunk<TUserInfo, IRegisterBodyData>(
     'authApi/register',
-    async ({ email, password, name }) => {
-        const options = createOptionsWithJSON<IRegisterBodyData>("POST", { email, password, name });
+    async (data) => {
+        const options = createOptionsWithJSON<IRegisterBodyData>("POST", data);
         const { user } = await request<IAuthResponse>(`${BASE_URL}/register`, options);
 
         return user;
     }
 );
 
-export const login = createAsyncThunk<TUserInfo, Omit<IUser, "name">>(
+export const login = createAsyncThunk<TUserInfo, ILoginBodyData>(
     'authApi/login',
-    async ({ email, password}) => {
-        const options = createOptionsWithJSON<ILoginBodyData>("POST", { email, password });
+    async (data) => {
+        const options = createOptionsWithJSON<ILoginBodyData>("POST", data);
         const { user } = await request<IAuthResponse>(`${BASE_URL}/login`, options);
 
         return user;
@@ -63,8 +63,8 @@ export const fetchUser = createAsyncThunk<TUserInfo, AbortController["signal"]>(
 
 export const patchUser = createAsyncThunk<TUserInfo, IUser>(
     'authApi/patchUser',
-    async ({ email, password, name }) => {
-        const options = createOptionsWithJSON<IUser>("PATCH", { email, password, name });
+    async (data) => {
+        const options = createOptionsWithJSON<IUser>("PATCH", data);
         const { user } = await requestWithAuth<IUserResponse>(`${BASE_URL}/user`, options);
 
         return user;
