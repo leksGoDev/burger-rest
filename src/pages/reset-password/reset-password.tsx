@@ -29,7 +29,7 @@ const ResetPassword: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => dispatch(resetPassword(password, code)),
+        () => dispatch(resetPassword({ password, token: code })),
         [dispatch, password, code]
     );
 

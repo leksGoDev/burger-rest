@@ -26,7 +26,7 @@ const ForgotPassword: FC = () => {
     }, [history, isMailSent]);
 
     const handleSubmit = useCallback(
-        () => dispatch(checkEmail(email)),
+        () => dispatch(checkEmail({ email })),
         [dispatch, email]
     );
 
