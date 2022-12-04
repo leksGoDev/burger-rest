@@ -24,7 +24,7 @@ const Login: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => dispatch(login(email, password)),
+        () => dispatch(login({ email, password })),
         [dispatch, email, password]
     );
 

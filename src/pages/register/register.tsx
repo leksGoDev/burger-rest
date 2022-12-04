@@ -32,7 +32,7 @@ const Register: FC = () => {
     const history = useHistory();
 
     const handleSubmit = useCallback(
-        () => dispatch(register(email, password, name)),
+        () => dispatch(register({ email, password, name })),
         [dispatch, email, password, name]
     );
 
