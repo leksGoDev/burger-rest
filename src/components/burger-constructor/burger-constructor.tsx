@@ -9,6 +9,7 @@ import BurgerConstructorList from "./burger-constructor-list/burger-constructor-
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
+import { checkAuth } from "../../services/store/slices/api/auth-api";
 
 const BurgerConstructor: FC = () => {
     const history = useHistory();
@@ -30,9 +31,15 @@ const BurgerConstructor: FC = () => {
 
             if (user) {
                 if (bun && !!stuffing.length) {
-                    dispatch(
-                        makeOrder([bun._id, ...stuffing.map(({ _id }) => _id), bun._id])
-                    );
+                    dispatch(makeOrder(
+                        [
+                            bun._id,
+                            ...stuffing.map(({ _id }) => _id),
+                            bun._id
+                        ]
+                    )).catch(() => {
+                        dispatch(checkAuth())
+                    });
                 }
             } else {
                 history.push("/login", { from: location });
