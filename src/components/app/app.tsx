@@ -7,7 +7,7 @@ import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient } from "../../pages";
+import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
 import { useAppDispatch } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { deleteDetails } from "../../services/store/slices/ingredient-details";
@@ -43,6 +43,8 @@ const App: FC = () => {
 
             <Switch location={background ?? location}>
                 <Route exact path="/" component={Home} />
+
+                <Route path="/feed" component={Feed} />
 
                 <ProtectedRoute
                     exact

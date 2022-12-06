@@ -30,10 +30,10 @@ const AppHeader = () => {
                     />
 
                     <AppHeaderElement
-                        textInactive={!checkActive("mock", true)}
-                        icon={<ListIcon type={checkIconType("mock", true)} />}
+                        textInactive={!checkActive("feed")}
+                        icon={<ListIcon type={checkIconType("feed")} />}
                         text="Лента заказов"
-                        linkRoute="mock"
+                        linkRoute="/feed"
                     />
                 </section>
 
