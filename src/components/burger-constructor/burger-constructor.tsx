@@ -54,7 +54,7 @@ const BurgerConstructor: FC = () => {
 
     return (
         <article className={styles.article}>
-            <section className="mt-25 mb-10 ml-4">
+            <section className="mb-10 ml-4">
                 <BurgerConstructorList bun={bun} stuffing={stuffing} />
             </section>
 

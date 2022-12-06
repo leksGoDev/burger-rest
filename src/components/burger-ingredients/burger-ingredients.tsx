@@ -49,9 +49,7 @@ const BurgerIngredients: FC = () => {
 
     return (
         <article className={styles.article}>
-            <section className="mt-10 mb-10">
-                <p className="text text_type_main-large mb-5">Соберите бургер</p>
-
+            <section className="mb-10">
                 <nav className={styles.tabs}>
                     <Tab
                         value={IngredientTypeName[IngredientType.bun]}

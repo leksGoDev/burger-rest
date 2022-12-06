@@ -9,12 +9,18 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 const Home: FC = () => {
 
     return (
-        <main className={styles.content}>
-            <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients />
-                <BurgerConstructor />
-            </DndProvider>
-        </main>
+        <section className={styles.section}>
+            <header className="mt-10 mb-5">
+                <p className="text text_type_main-large">Соберите бургер</p>
+            </header>
+
+            <main className={styles.main}>
+                <DndProvider backend={HTML5Backend}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </DndProvider>
+            </main>
+        </section>
     );
 };
 
