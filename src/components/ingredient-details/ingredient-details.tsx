@@ -54,7 +54,7 @@ const IngredientDetails: FC = () => {
                         <p className="text text_type_main-large">Детали ингредиента</p>
                     </header>
 
-                    <main>
+                    <article>
                         <figure className={styles.figure}>
                             <img className="pl-5 pr-5 mb-4" src={image_large} alt="image" />
 
@@ -72,7 +72,7 @@ const IngredientDetails: FC = () => {
                                 <IngredientDetailsArticle name="Углеводы, г" value={carbohydrates} width={112} />
                             </figcaption>
                         </figure>
-                    </main>
+                    </article>
                 </>
             )}
         </>

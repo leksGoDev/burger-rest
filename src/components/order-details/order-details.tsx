@@ -28,19 +28,19 @@ const OrderDetails: FC = () => {
         <>
             {createWrapForModal(
                 <>
-                    <main className={styles.main}>
+                    <article className={styles.article}>
                         <p className="text text_type_digits-large mb-8">{data.order.number}</p>
 
                         <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
 
                         <img src={doneImg} alt="image" />
-                    </main>
+                    </article>
 
-                    <footer className="mt-15">
+                    <aside className="mt-15">
                         <p className={`${styles.text} text text_type_main-default mb-2`}>Ваш заказ начали готовить</p>
 
                         <p className={`${styles.text} text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
-                    </footer>
+                    </aside>
                 </>
             )}
         </>

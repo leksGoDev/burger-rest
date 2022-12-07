@@ -27,7 +27,7 @@ const Ingredient: FC = () => {
     }, [id, data, dispatch]);
 
     return (
-        <main className={styles.main}>
+        <main className={styles.content}>
             <IngredientDetails />
         </main>
     );

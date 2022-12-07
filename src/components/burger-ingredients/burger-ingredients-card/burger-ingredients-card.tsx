@@ -40,11 +40,11 @@ const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
         ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
 
     return (
-        <Link to={{
-            pathname: `/ingredients/${_id}`,
-            state: { background: location }
-        }}>
-            <li>
+        <li>
+            <Link to={{
+                pathname: `/ingredients/${_id}`,
+                state: { background: location }
+            }}>
                 <figure
                     ref={drag}
                     className={styles.content}
@@ -63,8 +63,8 @@ const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
                         <p className={`${styles.name} text text_type_main-default pb-6`}>{name}</p>
                     </figcaption>
                 </figure>
-            </li>
-        </Link>
+            </Link>
+        </li>
     );
 };
 

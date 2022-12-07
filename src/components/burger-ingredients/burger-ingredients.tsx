@@ -12,7 +12,7 @@ const BurgerIngredients: FC = () => {
 
     const [tabValue, setTabValue] = useState<IngredientType>(IngredientType.bun);
 
-    const parentRef = useRef<HTMLElement>(null);
+    const parentRef = useRef<HTMLDivElement>(null);
     const bunsSectionRef = useRef<HTMLElement>(null);
     const saucesSectionRef = useRef<HTMLElement>(null);
     const mainSectionRef = useRef<HTMLElement>(null);
@@ -49,39 +49,37 @@ const BurgerIngredients: FC = () => {
 
     return (
         <article className={styles.article}>
-            <section className="mb-10">
-                <nav className={styles.tabs}>
-                    <Tab
-                        value={IngredientTypeName[IngredientType.bun]}
-                        active={tabValue === IngredientType.bun}
-                        onClick={handleSwitchTab.bind(null, IngredientType.bun)}
-                    >
-                        {IngredientTypeName[IngredientType.bun]}
-                    </Tab>
-                    <Tab
-                        value={IngredientTypeName[IngredientType.sauce]}
-                        active={tabValue === IngredientType.sauce}
-                        onClick={handleSwitchTab.bind(null, IngredientType.sauce)}
-                    >
-                        {IngredientTypeName[IngredientType.sauce]}
-                    </Tab>
-                    <Tab
-                        value={IngredientTypeName[IngredientType.main]}
-                        active={tabValue === IngredientType.main}
-                        onClick={handleSwitchTab.bind(null, IngredientType.main)}
-                    >
-                        {IngredientTypeName[IngredientType.main]}
-                    </Tab>
-                </nav>
-            </section>
+            <nav className={`${styles.tabs} mb-10`}>
+                <Tab
+                    value={IngredientTypeName[IngredientType.bun]}
+                    active={tabValue === IngredientType.bun}
+                    onClick={handleSwitchTab.bind(null, IngredientType.bun)}
+                >
+                    {IngredientTypeName[IngredientType.bun]}
+                </Tab>
+                <Tab
+                    value={IngredientTypeName[IngredientType.sauce]}
+                    active={tabValue === IngredientType.sauce}
+                    onClick={handleSwitchTab.bind(null, IngredientType.sauce)}
+                >
+                    {IngredientTypeName[IngredientType.sauce]}
+                </Tab>
+                <Tab
+                    value={IngredientTypeName[IngredientType.main]}
+                    active={tabValue === IngredientType.main}
+                    onClick={handleSwitchTab.bind(null, IngredientType.main)}
+                >
+                    {IngredientTypeName[IngredientType.main]}
+                </Tab>
+            </nav>
 
-            <section ref={parentRef} className={styles.content} onScroll={handleScroll}>
+            <div ref={parentRef} className={styles.content} onScroll={handleScroll}>
                 <BurgerIngredientsSection ref={bunsSectionRef} type={IngredientType.bun} data={buns} />
 
                 <BurgerIngredientsSection ref={saucesSectionRef} type={IngredientType.sauce} data={sauces} />
 
                 <BurgerIngredientsSection ref={mainSectionRef} type={IngredientType.main} data={main} />
-            </section>
+            </div>
         </article>
     );
 };

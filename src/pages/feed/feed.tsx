@@ -14,8 +14,8 @@ const Feed: FC = () => {
                 _id: "6390b40199a25c001cd64f1b",
                 number: "034535",
                 name: "Бессмертный флюоресцентный бургер",
-                createdAt: "2022-12-08T14:43:22.587Z",
-                updatedAt: "2022-12-08T14:43:22.587Z",
+                createdAt: "2022-12-07T14:43:22.587Z",
+                updatedAt: "2022-12-07T14:43:22.587Z",
                 status: OrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",

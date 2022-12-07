@@ -13,16 +13,18 @@ const BurgerIngredientsSection = forwardRef<HTMLElement, IProps>(({ type, data }
 
     return (
         <section ref={ref} className="mb-10">
-            <p className="text text_type_main-medium mb-6">{IngredientTypeName[type]}</p>
+            <header className="mb-6">
+                <p className="text text_type_main-medium">{IngredientTypeName[type]}</p>
+            </header>
 
-            <ol className={`${styles.list} pl-4 pr-2`}>
+            <menu className={`${styles.list} pl-4 pr-2`}>
                 {data.map(element =>
                     <BurgerIngredientsCard
                         key={element._id}
                         ingredient={element}
                     />
                 )}
-            </ol>
+            </menu>
         </section>
     );
 });

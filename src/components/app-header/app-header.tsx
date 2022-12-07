@@ -37,18 +37,16 @@ const AppHeader = () => {
                     />
                 </section>
 
-                <section className={styles.logo}>
+                <article className={styles.logo}>
                     <Logo />
-                </section>
+                </article>
 
-                <section>
-                    <AppHeaderElement
-                        textInactive={!checkActive("/profile")}
-                        icon={<ProfileIcon type={checkIconType("/profile")} />}
-                        text="Личный кабинет"
-                        linkRoute="/profile"
-                    />
-                </section>
+                <AppHeaderElement
+                    textInactive={!checkActive("/profile")}
+                    icon={<ProfileIcon type={checkIconType("/profile")} />}
+                    text="Личный кабинет"
+                    linkRoute="/profile"
+                />
             </div>
         </header>
     );

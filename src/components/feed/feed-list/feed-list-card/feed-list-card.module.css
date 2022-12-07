@@ -1,0 +1,23 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.placement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header {
+    composes: placement;
+}
+
+.name {
+    composes: placement;
+}
+
+.imgAndCost {
+    composes: placement;
+}

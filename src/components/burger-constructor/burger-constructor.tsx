@@ -58,27 +58,25 @@ const BurgerConstructor: FC = () => {
                 <BurgerConstructorList bun={bun} stuffing={stuffing} />
             </section>
 
-            <section className="mr-4">
-                <form className={styles.form}>
-                    <p className="text text_type_digits-medium mr-2">
-                        {totalPrice}
-                    </p>
+            <form className={`${styles.form} mr-4`}>
+                <p className="text text_type_digits-medium mr-2">
+                    {totalPrice}
+                </p>
 
-                    <span className={`${styles.svgWrap} mr-10`}>
+                <span className={`${styles.svgWrap} mr-10`}>
                             <CurrencyIcon type="primary" />
                         </span>
 
-                    <Button
-                        type="primary"
-                        size="large"
-                        htmlType="submit"
-                        disabled={isLoading}
-                        onClick={handleSubmitButton}
-                    >
-                        Оформить заказ
-                    </Button>
-                </form>
-            </section>
+                <Button
+                    type="primary"
+                    size="large"
+                    htmlType="submit"
+                    disabled={isLoading}
+                    onClick={handleSubmitButton}
+                >
+                    Оформить заказ
+                </Button>
+            </form>
 
             {data &&
                 <Modal onClose={handleCloseDetails}>

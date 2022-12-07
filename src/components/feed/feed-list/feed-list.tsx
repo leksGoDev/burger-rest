@@ -12,11 +12,13 @@ const FeedList: FC<Props> = ({ orders }) => {
 
     return (
         <article className={styles.article}>
-            {
-                orders.map(order =>
-                    <FeedListCard key={order._id} {...order} />
-                )
-            }
+            <ol>
+                {
+                    orders.map(order =>
+                        <FeedListCard key={order._id} {...order} />
+                    )
+                }
+            </ol>
         </article>
     );
 };

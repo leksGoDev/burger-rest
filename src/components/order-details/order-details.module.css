@@ -3,7 +3,7 @@
     padding: 120px 100px 120px 100px;
 }
 
-.main {
+.article {
     display: flex;
     flex-direction: column;
     align-items: center;
