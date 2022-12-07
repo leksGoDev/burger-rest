@@ -1,0 +1,3 @@
+.article {
+    composes: article from '../../app/app.module.css';
+}
