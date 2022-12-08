@@ -1,0 +1,12 @@
+.content {
+    width: 280px;
+}
+
+.list {
+    padding-top: 24px;
+    max-height: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-wrap: wrap;
+}

@@ -1,3 +1,12 @@
 .article {
     composes: article from '../../app/app.module.css';
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.orders {
+    display: flex;
+    gap: 32px;
 }

@@ -147,7 +147,7 @@ const Feed: FC = () => {
 
             <main className={styles.main}>
                 <FeedList orders={data.orders} />
-                <FeedDashboard />
+                <FeedDashboard data={data} />
             </main>
         </section>
     );
