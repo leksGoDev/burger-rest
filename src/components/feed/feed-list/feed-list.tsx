@@ -12,7 +12,7 @@ const FeedList: FC<Props> = ({ orders }) => {
 
     return (
         <article className={styles.article}>
-            <ol>
+            <ol className={styles.list}>
                 {
                     orders.map(order =>
                         <FeedListCard key={order._id} {...order} />

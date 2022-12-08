@@ -1,3 +1,18 @@
 .article {
     composes: article from '../../app/app.module.css';
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    composes: scroll from '../../app/app.module.css';
+    padding-right: 8px;
+    height: 892px;
+    overflow: auto;
+}
+
+.list::-webkit-scrollbar-track {
+    margin-bottom: 68px;
+}
