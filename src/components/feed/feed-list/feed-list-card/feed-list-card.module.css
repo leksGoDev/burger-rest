@@ -1,3 +1,10 @@
+.wrap {
+    background: #1C1C21;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    padding: 24px;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -10,7 +17,7 @@
     align-items: center;
 }
 
-.header {
+.numAndDate {
     composes: placement;
 }
 
@@ -20,4 +27,9 @@
 
 .imgAndCost {
     composes: placement;
+}
+
+.cost {
+    composes: placement;
+    gap: 8px;
 }
