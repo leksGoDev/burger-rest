@@ -9,7 +9,7 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 const Home: FC = () => {
 
     return (
-        <section className={styles.section}>
+        <section className={styles.wrap}>
             <header className="mt-10 mb-5">
                 <p className="text text_type_main-large">Соберите бургер</p>
             </header>

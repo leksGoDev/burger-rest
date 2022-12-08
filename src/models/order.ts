@@ -8,8 +8,10 @@ export interface INewOrder {
 }
 
 export enum OrderStatus {
+    created = "created",
+    pending = "pending",
     done = "done",
-    pending = "pending"
+    cancelled = "cancelled"
 }
 
 export interface IOrder {

@@ -54,9 +54,11 @@ const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
 
                     <img className="pl-4 pr-4" src={image} alt="image" />
 
-                    <figcaption className={styles.price}>
-                        <p className="text text_type_digits-default pr-2">{price}</p>
-                        <CurrencyIcon type="primary" />
+                    <figcaption>
+                        <article className={styles.price}>
+                            <p className="text text_type_digits-default pr-2">{price}</p>
+                            <CurrencyIcon type="primary" />
+                        </article>
                     </figcaption>
 
                     <figcaption>

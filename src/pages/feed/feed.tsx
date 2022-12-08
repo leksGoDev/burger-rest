@@ -22,6 +22,12 @@ const Feed: FC = () => {
                     "60d3b41abdacab0026a733c8",
                     "60d3b41abdacab0026a733d2",
                     "60d3b41abdacab0026a733d0",
+                    "60d3b41abdacab0026a733ce",
+                    "60d3b41abdacab0026a733d4",
+                    "60d3b41abdacab0026a733c7",
+                    "60d3b41abdacab0026a733c8",
+                    "60d3b41abdacab0026a733d2",
+                    "60d3b41abdacab0026a733d0",
                     "60d3b41abdacab0026a733ce"
                 ]
             }
@@ -29,7 +35,7 @@ const Feed: FC = () => {
     };
 
     return (
-        <section className={styles.section}>
+        <section className={styles.wrap}>
             <header className="mt-10 mb-5">
                 <p className="text text_type_main-large">
                     Лента заказов
