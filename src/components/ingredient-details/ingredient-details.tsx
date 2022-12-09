@@ -11,14 +11,14 @@ import { setDetails } from "../../services/store/slices/ingredient-details";
 const IngredientDetails: FC = () => {
     const { id } = useParams<{ id: string }>();
     const { state } = useLocation<{ background?: Location<unknown> }>();
-    const { hasDeallocated, details, data } = useAppSelector(
+    const { hasDeallocated, details, data: ingredientsAll } = useAppSelector(
         store => ({ ...store.ingredientDetails, ...store.ingredientsApi })
     );
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!details && !hasDeallocated) {
-            const ingredient = data.find(entry => entry._id === id);
+            const ingredient = ingredientsAll.find(entry => entry._id === id);
             if (ingredient) {
                 const { image_large, name, calories, proteins, fat, carbohydrates } = ingredient;
                 dispatch(
@@ -26,7 +26,7 @@ const IngredientDetails: FC = () => {
                 );
             }
         }
-    }, [hasDeallocated, details, data, state, id, dispatch]);
+    }, [hasDeallocated, details, ingredientsAll, state, id, dispatch]);
 
     const createWrapForModal = useCallback(
         (component: ReactNode) => state?.background ?

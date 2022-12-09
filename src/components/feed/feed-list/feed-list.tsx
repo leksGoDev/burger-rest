@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 
 import styles from "./feed-list.module.css";
-import { IOrder } from "../../../models/order";
+import { IFeedOrder } from "../../../models/order";
 import FeedListCard from "./feed-list-card/feed-list-card";
 
 interface Props {
-    orders: IOrder[];
+    orders: IFeedOrder[];
 }
 
 const FeedList: FC<Props> = ({ orders }) => {

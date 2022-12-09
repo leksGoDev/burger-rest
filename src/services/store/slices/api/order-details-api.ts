@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { INewOrder } from "../../../../models/order";
-import { INewOrderResponse, IOrderBodyData } from "../../../../models/api";
+import { IOrder } from "../../../../models/order";
+import { IOrderResponse, IOrderBodyData } from "../../../../models/api";
 import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";
 
 interface IState {
     isLoading: boolean;
     hasError: boolean;
-    data: INewOrder | null;
+    data: IOrder | null;
 }
 
 const initialState: IState = {
@@ -16,11 +16,11 @@ const initialState: IState = {
     data: null
 };
 
-export const makeOrder = createAsyncThunk<INewOrder, IOrderBodyData>(
+export const makeOrder = createAsyncThunk<IOrder, IOrderBodyData>(
     'orderDetailsApi/makeOrder',
     async (data) => {
         const options = createOptionsWithJSON<IOrderBodyData>("POST", data);
-        const res = await requestWithAuth<INewOrderResponse>('orders', options);
+        const res = await requestWithAuth<IOrderResponse>('orders', options);
 
         return res;
     }

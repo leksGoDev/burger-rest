@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import styles from "./feed-dashboard.module.css";
-import { IFeedData, OrderStatus } from "../../../models/order";
+import { IFeedData, FeedOrderStatus } from "../../../models/order";
 import DashboardCounter from "./dashboard-counter/dashboard-counter";
 import DashboardOrdersGroup from "./dashboard-orders-group/dashboard-orders-group";
 
@@ -15,13 +15,13 @@ const FeedDashboard: FC<IProps> = ({ data }) => {
         <article className={styles.article}>
             <div className={styles.orders}>
                 <DashboardOrdersGroup
-                    type={OrderStatus.done}
+                    type={FeedOrderStatus.done}
                     title="Готовы:"
                     numbers={data.orders.map(({ number }) => number)}
                 />
 
                 <DashboardOrdersGroup
-                    type={OrderStatus.pending}
+                    type={FeedOrderStatus.pending}
                     title="В работе:"
                     numbers={data.orders.map(({ number }) => number)}
                 />

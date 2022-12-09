@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import styles from "./feed.module.css";
 import FeedList from "../../components/feed/feed-list/feed-list";
 import FeedDashboard from "../../components/feed/feed-dashboard/feed-dashboard";
-import { IFeedData, OrderStatus } from "../../models/order";
+import { IFeedData, FeedOrderStatus } from "../../models/order";
 
 const Feed: FC = () => {
     const data: IFeedData = {
@@ -16,7 +16,7 @@ const Feed: FC = () => {
                 name: "Бессмертный флюоресцентный бургер",
                 createdAt: "2022-12-07T14:43:22.587Z",
                 updatedAt: "2022-12-07T14:43:22.587Z",
-                status: OrderStatus.done,
+                status: FeedOrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",
                     "60d3b41abdacab0026a733c8",
@@ -37,7 +37,7 @@ const Feed: FC = () => {
                 name: "Бессмертный флюоресцентный бургер",
                 createdAt: "2022-12-07T14:43:22.587Z",
                 updatedAt: "2022-12-07T14:43:22.587Z",
-                status: OrderStatus.done,
+                status: FeedOrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",
                     "60d3b41abdacab0026a733c8",
@@ -58,7 +58,7 @@ const Feed: FC = () => {
                 name: "Бессмертный флюоресцентный бургер",
                 createdAt: "2022-12-07T14:43:22.587Z",
                 updatedAt: "2022-12-07T14:43:22.587Z",
-                status: OrderStatus.done,
+                status: FeedOrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",
                     "60d3b41abdacab0026a733c8",
@@ -78,7 +78,7 @@ const Feed: FC = () => {
                 name: "Бессмертный флюоресцентный бургер",
                 createdAt: "2022-12-07T14:43:22.587Z",
                 updatedAt: "2022-12-07T14:43:22.587Z",
-                status: OrderStatus.done,
+                status: FeedOrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",
                     "60d3b41abdacab0026a733c8",
@@ -98,7 +98,7 @@ const Feed: FC = () => {
                 name: "Бессмертный флюоресцентный бургер",
                 createdAt: "2022-12-07T14:43:22.587Z",
                 updatedAt: "2022-12-07T14:43:22.587Z",
-                status: OrderStatus.done,
+                status: FeedOrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",
                     "60d3b41abdacab0026a733c8",
@@ -119,7 +119,7 @@ const Feed: FC = () => {
                 name: "Бессмертный флюоресцентный бургер",
                 createdAt: "2022-12-07T14:43:22.587Z",
                 updatedAt: "2022-12-07T14:43:22.587Z",
-                status: OrderStatus.done,
+                status: FeedOrderStatus.done,
                 ingredients: [
                     "60d3b41abdacab0026a733c7",
                     "60d3b41abdacab0026a733c8",

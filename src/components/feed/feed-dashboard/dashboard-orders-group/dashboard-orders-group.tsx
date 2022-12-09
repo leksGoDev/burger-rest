@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
 import styles from "./dashboard-orders-group.module.css";
-import { IOrder, OrderStatus } from "../../../../models/order";
+import { IFeedOrder, FeedOrderStatus } from "../../../../models/order";
 
 interface IProps {
-    type: OrderStatus;
+    type: FeedOrderStatus;
     title: string;
-    numbers: IOrder["number"][];
+    numbers: IFeedOrder["number"][];
 }
 
 const DashboardOrdersGroup: FC<IProps> = ({ type, title, numbers }) => {
@@ -23,7 +23,7 @@ const DashboardOrdersGroup: FC<IProps> = ({ type, title, numbers }) => {
                         <li key={index}>
                             <p
                                 className="text text_type_digits-default"
-                                style={{ color: type === OrderStatus.done ? "#00CCCC" : "white" }}
+                                style={{ color: type === FeedOrderStatus.done ? "#00CCCC" : "white" }}
                             >
                                 {number}
                             </p>

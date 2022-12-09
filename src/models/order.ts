@@ -1,23 +1,23 @@
 import { IIngredient } from "./ingredient";
 
-export interface INewOrder {
+export interface IOrder {
     name: string;
     order: {
         number: number;
     };
 }
 
-export enum OrderStatus {
+export enum FeedOrderStatus {
     created = "created",
     pending = "pending",
     done = "done",
     cancelled = "cancelled"
 }
 
-export interface IOrder {
+export interface IFeedOrder {
     ingredients: IIngredient["_id"][];
     _id: string;
-    status: OrderStatus;
+    status: FeedOrderStatus;
     name: string;
     number: string;
     createdAt: string;
@@ -25,7 +25,7 @@ export interface IOrder {
 }
 
 export interface IFeedData {
-    orders: IOrder[];
+    orders: IFeedOrder[];
     total: number;
     totalToday: number;
 }

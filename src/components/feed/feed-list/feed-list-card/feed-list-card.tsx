@@ -3,12 +3,12 @@ import type { FC } from 'react';
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./feed-list-card.module.css";
-import { IOrder } from "../../../../models/order";
+import { IFeedOrder } from "../../../../models/order";
 import IngredientsIcons from "./ingredients-icons/ingredients-icons";
 import { useAppSelector } from "../../../../hooks";
 import { IngredientType } from "../../../../models/ingredient";
 
-interface IProps extends IOrder {
+interface IProps extends IFeedOrder {
 
 }
 
