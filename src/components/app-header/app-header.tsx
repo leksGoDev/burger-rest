@@ -1,11 +1,12 @@
 import { useCallback } from "react";
+import type { FC } from "react";
 import { useLocation} from "react-router-dom";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './app-header.module.css';
 import AppHeaderElement from "./app-header-element/app-header-element";
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
     const { pathname } = useLocation();
 
     const checkActive = useCallback(
