@@ -15,13 +15,13 @@ export enum FeedOrderStatus {
 }
 
 export interface IFeedOrder {
-    ingredients: IIngredient["_id"][];
     _id: string;
     status: FeedOrderStatus;
     name: string;
     number: string;
     createdAt: string;
     updatedAt: string;
+    ingredients: IIngredient["_id"][];
 }
 
 export interface IFeedData {

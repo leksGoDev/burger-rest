@@ -6,6 +6,7 @@ import ingredientDetails from "./slices/ingredient-details";
 import orderDetailsApi from "./slices/api/order-details-api";
 import authApi from "./slices/api/auth-api";
 import passResetApi from "./slices/api/pass-reset-api";
+import feedOrderDetails from "./slices/feed-order-details";
 
 export const store = configureStore({
     reducer: {
@@ -14,7 +15,8 @@ export const store = configureStore({
         ingredientsApi: ingredientsApi,
         orderDetailsApi: orderDetailsApi,
         authApi: authApi,
-        passResetApi: passResetApi
+        passResetApi: passResetApi,
+        feedOrderDetails: feedOrderDetails
     }
 });
 

@@ -22,13 +22,7 @@ const FeedListCard: FC<IProps> = ({ number, name, createdAt, ingredients  }) => 
     );
 
     const totalCost = useMemo(
-        () => ingredientsInfo.reduce((acc, curr) => {
-            if (curr) {
-                return ((curr.type === IngredientType.bun ? 2 * curr.price : curr.price) + acc);
-            } else {
-                return acc;
-            }
-        }, 0)
+        () => ingredientsInfo.reduce((acc, curr) => curr ? (curr.price + acc) : acc, 0)
         , [ingredientsInfo]);
 
     const ingredientsIcons = useMemo(
