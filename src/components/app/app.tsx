@@ -8,12 +8,13 @@ import ProtectedRoute from "../auth/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useRefreshIngredientDetails } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
-import { deleteDetails } from "../../services/store/slices/ingredient-details";
+import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
 import { fetchUser } from "../../services/store/slices/api/auth-api";
 
 const App: FC = () => {
+    useRefreshIngredientDetails();
     const dispatch = useAppDispatch();
     const location = useLocation<{ background?: Location<unknown> }>();
     const background = location.state?.background;
@@ -31,7 +32,7 @@ const App: FC = () => {
 
     const handleCloseDetails = useCallback(
         () => {
-            dispatch(deleteDetails());
+            dispatch(deleteIngredientDetails());
             history.goBack();
         },
         [dispatch, history]

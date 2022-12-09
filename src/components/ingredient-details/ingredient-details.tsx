@@ -1,32 +1,15 @@
-import { useEffect, useCallback, } from "react";
+import { useCallback, } from "react";
 import type { FC, ReactNode } from 'react';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import type { Location } from "history";
 
 import styles from "./ingredient-details.module.css";
-import { useAppSelector, useAppDispatch } from "../../hooks";
+import { useAppSelector } from "../../hooks";
 import IngredientDetailsArticle from "./ingredient-details-article/ingredient-details-article";
-import { setDetails } from "../../services/store/slices/ingredient-details";
 
 const IngredientDetails: FC = () => {
-    const { id } = useParams<{ id: string }>();
     const { state } = useLocation<{ background?: Location<unknown> }>();
-    const { hasDeallocated, details, data: ingredientsAll } = useAppSelector(
-        store => ({ ...store.ingredientDetails, ...store.ingredientsApi })
-    );
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (!details && !hasDeallocated) {
-            const ingredient = ingredientsAll.find(entry => entry._id === id);
-            if (ingredient) {
-                const { image_large, name, calories, proteins, fat, carbohydrates } = ingredient;
-                dispatch(
-                    setDetails({ image_large, name, calories, proteins, fat, carbohydrates })
-                );
-            }
-        }
-    }, [hasDeallocated, details, ingredientsAll, state, id, dispatch]);
+    const { details } = useAppSelector(store => store.ingredientDetails);
 
     const createWrapForModal = useCallback(
         (component: ReactNode) => state?.background ?

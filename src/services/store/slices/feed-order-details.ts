@@ -29,17 +29,17 @@ const feedOrderDetails = createSlice({
     name: 'feedOrderDetails',
     initialState: initialState,
     reducers: {
-        setDetails(state, action: PayloadAction<any>) {
+        setOrderDetails(state, action: PayloadAction<any>) {
             state.details = { ...action.payload };
             state.hasDeallocated = false;
         },
-        deleteDetails(state) {
+        deleteOrderDetails(state) {
             state.details = null;
             state.hasDeallocated = true;
         }
     }
 });
 
-export const { setDetails, deleteDetails } = feedOrderDetails.actions;
+export const { setOrderDetails, deleteOrderDetails } = feedOrderDetails.actions;
 
 export default feedOrderDetails.reducer;

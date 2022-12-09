@@ -18,17 +18,17 @@ const ingredientDetails = createSlice({
     name: 'ingredientDetails',
     initialState: initialState,
     reducers: {
-        setDetails(state, action: PayloadAction<TIngredientDetails>) {
+        setIngredientDetails(state, action: PayloadAction<TIngredientDetails>) {
             state.details = { ...action.payload };
             state.hasDeallocated = false;
         },
-        deleteDetails(state) {
+        deleteIngredientDetails(state) {
             state.details = null;
             state.hasDeallocated = true;
         }
     }
 });
 
-export const { setDetails, deleteDetails } = ingredientDetails.actions;
+export const { setIngredientDetails, deleteIngredientDetails } = ingredientDetails.actions;
 
 export default ingredientDetails.reducer;

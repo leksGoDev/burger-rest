@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import styles from "./ingredient.module.css";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import { deleteDetails } from "../../services/store/slices/ingredient-details";
+import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
 
 const Ingredient: FC = () => {
     const { details } = useAppSelector(store => store.ingredientDetails);
@@ -13,7 +13,7 @@ const Ingredient: FC = () => {
     useEffect(() => {
         return () => {
             if (details) {
-                dispatch(deleteDetails());
+                dispatch(deleteIngredientDetails());
             }
         }
     }, [dispatch, details]);
