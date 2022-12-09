@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import type { FC } from "react";
 import { useLocation} from "react-router-dom";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,7 +6,7 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import styles from './app-header.module.css';
 import AppHeaderElement from "./app-header-element/app-header-element";
 
-const AppHeader: FC = () => {
+const AppHeader: FC = memo(() => {
     const { pathname } = useLocation();
 
     const checkActive = useCallback(
@@ -51,6 +51,6 @@ const AppHeader: FC = () => {
             </div>
         </header>
     );
-};
+});
 
 export default AppHeader;

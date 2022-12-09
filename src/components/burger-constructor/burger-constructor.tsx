@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from "react";
+import { memo, useMemo, useCallback } from "react";
 import type { FC, SyntheticEvent } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,7 +11,7 @@ import Modal from "../modal/modal";
 import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
 import { checkAuth } from "../../services/store/slices/api/auth-api";
 
-const BurgerConstructor: FC = () => {
+const BurgerConstructor: FC = memo(() => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useAppDispatch();
@@ -84,6 +84,6 @@ const BurgerConstructor: FC = () => {
                 </Modal>}
         </article>
     );
-};
+});
 
 export default BurgerConstructor;

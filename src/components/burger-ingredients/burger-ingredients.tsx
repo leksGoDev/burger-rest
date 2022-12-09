@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useCallback } from "react";
+import { memo, useState, useRef, useMemo, useCallback } from "react";
 import type { FC, UIEvent as ReactUIEvent } from 'react';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -7,7 +7,7 @@ import { useAppSelector } from "../../hooks";
 import { IngredientType, IngredientTypeName } from "../../models/ingredient";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
 
-const BurgerIngredients: FC = () => {
+const BurgerIngredients: FC = memo(() => {
     const { data } = useAppSelector(store => store.ingredientsApi);
 
     const [tabValue, setTabValue] = useState<IngredientType>(IngredientType.bun);
@@ -82,6 +82,6 @@ const BurgerIngredients: FC = () => {
             </div>
         </article>
     );
-};
+});
 
 export default BurgerIngredients;
