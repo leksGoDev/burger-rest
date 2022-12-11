@@ -17,19 +17,24 @@
     align-items: center;
 }
 
-.numAndDate {
-    composes: placement;
-}
-
-.name {
-    composes: placement;
-}
-
-.imgAndCost {
-    composes: placement;
-}
-
 .cost {
     composes: placement;
     gap: 8px;
+}
+
+.iconsRow {
+    display: flex;
+}
+
+.iconWrap {
+    position: relative;
+    margin-right: -16px;
+}
+
+.counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #F2F2F3;
 }

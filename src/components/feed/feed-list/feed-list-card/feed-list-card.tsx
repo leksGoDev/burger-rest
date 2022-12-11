@@ -4,9 +4,8 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 
 import styles from "./feed-list-card.module.css";
 import { IFeedOrder } from "../../../../models/order";
-import IngredientsIcons from "./ingredients-icons/ingredients-icons";
+import IngredientIcon from "../../ingredient-icon/ingredient-icon";
 import { useAppSelector } from "../../../../hooks";
-import { IngredientType } from "../../../../models/ingredient";
 
 interface IProps extends IFeedOrder {
 
@@ -26,13 +25,35 @@ const FeedListCard: FC<IProps> = ({ number, name, createdAt, ingredients  }) => 
         , [ingredientsInfo]);
 
     const ingredientsIcons = useMemo(
-        () => ingredientsInfo.map(ingredient => ingredient?.image)
+        () =>
+            ingredientsInfo
+                .slice(0, 6)
+                .map((ingredient, index) =>
+                    <span
+                        key={index}
+                        className={styles.iconWrap}
+                        style={{ zIndex: ingredientsInfo.length - index }}
+                    >
+                        <IngredientIcon
+                            src={ingredient?.image}
+                            opacity={index === 5 ? .6 : 1}
+                        />
+
+                        {
+                            index === 5 &&
+                                <p className={`${styles.counter} text text_type_main-default`}>
+                                    +{ingredientsInfo.length - 5}
+                                </p>
+                        }
+                    </span>
+            )
         , [ingredientsInfo]
     );
+
     return (
         <li className={styles.wrap}>
             <article className={styles.content}>
-                <div className={styles.numAndDate}>
+                <div className={styles.placement}>
                     <p className="text text_type_digits-default">
                         {`#${number}`}
                     </p>
@@ -43,14 +64,16 @@ const FeedListCard: FC<IProps> = ({ number, name, createdAt, ingredients  }) => 
                     />
                 </div>
 
-                <div className={styles.name}>
+                <div className={styles.placement}>
                     <p className="text text_type_main-medium">
                         {name}
                     </p>
                 </div>
 
-                <div className={styles.imgAndCost}>
-                    <IngredientsIcons icons={ingredientsIcons} />
+                <div className={styles.placement}>
+                    <article className={styles.iconsRow}>
+                        {ingredientsIcons}
+                    </article>
 
                     <article className={styles.cost}>
                         <p className="text text_type_digits-default">
