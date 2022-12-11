@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from "./feed-list-card.module.css";
+import styles from "./feed-order-list-card.module.css";
 import { IFeedOrder } from "../../../../models/order";
 import IngredientIcon from "../../ingredient-icon/ingredient-icon";
 import { useAppSelector } from "../../../../hooks";

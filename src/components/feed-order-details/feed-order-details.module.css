@@ -1,0 +1,10 @@
+.wrap {
+    height: 716px;
+    padding: 40px;
+}
+
+.header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+}

@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
-import styles from "./feed-list.module.css";
+import styles from "./feed-order-list.module.css";
 import { IFeedOrder } from "../../../models/order";
-import FeedOrderListCard from "./feed-list-card/feed-order-list-card";
+import FeedOrderListCard from "./feed-order-list-card/feed-order-list-card";
 
 interface Props {
     orders: IFeedOrder[];

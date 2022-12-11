@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import styles from "./feed.module.css";
-import FeedOrderList from "../../components/feed/feed-list/feed-order-list";
+import FeedOrderList from "../../components/feed/feed-order-list/feed-order-list";
 import FeedDashboard from "../../components/feed/feed-dashboard/feed-dashboard";
 import { IFeedData, FeedOrderStatus } from "../../models/order";
 
