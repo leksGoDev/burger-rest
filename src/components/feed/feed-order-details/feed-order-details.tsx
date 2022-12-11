@@ -1,10 +1,12 @@
 import { useCallback } from "react";
 import type { FC, ReactNode } from 'react';
 import { useLocation } from "react-router-dom";
-import { Location } from "history";
+import type { Location } from "history";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./feed-order-details.module.css";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../../hooks";
+import CostCounter from "../../cost-counter/cost-counter";
 
 const FeedOrderDetails: FC = () => {
     const { state } = useLocation<{ background?: Location<unknown> }>();
@@ -43,7 +45,7 @@ const FeedOrderDetails: FC = () => {
                         </p>
                     </article>
 
-                    <section>
+                    <section className="mb-10">
                         <header>
 
                         </header>
@@ -53,8 +55,12 @@ const FeedOrderDetails: FC = () => {
                         </ol>
                     </section>
 
-                    <footer>
+                    <footer className={styles.footer}>
+                        <p className="text text_type_main-default text_color_inactive">
+                            Вчера, 13:50
+                        </p>
 
+                        <CostCounter count={510} />
                     </footer>
                 </>
             )}

@@ -17,11 +17,6 @@
     align-items: center;
 }
 
-.cost {
-    composes: placement;
-    gap: 8px;
-}
-
 .iconsRow {
     display: flex;
 }

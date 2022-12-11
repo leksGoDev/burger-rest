@@ -7,7 +7,7 @@ import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import FeedOrderDetails from "../feed-order-details/feed-order-details";
+import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
 import { useAppDispatch, useRefreshIngredientDetails } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";

@@ -1,13 +1,14 @@
 import { memo, useMemo, useCallback } from "react";
 import type { FC, SyntheticEvent } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
-import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './burger-constructor.module.css';
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import CostCounter from "../cost-counter/cost-counter";
 import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
 import { checkAuth } from "../../services/store/slices/api/auth-api";
 
@@ -59,15 +60,10 @@ const BurgerConstructor: FC = memo(() => {
             </section>
 
             <form className={`${styles.form} mr-4`}>
-                <p className="text text_type_digits-medium mr-2">
-                    {totalPrice}
-                </p>
-
-                <span className={`${styles.svgWrap} mr-10`}>
-                            <CurrencyIcon type="primary" />
-                        </span>
+                <CostCounter large count={totalPrice} />
 
                 <Button
+                    extraClass="ml-10"
                     type="primary"
                     size="large"
                     htmlType="submit"

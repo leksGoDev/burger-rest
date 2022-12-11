@@ -7,6 +7,7 @@ import styles from "./feed-order-list-card.module.css";
 import { IFeedOrder } from "../../../../models/order";
 import IngredientIcon from "../../ingredient-icon/ingredient-icon";
 import { useAppSelector } from "../../../../hooks";
+import CostCounter from "../../../cost-counter/cost-counter";
 
 interface IProps extends IFeedOrder {
 
@@ -81,13 +82,7 @@ const FeedOrderListCard: FC<IProps> = ({ _id, number, name, createdAt, ingredien
                             {ingredientsIcons}
                         </article>
 
-                        <article className={styles.cost}>
-                            <p className="text text_type_digits-default">
-                                {totalCost}
-                            </p>
-
-                            <CurrencyIcon type="primary" />
-                        </article>
+                        <CostCounter count={totalCost} />
                     </div>
                 </article>
             </Link>

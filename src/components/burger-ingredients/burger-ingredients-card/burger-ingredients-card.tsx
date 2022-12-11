@@ -1,11 +1,12 @@
 import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 
 import styles from './burger-ingredients-card.module.css'
 import { IIngredient, IngredientType } from "../../../models/ingredient";
+import CostCounter from "../../cost-counter/cost-counter";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
 import { setIngredientDetails } from "../../../services/store/slices/ingredient-details";
 
@@ -55,10 +56,7 @@ const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
                     <img className="pl-4 pr-4" src={image} alt="image" />
 
                     <figcaption>
-                        <article className={styles.price}>
-                            <p className="text text_type_digits-default pr-2">{price}</p>
-                            <CurrencyIcon type="primary" />
-                        </article>
+                        <CostCounter count={price} />
                     </figcaption>
 
                     <figcaption>
