@@ -1,5 +1,4 @@
-const ACCESS_TOKEN_MAX_AGE = 1200;
-const REFRESH_TOKEN_MAX_AGE = 14400;
+import { ACCESS_TOKEN_MAX_AGE, REFRESH_TOKEN_MAX_AGE } from "../../constants/api";
 
 const setCookie = (key: string, value: string, maxAge: number) => {
     value = encodeURIComponent(value);

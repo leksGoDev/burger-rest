@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuid } from 'uuid';
 
 import { IIngredient, IDragIngredient } from "../../../models/ingredient";
+import { SliceActions } from "../../../models/redux";
 
 interface IState {
     bun: IIngredient | null;
@@ -47,5 +48,7 @@ const burgerConstructor = createSlice({
 });
 
 export const { changeBun, addStuffing, removeStuffing, swapStuffing } = burgerConstructor.actions;
+
+export type TBurgerConstructorActions = SliceActions<typeof burgerConstructor.actions>;
 
 export default burgerConstructor.reducer;

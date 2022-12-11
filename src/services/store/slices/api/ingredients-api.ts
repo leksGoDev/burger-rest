@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { IIngredient } from "../../../../models/ingredient";
 import { IIngredientsResponse } from "../../../../models/api";
+import { SliceActions } from "../../../../models/redux";
 import { request } from "../../../api/request";
 
 interface IState {
@@ -46,5 +47,7 @@ const ingredientsApi = createSlice({
             })
     }
 });
+
+export type TIngredientsApiActions = SliceActions<typeof ingredientsApi.actions>;
 
 export default ingredientsApi.reducer;

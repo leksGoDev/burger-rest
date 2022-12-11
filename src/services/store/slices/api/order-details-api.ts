@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { IOrder } from "../../../../models/order";
 import { IOrderResponse, IOrderBodyData } from "../../../../models/api";
+import { SliceActions } from "../../../../models/redux";
 import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";
 
 interface IState {
@@ -53,5 +54,7 @@ const orderDetailsApi = createSlice({
 });
 
 export const { closeDetails } = orderDetailsApi.actions;
+
+export type TOrderDetailsApiActions = SliceActions<typeof orderDetailsApi.actions>;
 
 export default orderDetailsApi.reducer;

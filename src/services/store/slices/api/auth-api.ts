@@ -5,6 +5,7 @@ import {
     IAuthResponse, ILoginBodyData, ILogoutBodyData,
     ILogoutResponse, IRegisterBodyData, IUserResponse
 } from "../../../../models/api";
+import { SliceActions } from "../../../../models/redux";
 import { createOptionsWithJSON, request, requestWithAuth } from "../../../api/request";
 import { getCookie, deleteTokens } from "../../../api/cookie";
 
@@ -159,5 +160,7 @@ const authApi = createSlice({
 });
 
 export const { checkAuth } = authApi.actions;
+
+export type TAuthApiActions = SliceActions<typeof authApi.actions>;
 
 export default authApi.reducer;

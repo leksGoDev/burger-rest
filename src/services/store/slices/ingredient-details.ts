@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IIngredient } from "../../../models/ingredient";
+import { SliceActions } from "../../../models/redux";
 
 type TIngredientDetails = Pick<IIngredient, "image_large" | "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
 
@@ -30,5 +31,7 @@ const ingredientDetails = createSlice({
 });
 
 export const { setIngredientDetails, deleteIngredientDetails } = ingredientDetails.actions;
+
+export type TIngredientDetailsActions = SliceActions<typeof ingredientDetails.actions>;
 
 export default ingredientDetails.reducer;

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ICheckEmailBodyData, IPassResetBodyData, IPassResetResponse } from "../../../../models/api";
+import { SliceActions } from "../../../../models/redux";
 import { createOptionsWithJSON, request } from "../../../api/request";
 
 interface IState {
@@ -66,5 +67,7 @@ const passResetApi = createSlice({
             })
     }
 });
+
+export type TPassResetApiActions = SliceActions<typeof passResetApi.actions>;
 
 export default passResetApi.reducer;

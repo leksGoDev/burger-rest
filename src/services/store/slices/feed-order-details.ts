@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IIngredient } from "../../../models/ingredient";
 import { IFeedOrder, IFeedOrderIngredient } from "../../../models/order";
+import { SliceActions } from "../../../models/redux";
 
 type TFeedOrderDetailsPayload = Omit<IFeedOrder, "_id" | "ingredients" | "updatedAt">
     & {
@@ -59,5 +60,7 @@ const feedOrderDetails = createSlice({
 });
 
 export const { setOrderDetails, deleteOrderDetails } = feedOrderDetails.actions;
+
+export type TFeedOrderDetailsActions = SliceActions<typeof feedOrderDetails.actions>;
 
 export default feedOrderDetails.reducer;
