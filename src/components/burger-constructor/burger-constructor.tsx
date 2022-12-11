@@ -60,7 +60,7 @@ const BurgerConstructor: FC = memo(() => {
             </section>
 
             <form className={`${styles.form} mr-4`}>
-                <CostCounter large count={totalPrice} />
+                <CostCounter large value={totalPrice} />
 
                 <Button
                     extraClass="ml-10"

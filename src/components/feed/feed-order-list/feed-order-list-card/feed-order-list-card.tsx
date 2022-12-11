@@ -82,7 +82,7 @@ const FeedOrderListCard: FC<IProps> = ({ _id, number, name, createdAt, ingredien
                             {ingredientsIcons}
                         </article>
 
-                        <CostCounter count={totalCost} />
+                        <CostCounter value={totalCost} />
                     </div>
                 </article>
             </Link>

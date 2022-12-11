@@ -24,6 +24,11 @@ export interface IFeedOrder {
     ingredients: IIngredient["_id"][];
 }
 
+export interface IFeedOrderIngredient {
+    details: Pick<IIngredient, "image" | "name" | "price">;
+    count: number;
+}
+
 export interface IFeedData {
     orders: IFeedOrder[];
     total: number;

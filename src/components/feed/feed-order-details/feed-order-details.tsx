@@ -7,10 +7,71 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import styles from "./feed-order-details.module.css";
 import { useAppSelector } from "../../../hooks";
 import CostCounter from "../../cost-counter/cost-counter";
+import FeedDetailsRow from "./feed-details-row/feed-details-row";
 
 const FeedOrderDetails: FC = () => {
     const { state } = useLocation<{ background?: Location<unknown> }>();
-    const { details } = useAppSelector(store => store.feedOrderDetails);
+    const details =
+        {
+            "60d3b41abdacab0026a733c7": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Флюоресцентная булка R2-D3"
+                }
+            },
+            "60d3b41abdacab0026a733c1": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Флюоресцентная булка R2-D3"
+                }
+            },
+            "60d3b41abdacab0026a733c2": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Флюоресцентная булка R2-D3"
+                }
+            },
+            "60d3b41abdacab0026a733c3": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Филе Люминесцентного тетраодонтимформа"
+                }
+            },
+            "60d3b41abdacab0026a733c4": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Флюоресцентная булка R2-D3"
+                }
+            },
+            "60d3b41abdacab0026a733c5": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Флюоресцентная булка R2-D3"
+                }
+            },
+            "60d3b41abdacab0026a733c6": {
+                count: 2,
+                details: {
+                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
+                    price: 988,
+                    name: "Флюоресцентная булка R2-D3"
+                }
+            }
+        }
+
+        //useAppSelector(store => store.feedOrderDetails);
 
     const createWrapForModal = useCallback(
         (component: ReactNode) => state?.background ?
@@ -25,6 +86,7 @@ const FeedOrderDetails: FC = () => {
         return null;
     }*/
 
+    // @ts-ignore
     return (
         <>
             {createWrapForModal(
@@ -36,7 +98,7 @@ const FeedOrderDetails: FC = () => {
                         <p className="text text_type_digits-default">#034533</p>
                     </header>
 
-                    <article className="mt-5">
+                    <article className="mt-5 mb-15">
                         <p className="text text_type_main-medium mb-2">
                             Black Hole Singularity острый бургер
                         </p>
@@ -46,12 +108,18 @@ const FeedOrderDetails: FC = () => {
                     </article>
 
                     <section className="mb-10">
-                        <header>
-
+                        <header className="mb-6">
+                            <p className="text text_type_main-medium">
+                                Состав:
+                            </p>
                         </header>
 
-                        <ol>
-
+                        <ol className={styles.list}>
+                            {
+                                Object.values(details).map((entry, index) =>
+                                    <FeedDetailsRow details={entry.details} count={entry.count} />
+                                )
+                            }
                         </ol>
                     </section>
 
@@ -60,7 +128,7 @@ const FeedOrderDetails: FC = () => {
                             Вчера, 13:50
                         </p>
 
-                        <CostCounter count={510} />
+                        <CostCounter value={510} />
                     </footer>
                 </>
             )}

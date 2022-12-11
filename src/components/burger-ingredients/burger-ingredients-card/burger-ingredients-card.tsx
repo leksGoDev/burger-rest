@@ -56,7 +56,7 @@ const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
                     <img className="pl-4 pr-4" src={image} alt="image" />
 
                     <figcaption>
-                        <CostCounter count={price} />
+                        <CostCounter value={price} />
                     </figcaption>
 
                     <figcaption>

@@ -5,17 +5,17 @@ import styles from "./cost-counter.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface IProps {
-    count: number;
+    value: string | number;
 
     large?: boolean;
 }
 
-const CostCounter: FC<IProps> = memo(({ count, large }) => {
+const CostCounter: FC<IProps> = memo(({ value, large }) => {
 
     return (
         <article className={styles.content}>
             <p className={`text ${large ? "text_type_digits-medium" : "text_type_digits-default"}`}>
-                {count}
+                {value}
             </p>
 
             <span className={large ? styles.svgLarge : styles.svgDefault}>

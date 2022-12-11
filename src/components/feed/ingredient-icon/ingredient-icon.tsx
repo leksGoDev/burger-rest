@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { FC } from 'react';
 
 import styles from "./ingredient-icon.module.css";
@@ -7,7 +8,7 @@ interface IProps {
     opacity?: number;
 }
 
-const IngredientIcon: FC<IProps> = ({ src, opacity }) => {
+const IngredientIcon: FC<IProps> = memo(({ src, opacity }) => {
 
     return (
         <span className={styles.gradient} style={{ opacity: opacity }}>
@@ -16,6 +17,6 @@ const IngredientIcon: FC<IProps> = ({ src, opacity }) => {
             </span>
         </span>
     );
-};
+});
 
 export default IngredientIcon;
