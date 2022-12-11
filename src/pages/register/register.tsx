@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { useHistory } from "react-router-dom";
 
 import Form from "../../components/form/form";
-import { InputType } from "../../models/form";
+import { InputType } from "../../constants/form";
 import { useInput, useAppDispatch } from "../../hooks";
 import { register } from "../../services/store/slices/api/auth-api";
 

@@ -1,9 +1,10 @@
 import type { FC } from 'react';
 
 import styles from "./feed.module.css";
+import { FeedOrderStatus } from "../../constants/order";
 import FeedOrderList from "../../components/feed/feed-order-list/feed-order-list";
 import FeedDashboard from "../../components/feed/feed-dashboard/feed-dashboard";
-import { IFeedData, FeedOrderStatus } from "../../models/order";
+import { IFeedData } from "../../models/order";
 
 const Feed: FC = () => {
     const data: IFeedData = {

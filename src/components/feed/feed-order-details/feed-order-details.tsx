@@ -5,73 +5,14 @@ import type { Location } from "history";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./feed-order-details.module.css";
+import { FeedOrderStatus, FeedOrderStatusView } from "../../../constants/order";
 import { useAppSelector } from "../../../hooks";
 import CostCounter from "../../cost-counter/cost-counter";
 import FeedDetailsRow from "./feed-details-row/feed-details-row";
 
 const FeedOrderDetails: FC = () => {
     const { state } = useLocation<{ background?: Location<unknown> }>();
-    const details =
-        {
-            "60d3b41abdacab0026a733c7": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Флюоресцентная булка R2-D3"
-                }
-            },
-            "60d3b41abdacab0026a733c1": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Флюоресцентная булка R2-D3"
-                }
-            },
-            "60d3b41abdacab0026a733c2": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Флюоресцентная булка R2-D3"
-                }
-            },
-            "60d3b41abdacab0026a733c3": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Филе Люминесцентного тетраодонтимформа"
-                }
-            },
-            "60d3b41abdacab0026a733c4": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Флюоресцентная булка R2-D3"
-                }
-            },
-            "60d3b41abdacab0026a733c5": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Флюоресцентная булка R2-D3"
-                }
-            },
-            "60d3b41abdacab0026a733c6": {
-                count: 2,
-                details: {
-                    image: "https://code.s3.yandex.net/react/code/bun-01.png",
-                    price: 988,
-                    name: "Флюоресцентная булка R2-D3"
-                }
-            }
-        }
-
-        //useAppSelector(store => store.feedOrderDetails);
+    const { details } = useAppSelector(store => store.feedOrderDetails);
 
     const createWrapForModal = useCallback(
         (component: ReactNode) => state?.background ?
@@ -82,11 +23,12 @@ const FeedOrderDetails: FC = () => {
         [state]
     );
 
-   /* if (!details) {
+    if (!details) {
         return null;
-    }*/
+    }
 
-    // @ts-ignore
+    const { status, name, number, createdAt, totalCost, ingredients } = details;
+
     return (
         <>
             {createWrapForModal(
@@ -95,15 +37,18 @@ const FeedOrderDetails: FC = () => {
                         className={styles.header}
                         style={{ justifyContent: state?.background ? "flex-start" : "center" }}
                     >
-                        <p className="text text_type_digits-default">#034533</p>
+                        <p className="text text_type_digits-default">{`#${number}`}</p>
                     </header>
 
                     <article className="mt-5 mb-15">
                         <p className="text text_type_main-medium mb-2">
-                            Black Hole Singularity острый бургер
+                            {name}
                         </p>
-                        <p className="text text_type_main-default" style={{ color: "#00CCCC" }}>
-                            Выполнен
+                        <p
+                            className="text text_type_main-default"
+                            style={{ color: status === FeedOrderStatus.done ? "#00CCCC" : "FFFFF" }}
+                        >
+                            {FeedOrderStatusView[status]}
                         </p>
                     </article>
 
@@ -116,19 +61,20 @@ const FeedOrderDetails: FC = () => {
 
                         <ol className={styles.list}>
                             {
-                                Object.values(details).map((entry, index) =>
-                                    <FeedDetailsRow details={entry.details} count={entry.count} />
+                                Object.values(ingredients).map((ingredient, index) =>
+                                    <FeedDetailsRow key={index} details={ingredient.details} count={ingredient.count} />
                                 )
                             }
                         </ol>
                     </section>
 
                     <footer className={styles.footer}>
-                        <p className="text text_type_main-default text_color_inactive">
-                            Вчера, 13:50
-                        </p>
+                        <FormattedDate
+                            className="text text_type_main-default text_color_inactive"
+                            date={new Date(createdAt)}
+                        />
 
-                        <CostCounter value={510} />
+                        <CostCounter value={totalCost} />
                     </footer>
                 </>
             )}

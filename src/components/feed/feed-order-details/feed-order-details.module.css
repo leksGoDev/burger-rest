@@ -12,6 +12,8 @@
 .list {
     padding-right: 24px;
     height: 312px;
+    overflow: auto;
+    composes: scroll from "../../app/app.module.css";
     display: flex;
     flex-direction: column;
     gap: 16px;

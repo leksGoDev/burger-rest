@@ -1,17 +1,11 @@
 import { IIngredient } from "./ingredient";
+import { FeedOrderStatus } from "../constants/order";
 
 export interface IOrder {
     name: string;
     order: {
         number: number;
     };
-}
-
-export enum FeedOrderStatus {
-    created = "created",
-    pending = "pending",
-    done = "done",
-    cancelled = "cancelled"
 }
 
 export interface IFeedOrder {

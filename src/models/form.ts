@@ -1,10 +1,5 @@
 import type { ChangeEvent } from "react";
-
-export enum InputType {
-    Default,
-    Email,
-    Password
-}
+import { InputType } from "../constants/form";
 
 export interface IInputData {
     type: InputType;

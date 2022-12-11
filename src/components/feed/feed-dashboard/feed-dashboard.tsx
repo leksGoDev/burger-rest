@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 
 import styles from "./feed-dashboard.module.css";
-import { IFeedData, FeedOrderStatus } from "../../../models/order";
+import { FeedOrderStatus } from "../../../constants/order";
+import { IFeedData } from "../../../models/order";
 import DashboardCounter from "./dashboard-counter/dashboard-counter";
 import DashboardOrdersGroup from "./dashboard-orders-group/dashboard-orders-group";
 

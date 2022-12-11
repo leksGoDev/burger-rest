@@ -1,19 +1,21 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./feed-order-list-card.module.css";
 import { IFeedOrder } from "../../../../models/order";
 import IngredientIcon from "../../ingredient-icon/ingredient-icon";
-import { useAppSelector } from "../../../../hooks";
 import CostCounter from "../../../cost-counter/cost-counter";
+import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { setOrderDetails } from "../../../../services/store/slices/feed-order-details";
 
 interface IProps extends IFeedOrder {
 
 }
 
-const FeedOrderListCard: FC<IProps> = ({ _id, number, name, createdAt, ingredients  }) => {
+const FeedOrderListCard: FC<IProps> = ({ _id, status,  name, number, createdAt, ingredients  }) => {
+    const dispatch = useAppDispatch();
     const location = useLocation();
     const { data: ingredientsAll } = useAppSelector(store => store.ingredientsApi);
 
@@ -53,13 +55,20 @@ const FeedOrderListCard: FC<IProps> = ({ _id, number, name, createdAt, ingredien
         , [ingredientsInfo]
     );
 
+    const handleOpenDetails = useCallback(
+        () => dispatch(
+            setOrderDetails({ status, name, number, createdAt, totalCost, ingredients: ingredientsInfo })
+        ),
+        [status, name, number, createdAt, totalCost, ingredientsInfo, dispatch]
+    );
+
     return (
         <li className={styles.wrap}>
             <Link to={{
                 pathname: `/feed/${_id}`,
                 state: { background: location }
             }}>
-                <article className={styles.content}>
+                <article className={styles.content} onClick={handleOpenDetails}>
                     <div className={styles.placement}>
                         <p className="text text_type_digits-default">
                             {`#${number}`}

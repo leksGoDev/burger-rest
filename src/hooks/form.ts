@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
 import type { ChangeEvent } from "react";
 
-import { IInputData, InputType } from "../models/form";
+import { InputType } from "../constants/form";
+import { IInputData } from "../models/form";
 
 interface IInputHookProps {
     type: InputType;
