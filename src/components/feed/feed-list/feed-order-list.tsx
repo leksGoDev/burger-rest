@@ -2,20 +2,20 @@ import type { FC } from 'react';
 
 import styles from "./feed-list.module.css";
 import { IFeedOrder } from "../../../models/order";
-import FeedListCard from "./feed-list-card/feed-list-card";
+import FeedOrderListCard from "./feed-list-card/feed-order-list-card";
 
 interface Props {
     orders: IFeedOrder[];
 }
 
-const FeedList: FC<Props> = ({ orders }) => {
+const FeedOrderList: FC<Props> = ({ orders }) => {
 
     return (
         <article className={styles.article}>
             <ol className={styles.list}>
                 {
                     orders.map((order, index) =>
-                        <FeedListCard key={index} {...order} />
+                        <FeedOrderListCard key={index} {...order} />
                     )
                 }
             </ol>
@@ -23,4 +23,4 @@ const FeedList: FC<Props> = ({ orders }) => {
     );
 };
 
-export default FeedList;
+export default FeedOrderList;

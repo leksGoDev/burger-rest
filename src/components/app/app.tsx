@@ -7,10 +7,12 @@ import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import FeedOrderDetails from "../feed-order-details/feed-order-details";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
 import { useAppDispatch, useRefreshIngredientDetails } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
+import { deleteOrderDetails } from "../../services/store/slices/feed-order-details";
 import { fetchUser } from "../../services/store/slices/api/auth-api";
 
 const App: FC = () => {
@@ -31,8 +33,13 @@ const App: FC = () => {
     }, [dispatch]);
 
     const handleCloseDetails = useCallback(
-        () => {
-            dispatch(deleteIngredientDetails());
+        (type: "ingredient" | "order") => {
+            if (type === "ingredient") {
+                dispatch(deleteIngredientDetails());
+            } else {
+                dispatch(deleteOrderDetails())
+            }
+
             history.goBack();
         },
         [dispatch, history]
@@ -45,7 +52,7 @@ const App: FC = () => {
             <Switch location={background ?? location}>
                 <Route exact path="/" component={Home} />
 
-                <Route path="/feed" component={Feed} />
+                <Route exact path="/feed" component={Feed} />
 
                 <ProtectedRoute
                     exact
@@ -87,11 +94,19 @@ const App: FC = () => {
             </Switch>
 
             {background &&
-                <Route exact path="/ingredients/:id">
-                    <Modal onClose={handleCloseDetails}>
-                        <IngredientDetails />
-                    </Modal>
-                </Route>}
+                <>
+                    <Route exact path="/ingredients/:id">
+                        <Modal onClose={handleCloseDetails.bind(null, "ingredient")}>
+                            <IngredientDetails />
+                        </Modal>
+                    </Route>
+
+                    <Route exact path="/feed/:id">
+                        <Modal onClose={handleCloseDetails.bind(null, "order")}>
+                            <FeedOrderDetails />
+                        </Modal>
+                    </Route>
+                </>}
         </>
     );
 };

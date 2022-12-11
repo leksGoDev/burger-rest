@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import styles from "./feed.module.css";
-import FeedList from "../../components/feed/feed-list/feed-list";
+import FeedOrderList from "../../components/feed/feed-list/feed-order-list";
 import FeedDashboard from "../../components/feed/feed-dashboard/feed-dashboard";
 import { IFeedData, FeedOrderStatus } from "../../models/order";
 
@@ -146,7 +146,7 @@ const Feed: FC = () => {
             </header>
 
             <main className={styles.main}>
-                <FeedList orders={data.orders} />
+                <FeedOrderList orders={data.orders} />
                 <FeedDashboard data={data} />
             </main>
         </section>
