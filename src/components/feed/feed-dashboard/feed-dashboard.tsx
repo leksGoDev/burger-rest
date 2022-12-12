@@ -1,16 +1,20 @@
+import { useCallback } from "react";
 import type { FC } from 'react';
 
 import styles from "./feed-dashboard.module.css";
 import { FeedOrderStatus } from "../../../constants/order";
-import { IFeedData } from "../../../models/order";
 import DashboardCounter from "./dashboard-counter/dashboard-counter";
 import DashboardOrdersGroup from "./dashboard-orders-group/dashboard-orders-group";
+import { useSocketLastMessage } from "../../../hooks";
 
-interface IProps {
-    data: IFeedData;
-}
-
-const FeedDashboard: FC<IProps> = ({ data }) => {
+const FeedDashboard: FC = () => {
+    const data = useSocketLastMessage();
+    const getOrdersNums = useCallback(
+        (statusType: FeedOrderStatus) => data.orders
+            .filter(({ status }) => status === statusType)
+            .map(({ number }) => number)
+        , [data]
+    );
 
     return (
         <article className={styles.article}>
@@ -18,13 +22,13 @@ const FeedDashboard: FC<IProps> = ({ data }) => {
                 <DashboardOrdersGroup
                     type={FeedOrderStatus.done}
                     title="Готовы:"
-                    numbers={data.orders.map(({ number }) => number)}
+                    numbers={getOrdersNums(FeedOrderStatus.done)}
                 />
 
                 <DashboardOrdersGroup
                     type={FeedOrderStatus.pending}
                     title="В работе:"
-                    numbers={data.orders.map(({ number }) => number)}
+                    numbers={getOrdersNums(FeedOrderStatus.pending)}
                 />
             </div>
 

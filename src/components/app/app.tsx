@@ -11,9 +11,9 @@ import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
 import { useAppDispatch, useRefreshIngredientDetails } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
+import { fetchUser } from "../../services/store/slices/api/auth-api";
 import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
 import { deleteOrderDetails } from "../../services/store/slices/feed-order-details";
-import { fetchUser } from "../../services/store/slices/api/auth-api";
 
 const App: FC = () => {
     useRefreshIngredientDetails();
@@ -52,7 +52,7 @@ const App: FC = () => {
             <Switch location={background ?? location}>
                 <Route exact path="/" component={Home} />
 
-                <Route exact path="/feed" component={Feed} />
+                <Route path="/feed" component={Feed} />
 
                 <ProtectedRoute
                     exact
@@ -106,7 +106,8 @@ const App: FC = () => {
                             <FeedOrderDetails />
                         </Modal>
                     </Route>
-                </>}
+                </>
+            }
         </>
     );
 };

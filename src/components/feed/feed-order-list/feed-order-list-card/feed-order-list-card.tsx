@@ -10,11 +10,9 @@ import CostCounter from "../../../cost-counter/cost-counter";
 import { useAppDispatch, useAppSelector } from "../../../../hooks";
 import { setOrderDetails } from "../../../../services/store/slices/feed-order-details";
 
-interface IProps extends IFeedOrder {
+type TProps = Omit<IFeedOrder, "updatedAt">;
 
-}
-
-const FeedOrderListCard: FC<IProps> = ({ _id, status,  name, number, createdAt, ingredients  }) => {
+const FeedOrderListCard: FC<TProps> = ({ _id, status,  name, number, createdAt, ingredients  }) => {
     const dispatch = useAppDispatch();
     const location = useLocation();
     const { data: ingredientsAll } = useAppSelector(store => store.ingredientsApi);

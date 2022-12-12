@@ -7,9 +7,8 @@ import orderDetailsApi from "./slices/api/order-details-api";
 import authApi from "./slices/api/auth-api";
 import passResetApi from "./slices/api/pass-reset-api";
 import feedOrderDetails from "./slices/feed-order-details";
-import feedSocketApi from "./slices/api/feed-socket-api";
+import feedSocketApi, { connected, failed, closed, received } from "./slices/api/feed-socket-api";
 import createSocketMiddleware from "./middleware/socket";
-import { WS_BASE_URL } from "../../constants/api";
 
 export const store = configureStore({
     reducer: {
@@ -23,7 +22,9 @@ export const store = configureStore({
         feedSocketApi: feedSocketApi
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
-        createSocketMiddleware(WS_BASE_URL)
+        createSocketMiddleware({
+            connected, failed, closed, received
+        })
     )
 });
 

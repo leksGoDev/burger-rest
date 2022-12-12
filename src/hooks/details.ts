@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "./redux";
 import { setIngredientDetails } from "../services/store/slices/ingredient-details";
+import { IFeedData } from "../models/order";
 
 export const useRefreshIngredientDetails = () => {
     const match = useRouteMatch<{ id: string; }>("/ingredients/:id");
@@ -22,3 +23,18 @@ export const useRefreshIngredientDetails = () => {
         }
     }, [match, hasDeallocated, details, ingredientsAll, dispatch]);
 };
+
+export const useSocketLastMessage = () => {
+    const { messages } = useAppSelector(store => store.feedSocketApi);
+    const emptyData: IFeedData = {
+        total: 0,
+        totalToday: 0,
+        orders: []
+    };
+    const data: IFeedData= useMemo(
+        () => (messages[messages.length - 1]) ?? emptyData,
+        [messages]
+    );
+
+    return data;
+}

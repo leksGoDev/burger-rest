@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { FC } from 'react';
 
 import styles from "./dashboard-orders-group.module.css";
@@ -10,7 +11,7 @@ interface IProps {
     numbers: IFeedOrder["number"][];
 }
 
-const DashboardOrdersGroup: FC<IProps> = ({ type, title, numbers }) => {
+const DashboardOrdersGroup: FC<IProps> = memo(({ type, title, numbers }) => {
 
     return (
         <section className={styles.content}>
@@ -34,6 +35,6 @@ const DashboardOrdersGroup: FC<IProps> = ({ type, title, numbers }) => {
             </ol>
         </section>
     );
-};
+});
 
 export default DashboardOrdersGroup;

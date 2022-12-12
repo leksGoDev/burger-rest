@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { FC } from 'react';
 
 import styles from "./dashboard-counter.module.css";
@@ -7,7 +8,7 @@ interface IProps {
     count: number;
 }
 
-const DashboardCounter: FC<IProps> = ({ title, count }) => {
+const DashboardCounter: FC<IProps> = memo(({ title, count }) => {
 
     return (
         <section>
@@ -22,6 +23,6 @@ const DashboardCounter: FC<IProps> = ({ title, count }) => {
             </article>
         </section>
     );
-};
+});
 
 export default DashboardCounter;

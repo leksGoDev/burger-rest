@@ -1,20 +1,17 @@
 import type { FC } from 'react';
 
 import styles from "./feed-order-list.module.css";
-import { IFeedOrder } from "../../../models/order";
 import FeedOrderListCard from "./feed-order-list-card/feed-order-list-card";
+import { useSocketLastMessage } from "../../../hooks";
 
-interface Props {
-    orders: IFeedOrder[];
-}
-
-const FeedOrderList: FC<Props> = ({ orders }) => {
+const FeedOrderList: FC = () => {
+    const data = useSocketLastMessage();
 
     return (
         <article className={styles.article}>
             <ol className={styles.list}>
                 {
-                    orders.map((order, index) =>
+                    data.orders.map((order, index) =>
                         <FeedOrderListCard key={index} {...order} />
                     )
                 }
