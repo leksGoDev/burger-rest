@@ -4,11 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./feed-order-list-card.module.css";
-import { IFeedOrder } from "../../../../models/order";
-import IngredientIcon from "../../ingredient-icon/ingredient-icon";
-import CostCounter from "../../../cost-counter/cost-counter";
-import { useAppDispatch, useAppSelector } from "../../../../hooks";
-import { setOrderDetails } from "../../../../services/store/slices/feed-order-details";
+import { IFeedOrder } from "../../../../../models/order";
+import IngredientIcon from "../../../ingredient-icon/ingredient-icon";
+import CostCounter from "../../../../cost-counter/cost-counter";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks";
+import { setOrderDetails } from "../../../../../services/store/slices/feed-order-details";
 
 type TProps = Omit<IFeedOrder, "updatedAt">;
 

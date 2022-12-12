@@ -1,5 +1,5 @@
 .article {
-    composes: article from '../../app/app.module.css';
+    composes: article from '../../../app/app.module.css';
     padding-left: 16px;
     display: flex;
     flex-direction: column;

@@ -2,8 +2,8 @@ import { memo } from "react";
 import type { FC } from 'react';
 
 import styles from "./dashboard-orders-group.module.css";
-import { FeedOrderStatus } from "../../../../constants/order";
-import { IFeedOrder } from "../../../../models/order";
+import { FeedOrderStatus } from "../../../../../constants/order";
+import { IFeedOrder } from "../../../../../models/order";
 
 interface IProps {
     type: FeedOrderStatus;

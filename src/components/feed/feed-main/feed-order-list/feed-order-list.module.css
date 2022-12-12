@@ -1,5 +1,5 @@
 .article {
-    composes: article from '../../app/app.module.css';
+    composes: article from '../../../app/app.module.css';
 }
 
 .list {
@@ -7,7 +7,7 @@
     flex-direction: column;
     gap: 16px;
 
-    composes: scroll from '../../app/app.module.css';
+    composes: scroll from '../../../app/app.module.css';
     padding-right: 8px;
     height: 892px;
     overflow: auto;

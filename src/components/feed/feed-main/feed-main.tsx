@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 
 import styles from "./feed-main.module.css";
-import FeedOrderList from "../feed-order-list/feed-order-list";
-import FeedDashboard from "../feed-dashboard/feed-dashboard";
+import FeedOrderList from "./feed-order-list/feed-order-list";
+import FeedDashboard from "./feed-dashboard/feed-dashboard";
 
 const FeedMain: FC = () => {
 
