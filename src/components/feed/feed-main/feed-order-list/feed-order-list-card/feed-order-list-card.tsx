@@ -7,7 +7,7 @@ import styles from "./feed-order-list-card.module.css";
 import { IFeedOrder } from "../../../../../models/order";
 import IngredientIcon from "../../../ingredient-icon/ingredient-icon";
 import CostCounter from "../../../../cost-counter/cost-counter";
-import { useAppDispatch, useAppSelector } from "../../../../../hooks";
+import { useAppDispatch, usePrepareIngredientFullInfo } from "../../../../../hooks";
 import { setOrderDetails } from "../../../../../services/store/slices/feed-order-details";
 
 type TProps = Omit<IFeedOrder, "updatedAt">;
@@ -15,17 +15,7 @@ type TProps = Omit<IFeedOrder, "updatedAt">;
 const FeedOrderListCard: FC<TProps> = ({ _id, status,  name, number, createdAt, ingredients  }) => {
     const dispatch = useAppDispatch();
     const location = useLocation();
-    const { data: ingredientsAll } = useAppSelector(store => store.ingredientsApi);
-
-    const ingredientsInfo = useMemo(
-        () => ingredients.map(id =>
-            ingredientsAll.find(({ _id }) => _id === id)
-        ), [ingredients, ingredientsAll]
-    );
-
-    const totalCost = useMemo(
-        () => ingredientsInfo.reduce((acc, curr) => curr ? (curr.price + acc) : acc, 0)
-        , [ingredientsInfo]);
+    const { ingredientsInfo, totalCost } = usePrepareIngredientFullInfo(ingredients);
 
     const ingredientsIcons = useMemo(
         () =>

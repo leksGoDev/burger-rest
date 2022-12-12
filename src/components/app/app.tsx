@@ -9,7 +9,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
 import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
-import { useAppDispatch, useRefreshIngredientDetails } from "../../hooks";
+import { useAppDispatch, useRefreshFeedOrderDetails, useRefreshIngredientDetails } from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { fetchUser } from "../../services/store/slices/api/auth-api";
 import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
@@ -17,6 +17,7 @@ import { deleteOrderDetails } from "../../services/store/slices/feed-order-detai
 
 const App: FC = () => {
     useRefreshIngredientDetails();
+    useRefreshFeedOrderDetails();
     const dispatch = useAppDispatch();
     const location = useLocation<{ background?: Location<unknown> }>();
     const background = location.state?.background;
