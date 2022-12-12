@@ -16,7 +16,6 @@ const Feed: FC = () => {
         dispatch(startSocket(`${WS_BASE_URL}/all`));
     }, [dispatch]);
 
-
     return (
         <Switch>
             <Route exact path={url} component={FeedMain}/>

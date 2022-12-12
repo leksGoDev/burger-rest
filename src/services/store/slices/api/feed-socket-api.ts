@@ -3,13 +3,13 @@ import { IFeedData } from "../../../../models/order";
 import { SliceActions } from "../../../../models/redux";
 
 interface IState {
-    connected: boolean;
+    connectedUrl: string | null;
     hasError: boolean;
     messages: IFeedData[];
 }
 
 const initialState: IState = {
-    connected: false,
+    connectedUrl: null,
     hasError: false,
     messages: []
 };
@@ -20,17 +20,18 @@ const feedSocketApi = createSlice({
     name: 'feedSocketApi',
     initialState: initialState,
     reducers: {
-        connected(state) {
-            state.connected = true;
+        opened(state, action: PayloadAction<string>) {
+            state.connectedUrl = action.payload;
             state.hasError = false;
         },
         failed(state) {
-            state.connected = false;
+            state.connectedUrl = null;
             state.hasError = true;
         },
         closed(state) {
-            state.connected = false;
+            state.connectedUrl = null;
             state.hasError = false;
+            state.messages = [];
         },
         received(state, action: PayloadAction<string>) {
             state.messages.push(JSON.parse(action.payload));
@@ -38,7 +39,7 @@ const feedSocketApi = createSlice({
     }
 });
 
-export const { connected, failed, closed, received } = feedSocketApi.actions;
+export const { opened, failed, closed, received } = feedSocketApi.actions;
 
 export type TFeedSocketApiActions = SliceActions<typeof feedSocketApi.actions> | ReturnType<typeof startSocket>;
 
