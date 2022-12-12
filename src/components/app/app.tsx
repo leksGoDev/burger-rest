@@ -106,8 +106,7 @@ const App: FC = () => {
                             <FeedOrderDetails />
                         </Modal>
                     </Route>
-                </>
-            }
+                </>}
         </>
     );
 };

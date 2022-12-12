@@ -40,8 +40,8 @@ const FeedOrderDetails: FC = () => {
                         <p className="text text_type_digits-default">{`#${number}`}</p>
                     </header>
 
-                    <article className="mt-5 mb-15">
-                        <p className="text text_type_main-medium mb-2">
+                    <article className={styles.article}>
+                        <p className={`${styles.name} text text_type_main-medium mb-2`}>
                             {name}
                         </p>
                         <p
