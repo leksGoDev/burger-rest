@@ -15,11 +15,11 @@ const initialState: IState = {
     messages: []
 };
 
-export const startActionType = SocketStartActionType.feed;
+export const startActionType = SocketStartActionType.history;
 export const startSocket = createAction<string>(startActionType);
 
-const feedSocketApi = createSlice({
-    name: SocketStoreName.feed,
+const historySocketApi = createSlice({
+    name: SocketStoreName.history,
     initialState: initialState,
     reducers: {
         opened(state) {
@@ -41,8 +41,8 @@ const feedSocketApi = createSlice({
     }
 });
 
-export const { opened, failed, closed, received } = feedSocketApi.actions;
+export const { opened, failed, closed, received } = historySocketApi.actions;
 
-export type TFeedSocketApiActions = SliceActions<typeof feedSocketApi.actions> | ReturnType<typeof startSocket>;
+export type THistorySocketApiActions = SliceActions<typeof historySocketApi.actions> | ReturnType<typeof startSocket>;
 
-export default feedSocketApi.reducer;
+export default historySocketApi.reducer;

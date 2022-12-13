@@ -6,6 +6,7 @@ import { TPassResetApiActions } from "../services/store/slices/api/pass-reset-ap
 import { TBurgerConstructorActions } from "../services/store/slices/constructor";
 import { TFeedOrderDetailsActions } from "../services/store/slices/feed-order-details";
 import { TIngredientDetailsActions } from "../services/store/slices/ingredient-details";
+import { THistorySocketApiActions } from "../services/store/slices/api/history-socket-api";
 
 export type SliceActions<T> = {
     [K in keyof T]: {type: K; payload: T[K] extends (...args: infer P) => void ? P[0] : never};
@@ -14,6 +15,7 @@ export type SliceActions<T> = {
 export type TAppActions =
     TAuthApiActions |
     TFeedSocketApiActions |
+    THistorySocketApiActions |
     TIngredientsApiActions |
     TOrderDetailsApiActions |
     TPassResetApiActions |

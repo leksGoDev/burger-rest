@@ -3,15 +3,19 @@ import type { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@red
 
 import type { TAppDispatch, TRootState } from "../index";
 import { TAppActions } from "../../../models/redux";
+import { SocketStartActionType } from "../../../constants/redux";
 
 interface ISocketMiddlewareActions {
-    opened: ActionCreatorWithPayload<string>;
+    opened: ActionCreatorWithoutPayload;
     failed: ActionCreatorWithoutPayload;
     closed: ActionCreatorWithoutPayload;
     received: ActionCreatorWithPayload<string>;
 }
 
-const createSocketMiddleware = (actionCreators: ISocketMiddlewareActions): Middleware => {
+const createSocketMiddleware = (
+    actionCreators: ISocketMiddlewareActions,
+    startActionType: SocketStartActionType
+): Middleware => {
     return (store: MiddlewareAPI<TAppDispatch, TRootState>) => {
         let socket: WebSocket | null = null;
 
@@ -19,39 +23,28 @@ const createSocketMiddleware = (actionCreators: ISocketMiddlewareActions): Middl
             const { opened, failed, closed, received } = actionCreators;
             const { dispatch } = store;
 
-            if (action.type === "feedSocketApi/start") {
-                const createSocket = (url: string) => {
-                    socket = new WebSocket(url);
+            if (
+                action.type === startActionType
+                && (!socket || socket.readyState === 3)
+            ) {
+                socket = new WebSocket(action.payload);
 
-                    socket.onopen = () => {
-                        dispatch(opened(url));
-                    };
-
-                    socket.onerror = () => {
-                        dispatch(failed());
-                    };
-
-                    socket.onclose = () => {
-                        dispatch(closed());
-                    };
-
-                    socket.onmessage = (event) => {
-                        const { data } = event;
-                        dispatch(received(data));
-                    };
+                socket.onopen = () => {
+                    dispatch(opened());
                 };
 
-                if (socket instanceof WebSocket) {
-                    if (socket.url !== action.payload) {
-                        socket.onclose = () => {
-                            dispatch(closed());
-                            createSocket(action.payload);
-                        };
-                        socket.close();
-                    }
-                } else {
-                    createSocket(action.payload);
-                }
+                socket.onerror = () => {
+                    dispatch(failed());
+                };
+
+                socket.onclose = () => {
+                    dispatch(closed());
+                };
+
+                socket.onmessage = (event) => {
+                    const { data } = event;
+                    dispatch(received(data));
+                };
             }
 
             next(action);

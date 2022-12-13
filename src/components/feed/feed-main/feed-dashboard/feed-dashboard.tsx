@@ -2,13 +2,14 @@ import { useCallback } from "react";
 import type { FC } from 'react';
 
 import styles from "./feed-dashboard.module.css";
+import { SocketStoreName } from "../../../../constants/redux";
 import { FeedOrderStatus } from "../../../../constants/order";
 import DashboardCounter from "./dashboard-counter/dashboard-counter";
 import DashboardOrdersGroup from "./dashboard-orders-group/dashboard-orders-group";
 import { useSocketLastMessage } from "../../../../hooks";
 
 const FeedDashboard: FC = () => {
-    const data = useSocketLastMessage();
+    const data = useSocketLastMessage(SocketStoreName.feed);
     const getOrdersNums = useCallback(
         (statusType: FeedOrderStatus) => data.orders
             .filter(({ status }) => status === statusType)

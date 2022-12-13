@@ -7,7 +7,20 @@ import orderDetailsApi from "./slices/api/order-details-api";
 import authApi from "./slices/api/auth-api";
 import passResetApi from "./slices/api/pass-reset-api";
 import feedOrderDetails from "./slices/feed-order-details";
-import feedSocketApi, { opened, failed, closed, received } from "./slices/api/feed-socket-api";
+import feedSocketApi, {
+    opened as feedOpened,
+    failed as feedFailed,
+    closed as feedClosed,
+    received as feedReceived,
+    startActionType as feedStartActionType
+} from "./slices/api/feed-socket-api";
+import historySocketApi, {
+    opened as historyOpened,
+    failed as historyFailed,
+    closed as historyClosed,
+    received as historyReceived,
+    startActionType as historyStartActionType
+} from "./slices/api/history-socket-api";
 import createSocketMiddleware from "./middleware/socket";
 
 export const store = configureStore({
@@ -19,12 +32,22 @@ export const store = configureStore({
         orderDetailsApi: orderDetailsApi,
         authApi: authApi,
         passResetApi: passResetApi,
-        feedSocketApi: feedSocketApi
+        feedSocketApi: feedSocketApi,
+        historySocketApi: historySocketApi
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
         createSocketMiddleware({
-            opened, failed, closed, received
-        })
+            opened: feedOpened,
+            failed: feedFailed,
+            closed: feedClosed,
+            received: feedReceived
+        }, feedStartActionType),
+        createSocketMiddleware({
+            opened: historyOpened,
+            failed: historyFailed,
+            closed: historyClosed,
+            received: historyReceived
+        }, historyStartActionType)
     )
 });
 

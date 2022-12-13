@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import type { Location } from "history";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
+import { WS_BASE_URL } from "../../constants/api";
 import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
 import Modal from "../modal/modal";
@@ -14,6 +15,7 @@ import { fetchIngredients } from "../../services/store/slices/api/ingredients-ap
 import { fetchUser } from "../../services/store/slices/api/auth-api";
 import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
 import { deleteOrderDetails } from "../../services/store/slices/feed-order-details";
+import { startSocket } from "../../services/store/slices/api/feed-socket-api";
 
 const App: FC = () => {
     useRefreshIngredientDetails();
@@ -29,6 +31,7 @@ const App: FC = () => {
 
         dispatch(fetchIngredients(signal));
         dispatch(fetchUser(signal));
+        dispatch(startSocket(`${WS_BASE_URL}/all`));
 
         return () => controller.abort();
     }, [dispatch]);
