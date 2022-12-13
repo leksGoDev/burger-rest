@@ -107,6 +107,12 @@ const App: FC = () => {
                             <FeedOrderDetails />
                         </Modal>
                     </Route>
+
+                    <Route exact path="/profile/orders/:id">
+                        <Modal onClose={handleCloseDetails.bind(null, "order")}>
+                            <FeedOrderDetails />
+                        </Modal>
+                    </Route>
                 </>}
         </>
     );

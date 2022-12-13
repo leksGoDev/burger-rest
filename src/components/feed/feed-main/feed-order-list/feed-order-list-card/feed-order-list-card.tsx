@@ -54,7 +54,7 @@ const FeedOrderListCard: FC<TProps> = ({ _id, status,  name, number, createdAt, 
     return (
         <li className={styles.wrap}>
             <Link to={{
-                pathname: `/feed/${_id}`,
+                pathname: `${location.pathname}/${_id}`,
                 state: { background: location }
             }}>
                 <article className={styles.content} onClick={handleOpenDetails}>

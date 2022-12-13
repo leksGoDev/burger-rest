@@ -58,22 +58,26 @@ export const usePrepareIngredientFullInfo = (ingredientsIds: IIngredient["_id"][
 };
 
 export const useRefreshFeedOrderDetails = () => {
-    const match = useRouteMatch<{ id: string; }>("/feed/:id");
+    const feedMatch = useRouteMatch<{ id: string; }>("/feed/:id");
+    const profileMatch = useRouteMatch<{ id: string; }>("/profile/orders/:id");
     const dispatch = useAppDispatch();
     const message = useSocketLastMessage();
     const { hasDeallocated, details } = useAppSelector(store => store.feedOrderDetails);
     const order = useMemo(
-        () => message.orders.find(({ _id }) => _id === match?.params.id),
-        [message, match]
+        () => {
+            const id = (feedMatch ?? profileMatch)?.params.id;
+            return message.orders.find(({ _id }) => _id === id);
+        },
+        [message, feedMatch, profileMatch]
     );
     const { ingredientsInfo, totalCost } = usePrepareIngredientFullInfo(order?.ingredients ?? []);
 
     useEffect(() => {
-        if (match && !details && !hasDeallocated && order) {
+        if ((feedMatch || profileMatch) && !details && !hasDeallocated && order) {
             const { status, name, number, createdAt } = order;
             dispatch(
                 setOrderDetails({ status, name, number, createdAt, totalCost, ingredients: ingredientsInfo })
             );
         }
-    }, [match, details, hasDeallocated, order, dispatch, totalCost, ingredientsInfo]);
+    }, [feedMatch, profileMatch, details, hasDeallocated, order, dispatch, totalCost, ingredientsInfo]);
 };
