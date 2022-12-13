@@ -22,19 +22,24 @@ const Profile: FC = () => {
     }, [dispatch]);
 
     return (
-        <main className={styles.main}>
-            <ProfileNavigation />
+        <Switch>
+            <Route exact path={`${url}/orders/:id`} component={FeedOrder} />
 
-            <article>
-                <Switch>
-                    <Route exact path={url} component={ProfileInformation} />
+            <Route path={url}>
+                <main className={styles.main}>
+                    <ProfileNavigation />
 
-                    <Route exact path={`${url}/orders`} component={ProfileOrderHistory} />
+                    <article>
+                        <Switch>
+                            <Route exact path={url} component={ProfileInformation} />
 
-                    <Route exact path={`${url}/orders/:id`} component={FeedOrder} />
-                </Switch>
-            </article>
-        </main>
+                            <Route exact path={`${url}/orders`} component={ProfileOrderHistory} />
+                        </Switch>
+                    </article>
+                </main>
+            </Route>
+        </Switch>
+
     );
 };
 
