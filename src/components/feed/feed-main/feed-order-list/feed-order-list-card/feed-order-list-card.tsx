@@ -5,6 +5,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 
 import styles from "./feed-order-list-card.module.css";
 import { IFeedOrder } from "../../../../../models/order";
+import { FeedOrderStatus, FeedOrderStatusView } from "../../../../../constants/order";
 import IngredientIcon from "../../../ingredient-icon/ingredient-icon";
 import CostCounter from "../../../../cost-counter/cost-counter";
 import { useAppDispatch, usePrepareIngredientFullInfo } from "../../../../../hooks";
@@ -68,10 +69,20 @@ const FeedOrderListCard: FC<TProps> = ({ _id, status,  name, number, createdAt, 
                         />
                     </div>
 
-                    <div className={styles.placement}>
+                    <div>
                         <p className="text text_type_main-medium">
                             {name}
                         </p>
+
+                        {
+                            location.pathname.indexOf("profile") !== -1 &&
+                                <p
+                                    className="text text_type_main-default mt-2"
+                                    style={{ color: status === FeedOrderStatus.done ? "#00CCCC" : "FFFFF" }}
+                                >
+                                    {FeedOrderStatusView[status]}
+                                </p>
+                        }
                     </div>
 
                     <div className={styles.placement}>
