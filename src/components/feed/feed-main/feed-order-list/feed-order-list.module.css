@@ -1,14 +1,28 @@
 .content {
     display: flex;
     flex-direction: column;
-    gap: 16px;
 
     composes: scroll from '../../../app/app.module.css';
     padding-right: 8px;
-    height: 892px;
     overflow: auto;
 }
 
-.content::-webkit-scrollbar-track {
+.inFeed {
+    composes: content;
+    gap: 16px;
+    height: 892px;
+}
+
+.inFeed::-webkit-scrollbar-track {
     margin-bottom: 148px;
+}
+
+.inProfile {
+    composes: content;
+    gap: 24px;
+    height: 948px;
+}
+
+.inProfile::-webkit-scrollbar-track {
+    margin-bottom: 80px;
 }
