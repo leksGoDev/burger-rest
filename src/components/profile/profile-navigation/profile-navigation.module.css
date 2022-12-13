@@ -1,5 +1,9 @@
-.link {
+.content {
     width: 320px;
+}
+
+.link {
+    width: 100%;
     height: 64px;
     display: flex;
     align-items: center;

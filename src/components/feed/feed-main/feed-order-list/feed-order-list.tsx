@@ -8,15 +8,13 @@ const FeedOrderList: FC = () => {
     const data = useSocketLastMessage();
 
     return (
-        <article className={styles.article}>
-            <ol className={styles.list}>
-                {
-                    data.orders.map((order, index) =>
-                        <FeedOrderListCard key={index} {...order} />
-                    )
-                }
-            </ol>
-        </article>
+        <ol className={styles.content}>
+            {
+                data.orders.map((order, index) =>
+                    <FeedOrderListCard key={index} {...order} />
+                )
+            }
+        </ol>
     );
 };
 

@@ -1,8 +1,4 @@
-.article {
-    composes: article from '../../../app/app.module.css';
-}
-
-.list {
+.content {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -13,6 +9,6 @@
     overflow: auto;
 }
 
-.list::-webkit-scrollbar-track {
-    margin-bottom: 68px;
+.content::-webkit-scrollbar-track {
+    margin-bottom: 148px;
 }

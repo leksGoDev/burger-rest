@@ -15,7 +15,10 @@ const FeedMain: FC = () => {
             </header>
 
             <main className={styles.main}>
-                <FeedOrderList />
+                <article className={styles.article}>
+                    <FeedOrderList />
+                </article>
+
                 <FeedDashboard />
             </main>
         </section>

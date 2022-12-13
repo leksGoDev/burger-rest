@@ -63,7 +63,7 @@ export const useRefreshFeedOrderDetails = () => {
     const message = useSocketLastMessage();
     const { hasDeallocated, details } = useAppSelector(store => store.feedOrderDetails);
     const order = useMemo(
-        () => message.orders.find(({ _id }) => _id === match?.params.id),
+        () => message?.orders.find(({ _id }) => _id === match?.params.id),
         [message, match]
     );
     const { ingredientsInfo, totalCost } = usePrepareIngredientFullInfo(order?.ingredients ?? []);
