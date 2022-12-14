@@ -11,7 +11,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
 import OrderDetails from "../order-details/order-details";
-import { Feed, ForgotPassword, Home, Ingredient, Login, NotFound, Profile, Register, ResetPassword } from "../../pages";
+import { Feed, ForgotPassword, Home, Ingredient, Login, NotFound, Profile, Register, ResetPassword, Order } from "../../pages";
 import {
     useAppDispatch,
     useRefreshFeedOrderDetails,
@@ -21,7 +21,7 @@ import {
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { fetchUser } from "../../services/store/slices/api/auth-api";
 import { clearDetails as clearIngredientDetails } from "../../services/store/slices/ingredient-details";
-import { clearDetails as clearNewOrderdetails } from "../../services/store/slices/api/order-details-api";
+import { clearDetails as clearNewOrderDetails } from "../../services/store/slices/api/order-details-api";
 import { clearDetails as clearFeedOrderDetails } from "../../services/store/slices/feed-order-details";
 import { startSocket } from "../../services/store/slices/api/feed-socket-api";
 
@@ -50,7 +50,7 @@ const App: FC = () => {
             if (type === ModalType.Ingredient) {
                 dispatch(clearIngredientDetails());
             } else if (type === ModalType.NewOrder) {
-                dispatch(clearNewOrderdetails());
+                dispatch(clearNewOrderDetails());
             }
             else {
                 dispatch(clearFeedOrderDetails());
@@ -105,6 +105,12 @@ const App: FC = () => {
                     component={<Profile />}
                 />
 
+                <ProtectedRoute
+                     path="/orders/:id"
+                     onlyUnAuth={false}
+                     component={<Order />}
+                />
+
                 <Route exact path="/ingredients/:id" component={Ingredient} />
 
                 <Route path="*" component={NotFound} />
@@ -136,11 +142,16 @@ const App: FC = () => {
                         }
                     />
 
-                    <Route exact path="/orders/:id">
-                        <Modal onClose={handleCloseDetails.bind(null, ModalType.NewOrder)}>
-                            <OrderDetails />
-                        </Modal>
-                    </Route>
+                    <ProtectedRoute
+                        exact
+                        path="/orders/:id"
+                        onlyUnAuth={false}
+                        component={
+                            <Modal onClose={handleCloseDetails.bind(null, ModalType.NewOrder)}>
+                                <OrderDetails />
+                            </Modal>
+                        }
+                    />
                 </>}
         </>
     );

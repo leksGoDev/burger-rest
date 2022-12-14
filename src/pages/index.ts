@@ -7,3 +7,4 @@ export { default as ResetPassword }  from "./reset-password/reset-password";
 export { default as Profile } from "./profile/profile";
 export { default as Ingredient } from "./ingredient/ingredient";
 export { default as Feed } from "./feed/feed";
+export { default as Order } from "./order/order";

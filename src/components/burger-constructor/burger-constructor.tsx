@@ -19,10 +19,13 @@ const BurgerConstructor: FC = memo(() => {
 
     useEffect(() => {
         if (orderNumber && !isLoading) {
-            history.push(
-                `/orders/${orderNumber}`,
-                { background: location }
-            );
+            const url = `/orders/${orderNumber}`;
+            if (history.location.pathname !== url) {
+                history.push(
+                    url,
+                    { background: location }
+                );
+            }
         }
     }, [orderNumber, isLoading]);
 
