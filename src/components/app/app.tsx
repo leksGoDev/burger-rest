@@ -89,6 +89,7 @@ const App: FC = () => {
                 <ProtectedRoute
                     path="/profile"
                     onlyUnAuth={false}
+                    fromLocation={location}
                     component={<Profile />}
                 />
 
