@@ -10,19 +10,19 @@
 .inFeed {
     composes: content;
     gap: 16px;
-    height: 892px;
+    height: 812px;
 }
 
 .inFeed::-webkit-scrollbar-track {
-    margin-bottom: 148px;
+    margin-bottom: 68px;
 }
 
 .inProfile {
     composes: content;
     gap: 24px;
-    height: 948px;
+    height: 868px;
 }
 
 .inProfile::-webkit-scrollbar-track {
-    margin-bottom: 80px;
+    margin-bottom: 40px;
 }
