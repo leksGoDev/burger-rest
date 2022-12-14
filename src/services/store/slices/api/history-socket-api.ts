@@ -1,7 +1,7 @@
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IFeedData } from "../../../../models/order";
 import { SliceActions } from "../../../../models/redux";
-import { SocketStartActionType, SocketStoreName } from "../../../../constants/redux";
+import { SocketStartActionType, SocketStopActionType, SocketStoreName } from "../../../../constants/redux";
 
 interface IState {
     connected: boolean;
@@ -17,6 +17,8 @@ const initialState: IState = {
 
 export const startActionType = SocketStartActionType.history;
 export const startSocket = createAction<string>(startActionType);
+export const stopActionType = SocketStopActionType.history;
+export const stopSocket = createAction(stopActionType);
 
 const historySocketApi = createSlice({
     name: SocketStoreName.history,

@@ -3,7 +3,7 @@ import type { ActionCreatorWithoutPayload, ActionCreatorWithPayload } from "@red
 
 import type { TAppDispatch, TRootState } from "../index";
 import { TAppActions } from "../../../models/redux";
-import { SocketStartActionType } from "../../../constants/redux";
+import { SocketStartActionType, SocketStopActionType } from "../../../constants/redux";
 
 interface ISocketMiddlewareActions {
     opened: ActionCreatorWithoutPayload;
@@ -14,7 +14,8 @@ interface ISocketMiddlewareActions {
 
 const createSocketMiddleware = (
     actionCreators: ISocketMiddlewareActions,
-    startActionType: SocketStartActionType
+    startActionType: SocketStartActionType,
+    stopActionType: SocketStopActionType
 ): Middleware => {
     return (store: MiddlewareAPI<TAppDispatch, TRootState>) => {
         let socket: WebSocket | null = null;
@@ -45,6 +46,11 @@ const createSocketMiddleware = (
                     const { data } = event;
                     dispatch(received(data));
                 };
+            }
+
+            if (action.type === stopActionType && socket) {
+                socket.close();
+                socket = null;
             }
 
             next(action);

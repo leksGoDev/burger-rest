@@ -3,7 +3,6 @@ import { useCallback, useEffect} from 'react';
 import type { Location } from "history";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 
-import { WS_BASE_URL } from "../../constants/api";
 import { ModalType } from "../../constants/modal";
 import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
@@ -23,7 +22,6 @@ import { fetchUser } from "../../services/store/slices/api/auth-api";
 import { clearDetails as clearIngredientDetails } from "../../services/store/slices/ingredient-details";
 import { clearDetails as clearNewOrderDetails } from "../../services/store/slices/api/order-details-api";
 import { clearDetails as clearFeedOrderDetails } from "../../services/store/slices/feed-order-details";
-import { startSocket } from "../../services/store/slices/api/feed-socket-api";
 
 const App: FC = () => {
     useRefreshIngredientDetails();
@@ -40,7 +38,6 @@ const App: FC = () => {
 
         dispatch(fetchIngredients(signal));
         dispatch(fetchUser(signal));
-        dispatch(startSocket(`${WS_BASE_URL}/all`));
 
         return () => controller.abort();
     }, [dispatch]);
