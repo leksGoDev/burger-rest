@@ -1,25 +1,34 @@
-import { useEffect, useCallback } from 'react';
 import type { FC } from 'react';
+import { useCallback, useEffect} from 'react';
 import type { Location } from "history";
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 
 import { WS_BASE_URL } from "../../constants/api";
+import { ModalType } from "../../constants/modal";
 import AppHeader from "../app-header/app-header";
 import ProtectedRoute from "../auth/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
-import { Home, NotFound, Login, Register, ForgotPassword, ResetPassword, Profile, Ingredient, Feed } from "../../pages";
-import { useAppDispatch, useRefreshFeedOrderDetails, useRefreshIngredientDetails } from "../../hooks";
+import OrderDetails from "../order-details/order-details";
+import { Feed, ForgotPassword, Home, Ingredient, Login, NotFound, Profile, Register, ResetPassword } from "../../pages";
+import {
+    useAppDispatch,
+    useRefreshFeedOrderDetails,
+    useRefreshIngredientDetails,
+    useRefreshNewOrderDetails
+} from "../../hooks";
 import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
 import { fetchUser } from "../../services/store/slices/api/auth-api";
-import { deleteIngredientDetails } from "../../services/store/slices/ingredient-details";
-import { deleteOrderDetails } from "../../services/store/slices/feed-order-details";
+import { clearDetails as clearIngredientDetails } from "../../services/store/slices/ingredient-details";
+import { clearDetails as clearNewOrderdetails } from "../../services/store/slices/api/order-details-api";
+import { clearDetails as clearFeedOrderDetails } from "../../services/store/slices/feed-order-details";
 import { startSocket } from "../../services/store/slices/api/feed-socket-api";
 
 const App: FC = () => {
     useRefreshIngredientDetails();
     useRefreshFeedOrderDetails();
+    useRefreshNewOrderDetails();
     const dispatch = useAppDispatch();
     const location = useLocation<{ background?: Location<unknown> }>();
     const background = location.state?.background;
@@ -37,11 +46,14 @@ const App: FC = () => {
     }, [dispatch]);
 
     const handleCloseDetails = useCallback(
-        (type: "ingredient" | "order") => {
-            if (type === "ingredient") {
-                dispatch(deleteIngredientDetails());
-            } else {
-                dispatch(deleteOrderDetails())
+        (type: ModalType) => {
+            if (type === ModalType.Ingredient) {
+                dispatch(clearIngredientDetails());
+            } else if (type === ModalType.NewOrder) {
+                dispatch(clearNewOrderdetails());
+            }
+            else {
+                dispatch(clearFeedOrderDetails());
             }
 
             history.goBack();
@@ -101,20 +113,32 @@ const App: FC = () => {
             {background &&
                 <>
                     <Route exact path="/ingredients/:id">
-                        <Modal onClose={handleCloseDetails.bind(null, "ingredient")}>
+                        <Modal onClose={handleCloseDetails.bind(null, ModalType.Ingredient)}>
                             <IngredientDetails />
                         </Modal>
                     </Route>
 
                     <Route exact path="/feed/:id">
-                        <Modal onClose={handleCloseDetails.bind(null, "order")}>
+                        <Modal onClose={handleCloseDetails.bind(null, ModalType.FeedOrder)}>
                             <FeedOrderDetails />
                         </Modal>
                     </Route>
 
-                    <Route exact path="/profile/orders/:id">
-                        <Modal onClose={handleCloseDetails.bind(null, "order")}>
-                            <FeedOrderDetails />
+
+                    <ProtectedRoute
+                        exact
+                        path="/profile/orders/:id"
+                        onlyUnAuth={false}
+                        component={
+                            <Modal onClose={handleCloseDetails.bind(null, ModalType.ProfileOrder)}>
+                                <FeedOrderDetails />
+                            </Modal>
+                        }
+                    />
+
+                    <Route exact path="/orders/:id">
+                        <Modal onClose={handleCloseDetails.bind(null, ModalType.NewOrder)}>
+                            <OrderDetails />
                         </Modal>
                     </Route>
                 </>}

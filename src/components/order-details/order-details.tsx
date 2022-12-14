@@ -8,7 +8,7 @@ import styles from "./order-details.module.css";
 import { useAppSelector } from "../../hooks";
 
 const OrderDetails: FC = () => {
-    const { data } = useAppSelector(store => store.orderDetailsApi);
+    const { orderNumber } = useAppSelector(store => store.orderDetailsApi);
     const { state } = useLocation<{ background?: Location<unknown> }>();
 
     const createWrapForModal = useCallback(
@@ -20,7 +20,7 @@ const OrderDetails: FC = () => {
         [state]
     );
 
-    if (!data) {
+    if (!orderNumber) {
         return null;
     }
 
@@ -29,7 +29,7 @@ const OrderDetails: FC = () => {
             {createWrapForModal(
                 <>
                     <article className={styles.article}>
-                        <p className="text text_type_digits-large mb-8">{data.order.number}</p>
+                        <p className="text text_type_digits-large mb-8">{orderNumber}</p>
 
                         <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
 

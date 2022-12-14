@@ -1,5 +1,5 @@
 import { IIngredient } from "./ingredient";
-import { IOrder, IFeedData } from "./order";
+import { INewOrder, IFeedData, IOrder } from "./order";
 import { IUser, TUserInfo } from "./profile";
 
 export interface IResponse {
@@ -10,7 +10,11 @@ export interface IIngredientsResponse extends IResponse {
     data: IIngredient[];
 }
 
-export interface IOrderResponse extends IOrder, IResponse {}
+export interface INewOrderResponse extends INewOrder, IResponse {}
+
+export interface IFindOrderResponse extends IResponse {
+    orders: IOrder[];
+}
 
 export interface IFeedResponse extends IFeedData, IResponse {}
 

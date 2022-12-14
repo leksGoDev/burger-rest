@@ -19,18 +19,18 @@ const ingredientDetails = createSlice({
     name: 'ingredientDetails',
     initialState: initialState,
     reducers: {
-        setIngredientDetails(state, action: PayloadAction<TIngredientDetails>) {
+        setDetails(state, action: PayloadAction<TIngredientDetails>) {
             state.details = { ...action.payload };
             state.hasDeallocated = false;
         },
-        deleteIngredientDetails(state) {
+        clearDetails(state) {
             state.details = null;
             state.hasDeallocated = true;
         }
     }
 });
 
-export const { setIngredientDetails, deleteIngredientDetails } = ingredientDetails.actions;
+export const { setDetails, clearDetails } = ingredientDetails.actions;
 
 export type TIngredientDetailsActions = SliceActions<typeof ingredientDetails.actions>;
 

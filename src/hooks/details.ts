@@ -5,8 +5,9 @@ import { SocketStoreName } from "../constants/redux";
 import { IFeedData } from "../models/order";
 import { IIngredient } from "../models/ingredient";
 import { useAppDispatch, useAppSelector } from "./redux";
-import { setOrderDetails } from "../services/store/slices/feed-order-details";
-import { setIngredientDetails } from "../services/store/slices/ingredient-details";
+import { setDetails as setOrderDetails } from "../services/store/slices/feed-order-details";
+import { setDetails as setIngredientDetails } from "../services/store/slices/ingredient-details";
+import { findOrder } from "../services/store/slices/api/order-details-api";
 
 export const useRefreshIngredientDetails = () => {
     const match = useRouteMatch<{ id: string; }>("/ingredients/:id");
@@ -81,4 +82,17 @@ export const useRefreshFeedOrderDetails = () => {
             );
         }
     }, [feedMatch, profileMatch, details, hasDeallocated, order, dispatch, totalCost, ingredientsInfo]);
+};
+
+export const useRefreshNewOrderDetails = () => {
+    const match = useRouteMatch<{ id: string; }>("/orders/:id");
+    const dispatch = useAppDispatch();
+    const { orderNumber, isLoading, hasDeallocated } = useAppSelector(store => store.orderDetailsApi);
+
+    useEffect(() => {
+        if (match && !orderNumber && !hasDeallocated && !isLoading) {
+            dispatch(findOrder(match.params.id));
+        }
+    }, [match, orderNumber, hasDeallocated, dispatch]);
+
 };

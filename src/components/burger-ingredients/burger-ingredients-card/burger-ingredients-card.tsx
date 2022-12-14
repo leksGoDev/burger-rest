@@ -8,7 +8,7 @@ import styles from './burger-ingredients-card.module.css'
 import { IIngredient, IngredientType } from "../../../models/ingredient";
 import CostCounter from "../../cost-counter/cost-counter";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
-import { setIngredientDetails } from "../../../services/store/slices/ingredient-details";
+import { setDetails } from "../../../services/store/slices/ingredient-details";
 
 interface IProps {
     ingredient: IIngredient;
@@ -37,7 +37,7 @@ const BurgerIngredientsCard: FC<IProps> = ({ ingredient }) => {
 
     const handleOpenDetails = useCallback(
         () => dispatch(
-            setIngredientDetails({ image_large, name, calories, proteins, fat, carbohydrates })
+            setDetails({ image_large, name, calories, proteins, fat, carbohydrates })
         ), [image_large, name, calories, proteins, fat, carbohydrates, dispatch]);
 
     return (

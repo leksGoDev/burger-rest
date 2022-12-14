@@ -1,4 +1,4 @@
-import { memo, useMemo, useCallback } from "react";
+import { memo, useMemo, useCallback, useEffect } from "react";
 import type { FC, SyntheticEvent } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,10 +6,8 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor.module.css';
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
-import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
 import CostCounter from "../cost-counter/cost-counter";
-import { closeDetails, makeOrder } from "../../services/store/slices/api/order-details-api";
+import { makeOrder } from "../../services/store/slices/api/order-details-api";
 import { checkAuth } from "../../services/store/slices/api/auth-api";
 
 const BurgerConstructor: FC = memo(() => {
@@ -17,7 +15,16 @@ const BurgerConstructor: FC = memo(() => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const { bun, stuffing, user } = useAppSelector(store => ({ ...store.burgerConstructor, ...store.authApi }));
-    const { data, isLoading } = useAppSelector(store => store.orderDetailsApi);
+    const { orderNumber, isLoading } = useAppSelector(store => store.orderDetailsApi);
+
+    useEffect(() => {
+        if (orderNumber && !isLoading) {
+            history.push(
+                `/orders/${orderNumber}`,
+                { background: location }
+            );
+        }
+    }, [orderNumber, isLoading]);
 
     const totalPrice = useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;
@@ -49,10 +56,6 @@ const BurgerConstructor: FC = memo(() => {
         }, [dispatch, bun, stuffing, history, location, user]
     );
 
-    const handleCloseDetails = useCallback(
-        () => dispatch(closeDetails())
-    , [dispatch]);
-
     return (
         <article className={styles.article}>
             <section className="mb-10 ml-4">
@@ -73,11 +76,6 @@ const BurgerConstructor: FC = memo(() => {
                     Оформить заказ
                 </Button>
             </form>
-
-            {data &&
-                <Modal onClose={handleCloseDetails}>
-                    <OrderDetails />
-                </Modal>}
         </article>
     );
 });

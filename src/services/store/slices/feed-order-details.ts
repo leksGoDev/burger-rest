@@ -31,7 +31,7 @@ const feedOrderDetails = createSlice({
     name: 'feedOrderDetails',
     initialState: initialState,
     reducers: {
-        setOrderDetails(state, action: PayloadAction<TFeedOrderDetailsPayload>) {
+        setDetails(state, action: PayloadAction<TFeedOrderDetailsPayload>) {
             const { status, name, number, createdAt, totalCost, ingredients } = action.payload;
             const ingredientsDetails = {} as TFeedOrderDetails["ingredients"];
 
@@ -52,14 +52,14 @@ const feedOrderDetails = createSlice({
             state.details = { status, name, number, createdAt, totalCost, ingredients: ingredientsDetails };
             state.hasDeallocated = false;
         },
-        deleteOrderDetails(state) {
+        clearDetails(state) {
             state.details = null;
             state.hasDeallocated = true;
         }
     }
 });
 
-export const { setOrderDetails, deleteOrderDetails } = feedOrderDetails.actions;
+export const { setDetails, clearDetails } = feedOrderDetails.actions;
 
 export type TFeedOrderDetailsActions = SliceActions<typeof feedOrderDetails.actions>;
 

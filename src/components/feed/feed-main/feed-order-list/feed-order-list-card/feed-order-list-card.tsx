@@ -9,7 +9,7 @@ import { FeedOrderStatus, FeedOrderStatusView } from "../../../../../constants/o
 import IngredientIcon from "../../../ingredient-icon/ingredient-icon";
 import CostCounter from "../../../../cost-counter/cost-counter";
 import { useAppDispatch, usePrepareIngredientFullInfo } from "../../../../../hooks";
-import { setOrderDetails } from "../../../../../services/store/slices/feed-order-details";
+import { setDetails } from "../../../../../services/store/slices/feed-order-details";
 
 type TProps = Omit<IFeedOrder, "updatedAt">;
 
@@ -46,7 +46,7 @@ const FeedOrderListCard: FC<TProps> = ({ _id, status,  name, number, createdAt, 
 
     const handleOpenDetails = useCallback(
         () => dispatch(
-            setOrderDetails({ status, name, number, createdAt, totalCost, ingredients: ingredientsInfo })
+            setDetails({ status, name, number, createdAt, totalCost, ingredients: ingredientsInfo })
         ),
         [status, name, number, createdAt, totalCost, ingredientsInfo, dispatch]
     );
