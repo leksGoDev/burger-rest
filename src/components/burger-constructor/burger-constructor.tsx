@@ -15,19 +15,16 @@ const BurgerConstructor: FC = memo(() => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const { bun, stuffing, user } = useAppSelector(store => ({ ...store.burgerConstructor, ...store.authApi }));
-    const { orderNumber, isLoading } = useAppSelector(store => store.orderDetailsApi);
+    const { orderNumber, isLoading, hasDeallocated } = useAppSelector(store => store.orderDetailsApi);
 
     useEffect(() => {
-        if (orderNumber && !isLoading) {
+        if (orderNumber && !isLoading && !hasDeallocated) {
             const url = `/orders/${orderNumber}`;
             if (history.location.pathname !== url) {
-                history.push(
-                    url,
-                    { background: location }
-                );
+                history.push(url, { background: location });
             }
         }
-    }, [orderNumber, isLoading]);
+    }, [orderNumber, isLoading, hasDeallocated, history, location]);
 
     const totalPrice = useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;

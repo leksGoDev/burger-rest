@@ -38,7 +38,7 @@ export const useSocketLastMessage = (storeName: SocketStoreName) => {
     };
     const data: IFeedData= useMemo(
         () => (messages[messages.length - 1]) ?? emptyData,
-        [messages, storeName]
+        [messages, storeName, emptyData]
     );
 
     return data;
@@ -93,6 +93,6 @@ export const useRefreshNewOrderDetails = () => {
         if (match && !orderNumber && !hasDeallocated && !isLoading) {
             dispatch(findOrder(match.params.id));
         }
-    }, [match, orderNumber, hasDeallocated, dispatch]);
+    }, [match, orderNumber, hasDeallocated, isLoading, dispatch]);
 
 };
