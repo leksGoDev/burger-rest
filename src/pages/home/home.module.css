@@ -1,6 +1,9 @@
-.content {
+.wrap {
     width: 1240px;
     margin: 0 auto;
+}
+
+.main {
     display: flex;
     justify-content: space-between;
     gap: 40px;

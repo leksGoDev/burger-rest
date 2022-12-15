@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { TAppDispatch } from "../../index";
 import { ICheckEmailBodyData, IPassResetBodyData, IPassResetResponse } from "../../../../models/api";
+import { SliceActions } from "../../../../models/redux";
 import { createOptionsWithJSON, request } from "../../../api/request";
 
 interface IState {
@@ -18,56 +18,56 @@ const initialState: IState = {
     isMailSent: false
 };
 
+export const checkEmail = createAsyncThunk<void, ICheckEmailBodyData>(
+    'passResetApi/checkEmail',
+    async (data) => {
+        const options = createOptionsWithJSON<ICheckEmailBodyData>("POST", data)
+        await request<IPassResetResponse>(`${BASE_URL}/`, options);
+    }
+);
+
+export const resetPassword = createAsyncThunk<void, IPassResetBodyData>(
+    'passResetApi/resetPassword',
+    async (data) => {
+        const options = createOptionsWithJSON<IPassResetBodyData>("POST", data)
+        await request<IPassResetResponse>(`${BASE_URL}/reset`, options);
+    }
+);
+
 const passResetApi = createSlice({
     name: 'passResetApi',
     initialState: initialState,
-    reducers: {
-        loading(state) {
-            state.isLoading = true;
-        },
-        failed(state) {
-            state.hasError = true;
-            state.isLoading = false;
-        },
-        sent(state) {
-            state.hasError = false;
-            state.isLoading = false;
-            state.isMailSent = true;
-        },
-        reset(state) {
-            state.hasError = false;
-            state.isLoading = false;
-            state.isMailSent = false;
-        }
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(checkEmail.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(checkEmail.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(checkEmail.fulfilled, (state) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.isMailSent = true;
+            })
+
+            .addCase(resetPassword.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(resetPassword.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(resetPassword.fulfilled, (state) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.isMailSent = false;
+            })
     }
 });
 
-const { loading, failed, sent, reset } = passResetApi.actions;
-
-export const checkEmail = (email: string) => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
-
-    try {
-        const options = createOptionsWithJSON<ICheckEmailBodyData>("POST", { email })
-        await request<IPassResetResponse>(`${BASE_URL}/`, options);
-        dispatch(sent());
-    }
-    catch (err) {
-        dispatch(failed());
-    }
-};
-
-export const resetPassword = (password: string, token: string) => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
-
-    try {
-        const options = createOptionsWithJSON<IPassResetBodyData>("POST", { password, token })
-        await request<IPassResetResponse>(`${BASE_URL}/reset`, options);
-        dispatch(reset());
-    }
-    catch (err) {
-        dispatch(failed());
-    }
-};
+export type TPassResetApiActions = SliceActions<typeof passResetApi.actions>;
 
 export default passResetApi.reducer;

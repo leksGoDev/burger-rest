@@ -17,6 +17,7 @@ const AppHeaderElement: FC<IProps> = ({ icon, text, linkRoute, textInactive }) =
         <article className="pt-4 pb-4 pr-5 pl-5">
             <Link to={linkRoute} className={styles.placement}>
                 {icon}
+
                 <p className={`text text_type_main-default ${textInactive && "text_color_inactive"}`}>
                     {text}
                 </p>

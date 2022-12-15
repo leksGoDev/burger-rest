@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { IInputData, InputType } from "../../../models/form";
+import { InputType } from "../../../constants/form";
+import { IInputData } from "../../../models/form";
 
 const FormInput: FC<IInputData> = ({ type , inputProps }) => {
 

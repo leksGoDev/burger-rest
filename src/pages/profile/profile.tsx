@@ -1,4 +1,5 @@
-import type { FC } from 'react';
+import { useCallback } from "react";
+import type { FC, ReactNode } from 'react';
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import styles from "./profile.module.css";
@@ -8,19 +9,33 @@ import ProfileNavigation from "../../components/profile/profile-navigation/profi
 
 const Profile: FC = () => {
     const { url } = useRouteMatch();
+    const isOrderInstance = useRouteMatch(`${url}/orders/:id`);
+
+    const createNavigationWrap = useCallback(
+        (component: ReactNode) => !isOrderInstance ?
+            <main className={styles.main}>
+                <ProfileNavigation />
+
+                <article>
+                    {component}
+                </article>
+            </main>
+            : component
+        ,
+        [isOrderInstance]
+    );
 
     return (
-        <main className={styles.main}>
-            <ProfileNavigation />
-
-            <article>
+        <>
+            {createNavigationWrap(
                 <Switch>
                     <Route exact path={url} component={ProfileInformation} />
 
-                    <Route exact path={`${url}/orders`} component={ProfileOrderHistory} />
+                    <Route path={`${url}/orders`} component={ProfileOrderHistory} />
                 </Switch>
-            </article>
-        </main>
+            )}
+        </>
+
     );
 };
 

@@ -1,7 +1,6 @@
 import { ITokenBodyData, IResponse as IApiResponse, ITokenResponse } from "../../models/api";
 import { deleteTokens, getCookie, saveTokens } from "./cookie";
-
-const BASE_URL = 'https://norma.nomoreparties.space/api/';
+import { HTTP_BASE_URL } from "../../constants/api";
 
 interface IAuthResponsePartial extends IApiResponse {
     accessToken?: string;
@@ -34,7 +33,7 @@ const checkCookie = (data: IAuthResponsePartial) => {
 };
 
 export const request = <TResponse>(url: string, options?: RequestInit): Promise<TResponse> =>
-    fetch(BASE_URL + url, options)
+    fetch(HTTP_BASE_URL + url, options)
         .then(checkOk)
         .then(checkSuccess)
         .then(checkCookie)

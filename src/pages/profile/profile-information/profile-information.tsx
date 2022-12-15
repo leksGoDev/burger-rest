@@ -4,7 +4,7 @@ import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-de
 
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import styles from "./profile-information.module.css";
-import { patchUser } from "../../../services/store/slices/api/auth-api";
+import { checkAuth, patchUser } from "../../../services/store/slices/api/auth-api";
 
 const ProfileInformation: FC = () => {
     const dispatch = useAppDispatch();
@@ -39,7 +39,10 @@ const ProfileInformation: FC = () => {
     const handleSubmit = useCallback(
         (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            dispatch(patchUser(email, password, name));
+            dispatch(patchUser({ email, password, name }))
+                .catch(() => {
+                    dispatch(checkAuth())
+                });
             setPassword("");
         },
         [dispatch, email, password, name, setPassword]

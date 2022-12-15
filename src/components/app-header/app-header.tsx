@@ -1,11 +1,12 @@
-import { useCallback } from "react";
-import { useLocation} from "react-router-dom";
+import { memo, useCallback } from "react";
+import type { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from './app-header.module.css';
 import AppHeaderElement from "./app-header-element/app-header-element";
 
-const AppHeader = () => {
+const AppHeader: FC = memo(() => {
     const { pathname } = useLocation();
 
     const checkActive = useCallback(
@@ -30,28 +31,28 @@ const AppHeader = () => {
                     />
 
                     <AppHeaderElement
-                        textInactive={!checkActive("mock", true)}
-                        icon={<ListIcon type={checkIconType("mock", true)} />}
+                        textInactive={!checkActive("feed")}
+                        icon={<ListIcon type={checkIconType("feed")} />}
                         text="Лента заказов"
-                        linkRoute="mock"
+                        linkRoute="/feed"
                     />
                 </section>
 
-                <section className={styles.logo}>
-                    <Logo />
-                </section>
+                <article className={styles.logo}>
+                    <Link to="/">
+                        <Logo />
+                    </Link>
+                </article>
 
-                <section>
-                    <AppHeaderElement
-                        textInactive={!checkActive("/profile")}
-                        icon={<ProfileIcon type={checkIconType("/profile")} />}
-                        text="Личный кабинет"
-                        linkRoute="/profile"
-                    />
-                </section>
+                <AppHeaderElement
+                    textInactive={!checkActive("/profile")}
+                    icon={<ProfileIcon type={checkIconType("/profile")} />}
+                    text="Личный кабинет"
+                    linkRoute="/profile"
+                />
             </div>
         </header>
     );
-};
+});
 
 export default AppHeader;

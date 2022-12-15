@@ -1,0 +1,37 @@
+.wrap {
+    height: 716px;
+    padding: 40px;
+}
+
+.header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.article {
+    margin: 20px 0;
+    height: 102px;
+}
+
+.name {
+    max-height: 62px;
+    overflow: auto;
+    composes: scroll from "../../app/app.module.css";
+}
+
+.list {
+    padding-right: 24px;
+    height: 312px;
+    overflow: auto;
+    composes: scroll from "../../app/app.module.css";
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

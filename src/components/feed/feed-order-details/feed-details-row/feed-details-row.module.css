@@ -1,0 +1,15 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.figure {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.name {
+    width: 320px;
+}

@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import Form from "../../components/form/form";
-import { InputType } from "../../models/form";
+import { InputType } from "../../constants/form";
 import { TFromState } from "../../models/router";
 import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
 import { resetPassword } from "../../services/store/slices/api/pass-reset-api";
@@ -29,7 +29,7 @@ const ResetPassword: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => dispatch(resetPassword(password, code)),
+        () => dispatch(resetPassword({ password, token: code })),
         [dispatch, password, code]
     );
 

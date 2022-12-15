@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IIngredient } from "../../../models/ingredient";
+import { SliceActions } from "../../../models/redux";
 
-type IIngredientDetails = Pick<IIngredient, "image_large" | "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
+type TIngredientDetails = Pick<IIngredient, "image_large" | "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
 
 interface IState {
-    details: IIngredientDetails | null;
+    details: TIngredientDetails | null;
     hasDeallocated: boolean;
 }
 
@@ -18,17 +19,19 @@ const ingredientDetails = createSlice({
     name: 'ingredientDetails',
     initialState: initialState,
     reducers: {
-        setDetails(state, action: PayloadAction<IIngredientDetails>) {
+        setDetails(state, action: PayloadAction<TIngredientDetails>) {
             state.details = { ...action.payload };
             state.hasDeallocated = false;
         },
-        deleteDetails(state) {
+        clearDetails(state) {
             state.details = null;
             state.hasDeallocated = true;
         }
     }
 });
 
-export const { setDetails, deleteDetails } = ingredientDetails.actions;
+export const { setDetails, clearDetails } = ingredientDetails.actions;
+
+export type TIngredientDetailsActions = SliceActions<typeof ingredientDetails.actions>;
 
 export default ingredientDetails.reducer;

@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-import { TAppDispatch } from "../../index";
 import { IUser, TUserInfo } from "../../../../models/profile";
 import {
     IAuthResponse, ILoginBodyData, ILogoutBodyData,
     ILogoutResponse, IRegisterBodyData, IUserResponse
 } from "../../../../models/api";
+import { SliceActions } from "../../../../models/redux";
 import { createOptionsWithJSON, request, requestWithAuth } from "../../../api/request";
 import { getCookie, deleteTokens } from "../../../api/cookie";
 
@@ -23,102 +23,144 @@ const initialState: IState = {
     user: null
 };
 
-const authApi = createSlice({
-    name: 'authApi',
-    initialState: initialState,
-    reducers: {
-        loading(state) {
-            state.isLoading = true;
-        },
-        failed(state) {
-            state.hasError = true;
-            state.isLoading = false;
-        },
-        received(state, action: PayloadAction<TUserInfo | null>) {
-            state.hasError = false;
-            state.isLoading = false;
-            state.user = action.payload;
-        },
-        reset(state) {
-            state.user = null;
-        }
-    }
-});
-
-const { loading, failed, received, reset } = authApi.actions;
-
-export const register = (email: string, password: string, name: string) => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
-
-    try {
-        const options = createOptionsWithJSON<IRegisterBodyData>("POST", { email, password, name });
+export const register = createAsyncThunk<TUserInfo, IRegisterBodyData>(
+    'authApi/register',
+    async (data) => {
+        const options = createOptionsWithJSON<IRegisterBodyData>("POST", data);
         const { user } = await request<IAuthResponse>(`${BASE_URL}/register`, options);
-        dispatch(received(user));
-    }
-    catch (err) {
-        dispatch(failed());
-    }
-};
 
-export const login = (email: string, password: string) => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
+        return user;
+    }
+);
 
-    try {
-        const options = createOptionsWithJSON<ILoginBodyData>("POST", { email, password });
+export const login = createAsyncThunk<TUserInfo, ILoginBodyData>(
+    'authApi/login',
+    async (data) => {
+        const options = createOptionsWithJSON<ILoginBodyData>("POST", data);
         const { user } = await request<IAuthResponse>(`${BASE_URL}/login`, options);
-        dispatch(received(user));
-    }
-    catch (err) {
-        dispatch(failed());
-    }
-};
 
-export const logout = () => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
+        return user;
+    }
+);
 
-    try {
+export const logout = createAsyncThunk(
+    'authApi/logout',
+    async () => {
         const token = getCookie("refreshToken") ?? "";
         const options = createOptionsWithJSON<ILogoutBodyData>("POST", { token });
         await request<ILogoutResponse>(`${BASE_URL}/logout`, options);
         deleteTokens();
-        dispatch(received(null));
     }
-    catch (err) {
-        dispatch(failed());
-    }
-};
+);
 
-export const fetchUser = (signal: AbortController["signal"]) => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
-
-    try {
+export const fetchUser = createAsyncThunk<TUserInfo, AbortController["signal"]>(
+    'authApi/fetchUser',
+    async (signal) => {
         const { user } = await requestWithAuth<IUserResponse>(`${BASE_URL}/user`, { signal });
-        dispatch(received(user));
-    } catch (err) {
-        dispatch(failed());
+
+        return user;
     }
-};
+);
 
-export const patchUser = (email: string, password: string, name: string) => async (dispatch: TAppDispatch) => {
-    dispatch(loading());
-
-    try {
-        const options = createOptionsWithJSON<IUser>("PATCH", { email, password, name });
+export const patchUser = createAsyncThunk<TUserInfo, IUser>(
+    'authApi/patchUser',
+    async (data) => {
+        const options = createOptionsWithJSON<IUser>("PATCH", data);
         const { user } = await requestWithAuth<IUserResponse>(`${BASE_URL}/user`, options);
-        dispatch(received(user));
-    } catch (err) {
-        dispatch(failed());
-        dispatch(checkAuth());
-    }
-};
 
-export const checkAuth = () => async (dispatch: TAppDispatch) => {
-    const accessToken = getCookie("accessToken");
-    const refreshToken = getCookie("refreshToken");
-
-    if (!accessToken && !refreshToken) {
-        dispatch(reset());
+        return user;
     }
-};
+);
+
+const authApi = createSlice({
+    name: 'authApi',
+    initialState: initialState,
+    reducers: {
+        checkAuth:  {
+            reducer(state, action: PayloadAction<boolean>) {
+                if (action.payload) {
+                    state.user = null;
+                }
+            },
+            prepare() {
+                const accessToken = getCookie("accessToken");
+                const refreshToken = getCookie("refreshToken");
+
+                return { payload: !accessToken && !refreshToken };
+            }
+        }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(register.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(register.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(register.fulfilled, (state, action) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.user = action.payload;
+            })
+
+            .addCase(login.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(login.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(login.fulfilled, (state, action) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.user = action.payload;
+            })
+
+            .addCase(logout.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(logout.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.user = null;
+            })
+
+            .addCase(fetchUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchUser.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(fetchUser.fulfilled, (state, action) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.user = action.payload;
+            })
+
+            .addCase(patchUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(patchUser.rejected, (state) => {
+                state.hasError = true;
+                state.isLoading = false;
+            })
+            .addCase(patchUser.fulfilled, (state, action) => {
+                state.hasError = false;
+                state.isLoading = false;
+                state.user = action.payload;
+            });
+    }
+});
+
+export const { checkAuth } = authApi.actions;
+
+export type TAuthApiActions = SliceActions<typeof authApi.actions>;
 
 export default authApi.reducer;

@@ -1,6 +1,7 @@
 .main {
-    padding: 120px 0 0 340px;
+    width: 1240px;
+    margin: 0 auto;
     display: flex;
     justify-content: flex-start;
-    gap: 60px;
+    gap: 48px;
 }

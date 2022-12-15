@@ -2,8 +2,8 @@ import { useMemo, useCallback } from "react";
 import type { FC } from 'react';
 import { useHistory } from "react-router-dom";
 
+import { InputType } from "../../constants/form";
 import Form from "../../components/form/form";
-import { InputType } from "../../models/form";
 import { useInput, useAppDispatch } from "../../hooks";
 import { login } from "../../services/store/slices/api/auth-api";
 
@@ -24,7 +24,7 @@ const Login: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleSubmit = useCallback(
-        () => dispatch(login(email, password)),
+        () => dispatch(login({ email, password })),
         [dispatch, email, password]
     );
 

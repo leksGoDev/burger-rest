@@ -13,9 +13,10 @@ interface IProps {
     onlyUnAuth: boolean;
 
     exact?: boolean;
+    fromLocation?: Location;
 }
 
-const ProtectedRoute: FC<IProps> = ({ component, onlyUnAuth, ...props  }) => {
+const ProtectedRoute: FC<IProps> = ({ component, onlyUnAuth, fromLocation, ...props  }) => {
     const { user } = useAppSelector(store => store.authApi);
 
     const chooseRender = useCallback(
@@ -35,7 +36,7 @@ const ProtectedRoute: FC<IProps> = ({ component, onlyUnAuth, ...props  }) => {
                     <Redirect
                         to={{
                             pathname: "/login",
-                            state: { from: location }
+                            state: { from: fromLocation ?? location }
                         }}
                     />
                 );
