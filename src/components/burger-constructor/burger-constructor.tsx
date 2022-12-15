@@ -9,6 +9,7 @@ import BurgerConstructorList from "./burger-constructor-list/burger-constructor-
 import CostCounter from "../cost-counter/cost-counter";
 import { makeOrder } from "../../services/store/slices/api/order-details-api";
 import { checkAuth } from "../../services/store/slices/api/auth-api";
+import { clearConstructor } from "../../services/store/slices/constructor";
 
 const BurgerConstructor: FC = memo(() => {
     const history = useHistory();
@@ -22,9 +23,10 @@ const BurgerConstructor: FC = memo(() => {
             const url = `/orders/${orderNumber}`;
             if (history.location.pathname !== url) {
                 history.push(url, { background: location });
+                dispatch(clearConstructor());
             }
         }
-    }, [orderNumber, isLoading, hasDeallocated, history, location]);
+    }, [orderNumber, isLoading, hasDeallocated, history, location, dispatch]);
 
     const totalPrice = useMemo(() => {
         let sum = (bun?.price ?? 0) * 2;
@@ -65,16 +67,26 @@ const BurgerConstructor: FC = memo(() => {
             <form className={`${styles.form} mr-4`}>
                 <CostCounter large value={totalPrice} />
 
-                <Button
-                    extraClass="ml-10"
-                    type="primary"
-                    size="large"
-                    htmlType="submit"
-                    disabled={isLoading}
-                    onClick={handleSubmitButton}
-                >
-                    Оформить заказ
-                </Button>
+                <div className="ml-10">
+                    {
+                        isLoading ?
+                            <div className={styles.loaderWrap}>
+                                <span className={styles.timerLoader} />
+
+                                <p className="text text_type_main-default ml-2">Загрузка</p>
+                            </div>
+                            :
+                            <Button
+                                type="primary"
+                                size="large"
+                                htmlType="submit"
+                                onClick={handleSubmitButton}
+                            >
+                                Оформить заказ
+                            </Button>
+                    }
+                </div>
+
             </form>
         </article>
     );

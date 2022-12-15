@@ -7,3 +7,106 @@
     justify-content: right;
     align-items: center;
 }
+
+.loaderWrap {
+    padding: 20px 40px 20px 40px;
+    box-sizing: content-box;
+    width: 134px;
+    height: 24px;
+    background: var(--colors-button-inactive);
+    border-radius: var(--common-border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@-moz-keyframes timerLoader {
+    0% {
+        -moz-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes timerLoader {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes timerLoader {
+    0% {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+/* :not(:required) hides this rule from IE9 and below */
+.timerLoader:not(:required) {
+    border: 6px solid #ba97f5;
+    -moz-border-radius: 24px;
+    -webkit-border-radius: 24px;
+    border-radius: 24px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    text-indent: -9999px;
+    width: 48px;
+    height: 48px;
+}
+.timerLoader:not(:required)::before {
+    -moz-animation: timerLoader 1250ms infinite linear;
+    -webkit-animation: timerLoader 1250ms infinite linear;
+    animation: timerLoader 1250ms infinite linear;
+    -moz-transform-origin: 3px 3px;
+    -ms-transform-origin: 3px 3px;
+    -webkit-transform-origin: 3px 3px;
+    transform-origin: 3px 3px;
+    background: #ba97f5;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 19.2px;
+    left: 15px;
+    top: 15px;
+}
+.timerLoader:not(:required)::after {
+    -moz-animation: timerLoader 15000ms infinite linear;
+    -webkit-animation: timerLoader 15000ms infinite linear;
+    animation: timerLoader 15000ms infinite linear;
+    -moz-transform-origin: 3px 3px;
+    -ms-transform-origin: 3px 3px;
+    -webkit-transform-origin: 3px 3px;
+    transform-origin: 3px 3px;
+    background: #ba97f5;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 16px;
+    left: 15px;
+    top: 15px;
+}

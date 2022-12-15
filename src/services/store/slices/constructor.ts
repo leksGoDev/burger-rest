@@ -43,11 +43,15 @@ const burgerConstructor = createSlice({
             const dragElement = state.stuffing[dragIndex];
             state.stuffing.splice(dragIndex, 1, state.stuffing[hoverIndex]);
             state.stuffing.splice(hoverIndex, 1, dragElement);
+        },
+        clearConstructor(state) {
+            state.bun = null;
+            state.stuffing = [];
         }
     }
 });
 
-export const { changeBun, addStuffing, removeStuffing, swapStuffing } = burgerConstructor.actions;
+export const { changeBun, addStuffing, removeStuffing, swapStuffing, clearConstructor } = burgerConstructor.actions;
 
 export type TBurgerConstructorActions = SliceActions<typeof burgerConstructor.actions>;
 
