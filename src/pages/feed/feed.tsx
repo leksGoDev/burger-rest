@@ -6,7 +6,7 @@ import { WS_BASE_URL } from "../../constants/api";
 import FeedMain from "../../components/feed/feed-main/feed-main";
 import FeedOrder from "./feed-order/feed-order";
 import { useAppDispatch } from "../../hooks";
-import { startSocket, stopSocket } from "../../services/store/slices/api/feed-socket-api";
+import { startSocket, stopSocket } from "../../services/store/slices/feed-socket-api/feed-socket-api";
 
 const Feed: FC = () => {
     const { url } = useRouteMatch();

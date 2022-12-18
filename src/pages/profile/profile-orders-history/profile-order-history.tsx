@@ -6,7 +6,7 @@ import { WS_BASE_URL } from "../../../constants/api";
 import FeedOrderList from "../../../components/feed/feed-main/feed-order-list/feed-order-list";
 import { useAppDispatch } from "../../../hooks";
 import { getCookie } from "../../../services/api/cookie";
-import { startSocket, stopSocket } from "../../../services/store/slices/api/history-socket-api";
+import { startSocket, stopSocket } from "../../../services/store/slices/history-socket-api/history-socket-api";
 import FeedOrder from "../../feed/feed-order/feed-order";
 
 const ProfileOrderHistory: FC = () => {

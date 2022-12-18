@@ -5,9 +5,9 @@ import { SocketStoreName } from "../constants/redux";
 import { IFeedData } from "../models/order";
 import { IIngredient } from "../models/ingredient";
 import { useAppDispatch, useAppSelector } from "./redux";
-import { setDetails as setOrderDetails } from "../services/store/slices/feed-order-details";
-import { setDetails as setIngredientDetails } from "../services/store/slices/ingredient-details";
-import { findOrder } from "../services/store/slices/api/order-details-api";
+import { setDetails as setOrderDetails } from "../services/store/slices/feed-order-details/feed-order-details";
+import { setDetails as setIngredientDetails } from "../services/store/slices/ingredient-details/ingredient-details";
+import { findOrder } from "../services/store/slices/order-details-api/order-details-api";
 
 export const useRefreshIngredientDetails = () => {
     const match = useRouteMatch<{ id: string; }>("/ingredients/:id");

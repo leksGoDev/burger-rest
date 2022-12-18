@@ -17,11 +17,11 @@ import {
     useRefreshIngredientDetails,
     useRefreshNewOrderDetails
 } from "../../hooks";
-import { fetchIngredients } from "../../services/store/slices/api/ingredients-api";
-import { fetchUser } from "../../services/store/slices/api/auth-api";
-import { clearDetails as clearIngredientDetails } from "../../services/store/slices/ingredient-details";
-import { clearDetails as clearNewOrderDetails } from "../../services/store/slices/api/order-details-api";
-import { clearDetails as clearFeedOrderDetails } from "../../services/store/slices/feed-order-details";
+import { fetchIngredients } from "../../services/store/slices/ingredients-api/ingredients-api";
+import { fetchUser } from "../../services/store/slices/auth-api/auth-api";
+import { clearDetails as clearIngredientDetails } from "../../services/store/slices/ingredient-details/ingredient-details";
+import { clearDetails as clearNewOrderDetails } from "../../services/store/slices/order-details-api/order-details-api";
+import { clearDetails as clearFeedOrderDetails } from "../../services/store/slices/feed-order-details/feed-order-details";
 
 const App: FC = () => {
     useRefreshIngredientDetails();

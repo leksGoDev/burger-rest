@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Form from "../../components/form/form";
 import { InputType } from "../../constants/form";
 import { useInput, useAppDispatch } from "../../hooks";
-import { register } from "../../services/store/slices/api/auth-api";
+import { register } from "../../services/store/slices/auth-api/auth-api";
 
 const Register: FC = () => {
     const { input: nameInput, state: name } = useInput({
