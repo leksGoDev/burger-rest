@@ -5,7 +5,7 @@ export interface IOrderInfo {
     _id: string;
     status: FeedOrderStatus;
     name: string;
-    number: string;
+    number: number;
     createdAt: string;
     updatedAt: string;
 }

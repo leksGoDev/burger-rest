@@ -91,7 +91,7 @@ export const useRefreshNewOrderDetails = () => {
 
     useEffect(() => {
         if (match && !orderNumber && !hasDeallocated && !isLoading) {
-            dispatch(findOrder(match.params.id));
+            dispatch(findOrder(Number(match.params.id)));
         }
     }, [match, orderNumber, hasDeallocated, isLoading, dispatch]);
 
