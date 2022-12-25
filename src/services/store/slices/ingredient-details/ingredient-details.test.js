@@ -18,6 +18,7 @@ describe('ingredient details reducer', () => {
 
     it('should set details', () => {
         const prevState = { details: null, hasDeallocated: false };
+
         expect(
             reducer(prevState, setDetails(detailsExample))
         ).toEqual({ details: detailsExample, hasDeallocated: false });
@@ -25,6 +26,7 @@ describe('ingredient details reducer', () => {
 
     it('should clear details', () => {
         const prevState = { details: detailsExample, hasDeallocated: false };
+
         expect(
             reducer(prevState, clearDetails())
         ).toEqual({ details: null, hasDeallocated: true});

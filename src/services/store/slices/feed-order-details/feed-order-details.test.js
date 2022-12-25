@@ -42,6 +42,7 @@ describe('feed order details reducer', () => {
                 }
             ]
         };
+
         expect(
             reducer(prevState, setDetails(payloadExample))
         ).toEqual({
@@ -107,8 +108,9 @@ describe('feed order details reducer', () => {
             },
             hasDeallocated: false
         };
+
         expect(
             reducer(prevState, clearDetails())
-        ).toEqual({ details: null, hasDeallocated: true});
+        ).toEqual({ details: null, hasDeallocated: true });
     });
 });
