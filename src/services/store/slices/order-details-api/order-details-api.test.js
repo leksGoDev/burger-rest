@@ -59,7 +59,7 @@ const handlers = [
 ];
 const server = setupServer(...handlers);
 
-describe('orderDetailsApi reducer', () => {
+describe('order details api reducer', () => {
     beforeAll(() => server.listen());
     afterAll(() => server.close());
 

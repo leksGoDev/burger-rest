@@ -9,7 +9,7 @@ const detailsExample = {
     carbohydrates: 85
 };
 
-describe('ingredientDetails reducer', () => {
+describe('ingredient details reducer', () => {
     it('should return the initial state', () => {
         expect(
             reducer(undefined, { type: undefined })
