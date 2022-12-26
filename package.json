@@ -30,18 +30,19 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
     "cypress": "^12.1.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "gh-pages": "^4.0.0",
     "jest": "^27.5.1",
+    "msw": "^0.49.2",
     "react-test-renderer": "^18.2.0",
-    "typescript-plugin-css-modules": "^3.4.0",
-    "msw": "^0.49.2"
+    "typescript-plugin-css-modules": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cypress:open": "cd ./node_modules/.bin/ && cypress open",
+    "cypress:open": "npx cypress open",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
