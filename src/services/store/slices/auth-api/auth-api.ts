@@ -78,7 +78,7 @@ const authApi = createSlice({
     reducers: {
         checkAuth:  {
             reducer(state, action: PayloadAction<boolean>) {
-                if (action.payload) {
+                if (!action.payload) {
                     state.user = null;
                 }
             },
@@ -86,7 +86,7 @@ const authApi = createSlice({
                 const accessToken = getCookie("accessToken");
                 const refreshToken = getCookie("refreshToken");
 
-                return { payload: !accessToken && !refreshToken };
+                return { payload: !!accessToken || !!refreshToken };
             }
         }
     },

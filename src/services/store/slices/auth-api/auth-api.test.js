@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 
+import * as cookie from "../../../api/cookie";
 import { HTTP_BASE_URL } from "../../../../constants/api";
 import reducer, { BASE_URL, register, login, logout, fetchUser, patchUser, checkAuth } from "./auth-api";
 import { store } from "../../index";
@@ -79,7 +80,7 @@ describe('auth api reducer', () => {
         });
     });
 
-    it('should reset auth status', () => {
+    it('should check auth status', () => {
         const prevState = {
             isLoading: false,
             hasError: false,
@@ -92,6 +93,15 @@ describe('auth api reducer', () => {
             isLoading: false,
             hasError: false,
             user: null
+        });
+
+        jest.spyOn(cookie, "getCookie").mockImplementation(() => true);
+        expect(
+            reducer(prevState, checkAuth())
+        ).toEqual({
+            isLoading: false,
+            hasError: false,
+            user: userDataMock
         });
     });
 
@@ -234,13 +244,22 @@ describe('auth api reducer', () => {
         });
 
         it('should set fulfilled status and clear user when completed', async () => {
+            await store.dispatch(
+                fetchUser()
+            );
+            let state = store.getState().authApi;
+            expect(state).toEqual({
+                isLoading: false,
+                hasError: false,
+                user: userDataMock
+            });
+
             const { type } = await store.dispatch(
                 logout()
             );
 
             expect(type).toBe("authApi/logout/fulfilled");
-
-            const state = store.getState().authApi;
+            state = store.getState().authApi;
             expect(state).toEqual({
                 isLoading: false,
                 hasError: false,
