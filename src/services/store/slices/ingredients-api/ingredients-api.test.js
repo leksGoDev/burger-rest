@@ -89,7 +89,7 @@ describe('ingredients api reducer', () => {
             reducer(prevState, { type: fetchIngredients.pending })
         ).toEqual({
             ...prevState,
-            isLoading: true,
+            isLoading: true
         });
     });
 
