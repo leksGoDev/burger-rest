@@ -110,10 +110,9 @@ describe('ingredients api reducer', () => {
     });
 
     it('should set fulfilled status and save ingredients when completed', async () => {
-        const result = await store.dispatch(
+        const { type: actionType, payload: data } = await store.dispatch(
             fetchIngredients()
         );
-        const { type: actionType, payload: data } = result;
 
         expect(actionType).toBe("ingredientsApi/fetchIngredients/fulfilled");
         expect(data).toEqual(ingredientsDataMock);

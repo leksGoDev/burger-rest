@@ -15,7 +15,7 @@ interface IState {
     user: TUserInfo | null;
 }
 
-const BASE_URL = 'auth';
+export const BASE_URL = 'auth';
 
 const initialState: IState = {
     isLoading: false,

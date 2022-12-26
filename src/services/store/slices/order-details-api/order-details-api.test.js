@@ -113,10 +113,9 @@ describe('order details api reducer', () => {
         });
 
         it('should set fulfilled status and save number when completed', async () => {
-            const result = await store.dispatch(
+            const { type: actionType, payload: data } = await store.dispatch(
                 makeOrder(["60d3b41abdacab0026a733c7"])
             );
-            const { type: actionType, payload: data } = result;
 
             expect(actionType).toBe("orderDetailsApi/makeOrder/fulfilled");
             expect(data.order.number).toBe(makeOrderMockData.order.number);
@@ -170,10 +169,9 @@ describe('order details api reducer', () => {
         });
 
         it('should set fulfilled status and save number when completed', async () => {
-            const result = await store.dispatch(
+            const { type: actionType, payload: orders } = await store.dispatch(
                 findOrder(35464)
             );
-            const { type: actionType, payload: orders } = result;
 
             expect(actionType).toBe("orderDetailsApi/findOrder/fulfilled");
             expect(orders[0].number).toBe(findOrderMockData.orders[0].number);
