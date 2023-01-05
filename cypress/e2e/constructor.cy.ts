@@ -24,6 +24,9 @@ const auth = (email: string, password: string) => {
 };
 
 describe('Constructor works correctly', () => {
+    beforeEach(() => {
+        cy.intercept("post", "https://norma.nomoreparties.space/api/orders").as("orders");
+    });
     it('should open and close ingredient details', () => {
         cy.visit(BASE_URL);
         cy.get('header p[class*=text_type_main-large]').should('contain', 'Соберите бургер');
@@ -61,8 +64,6 @@ describe('Constructor works correctly', () => {
     });
 
     it('should drag ingredients and make order', () => {
-        cy.intercept("post", "https://norma.nomoreparties.space/api/orders").as("orders");
-
         auth(AUTH_DATA.email, AUTH_DATA.password);
         cy.visit(BASE_URL);
         cy.get('header p[class*=text_type_main-large]').should('contain', 'Соберите бургер');
