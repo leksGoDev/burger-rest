@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = 'http://localhost:3000/burger-rest/';
 const AUTH_DATA = {
     email: 'Gan-96@yandex.ru',
     password: '123456'
