@@ -1,7 +1,7 @@
 {
   "name": "burger-rest",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "https://leksgodev.github.io/burger-rest",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
