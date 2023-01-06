@@ -8,7 +8,7 @@ import styles from './burger-ingredients-card.module.css'
 import { IIngredient, IngredientType } from "../../../models/ingredient";
 import CostCounter from "../../cost-counter/cost-counter";
 import { useAppSelector, useAppDispatch } from "../../../hooks";
-import { setDetails } from "../../../services/store/slices/ingredient-details";
+import { setDetails } from "../../../services/store/slices/ingredient-details/ingredient-details";
 
 interface IProps {
     ingredient: IIngredient;

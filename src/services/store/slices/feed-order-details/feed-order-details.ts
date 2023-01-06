@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { IIngredient } from "../../../models/ingredient";
-import { IFeedOrder, IFeedOrderIngredient } from "../../../models/order";
-import { SliceActions } from "../../../models/redux";
+import { IIngredient } from "../../../../models/ingredient";
+import { IFeedOrder, IFeedOrderIngredient } from "../../../../models/order";
+import { SliceActions } from "../../../../models/redux";
 
 type TFeedOrderDetailsPayload = Omit<IFeedOrder, "_id" | "ingredients" | "updatedAt">
     & {

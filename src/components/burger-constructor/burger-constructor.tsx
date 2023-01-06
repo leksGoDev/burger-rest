@@ -7,9 +7,9 @@ import styles from './burger-constructor.module.css';
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import CostCounter from "../cost-counter/cost-counter";
-import { makeOrder } from "../../services/store/slices/api/order-details-api";
-import { checkAuth } from "../../services/store/slices/api/auth-api";
-import { clearConstructor } from "../../services/store/slices/constructor";
+import { makeOrder } from "../../services/store/slices/order-details-api/order-details-api";
+import { checkAuth } from "../../services/store/slices/auth-api/auth-api";
+import { clearConstructor } from "../../services/store/slices/constructor/constructor";
 
 const BurgerConstructor: FC = memo(() => {
     const history = useHistory();

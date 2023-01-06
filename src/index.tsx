@@ -11,7 +11,7 @@ const root = createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <StrictMode>
             <Provider store={store}>
                 <App />

@@ -4,7 +4,7 @@ import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-de
 
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import styles from "./profile-information.module.css";
-import { checkAuth, patchUser } from "../../../services/store/slices/api/auth-api";
+import { checkAuth, patchUser } from "../../../services/store/slices/auth-api/auth-api";
 
 const ProfileInformation: FC = () => {
     const dispatch = useAppDispatch();

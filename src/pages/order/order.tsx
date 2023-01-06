@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import styles from "./order.module.css";
 import OrderDetails from "../../components/order-details/order-details";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { clearDetails } from "../../services/store/slices/api/order-details-api";
+import { clearDetails } from "../../services/store/slices/order-details-api/order-details-api";
 
 const Order:FC = () => {
     const { orderNumber } = useAppSelector(store => store.orderDetailsApi);

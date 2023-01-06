@@ -6,7 +6,7 @@ import { useDrag, useDrop } from "react-dnd";
 import styles from "./constructor-element-wrapper.module.css";
 import { IDragIngredient } from "../../../../models/ingredient";
 import { useAppDispatch } from "../../../../hooks";
-import { removeStuffing, swapStuffing } from "../../../../services/store/slices/constructor";
+import { removeStuffing, swapStuffing } from "../../../../services/store/slices/constructor/constructor";
 
 interface IProps {
     index: number;

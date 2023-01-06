@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import {INewOrder, IOrder, IOrderInfo} from "../../../../models/order";
+import { INewOrder, IOrder, IOrderInfo } from "../../../../models/order";
 import { IFindOrderResponse, INewOrderResponse, IOrderBodyData } from "../../../../models/api";
 import { SliceActions } from "../../../../models/redux";
 import { createOptionsWithJSON, requestWithAuth } from "../../../api/request";

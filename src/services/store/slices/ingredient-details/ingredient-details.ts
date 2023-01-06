@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { IIngredient } from "../../../models/ingredient";
-import { SliceActions } from "../../../models/redux";
+import { IIngredient } from "../../../../models/ingredient";
+import { SliceActions } from "../../../../models/redux";
 
 type TIngredientDetails = Pick<IIngredient, "image_large" | "name" | "calories" | "proteins" | "fat" | "carbohydrates">;
 
