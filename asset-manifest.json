@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "./static/css/main.ca975790.css",
-    "main.js": "./static/js/main.5dc52365.js",
-    "static/media/404.jpg": "./static/media/404.147f6b9a953da5b8d09a.jpg",
-    "static/media/JetBrainsMono-Bold.woff": "./static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
-    "static/media/JetBrainsMono-Regular.woff": "./static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
-    "static/media/JetBrainsMono-Bold.woff2": "./static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
-    "static/media/JetBrainsMono-Regular.woff2": "./static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
-    "static/media/iceland.woff": "./static/media/iceland.77ad7fc2baffd9305538.woff",
-    "static/media/iceland.woff2": "./static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
-    "static/media/layout1.svg": "./static/media/layout1.212deaccf6c8fe31594eae034fa66e7a.svg",
-    "static/media/layout2.svg": "./static/media/layout2.108e071d1498619a0f4ef80a3632c8f0.svg",
-    "static/media/layout3.svg": "./static/media/layout3.9ffee6b1a347cca8ab7416feff41f47f.svg",
-    "static/media/stroke.svg": "./static/media/stroke.bd47ec5ea34c14a1ea489506b0ffca59.svg",
-    "index.html": "./index.html",
-    "main.ca975790.css.map": "./static/css/main.ca975790.css.map",
-    "main.5dc52365.js.map": "./static/js/main.5dc52365.js.map"
+    "main.css": "/burger-rest/static/css/main.98052c44.css",
+    "main.js": "/burger-rest/static/js/main.80509522.js",
+    "static/media/404.jpg": "/burger-rest/static/media/404.147f6b9a953da5b8d09a.jpg",
+    "static/media/JetBrainsMono-Bold.woff": "/burger-rest/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
+    "static/media/JetBrainsMono-Regular.woff": "/burger-rest/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
+    "static/media/JetBrainsMono-Bold.woff2": "/burger-rest/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
+    "static/media/JetBrainsMono-Regular.woff2": "/burger-rest/static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
+    "static/media/iceland.woff": "/burger-rest/static/media/iceland.77ad7fc2baffd9305538.woff",
+    "static/media/iceland.woff2": "/burger-rest/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
+    "static/media/layout1.svg": "/burger-rest/static/media/layout1.212deaccf6c8fe31594eae034fa66e7a.svg",
+    "static/media/layout2.svg": "/burger-rest/static/media/layout2.108e071d1498619a0f4ef80a3632c8f0.svg",
+    "static/media/layout3.svg": "/burger-rest/static/media/layout3.9ffee6b1a347cca8ab7416feff41f47f.svg",
+    "index.html": "/burger-rest/index.html",
+    "static/media/stroke.svg": "/burger-rest/static/media/stroke.bd47ec5ea34c14a1ea489506b0ffca59.svg",
+    "main.98052c44.css.map": "/burger-rest/static/css/main.98052c44.css.map",
+    "main.80509522.js.map": "/burger-rest/static/js/main.80509522.js.map"
   },
   "entrypoints": [
-    "static/css/main.ca975790.css",
-    "static/js/main.5dc52365.js"
+    "static/css/main.98052c44.css",
+    "static/js/main.80509522.js"
   ]
 }
