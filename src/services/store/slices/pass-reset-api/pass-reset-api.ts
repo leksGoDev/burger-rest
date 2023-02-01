@@ -10,7 +10,7 @@ interface IState {
     isMailSent: boolean;
 }
 
-const BASE_URL = "password-reset";
+export const BASE_URL = "password-reset";
 
 const initialState: IState = {
     isLoading: false,

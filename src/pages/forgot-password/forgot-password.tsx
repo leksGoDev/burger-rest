@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { InputType } from "../../constants/form";
 import Form from "../../components/form/form";
 import { useInput, useAppDispatch, useAppSelector  } from "../../hooks";
-import { checkEmail } from "../../services/store/slices/api/pass-reset-api";
+import { checkEmail } from "../../services/store/slices/pass-reset-api/pass-reset-api";
 
 const ForgotPassword: FC = () => {
     const { input: emailInput, state: email } = useInput({

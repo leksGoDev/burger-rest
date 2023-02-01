@@ -1,3 +1,7 @@
+## GitHub repo: [link](https://github.com/leksGoDev/burger-rest)
+
+## Website: [link](https://leksgodev.github.io/burger-rest/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

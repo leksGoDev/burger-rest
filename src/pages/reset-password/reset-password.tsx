@@ -6,7 +6,7 @@ import Form from "../../components/form/form";
 import { InputType } from "../../constants/form";
 import { TFromState } from "../../models/router";
 import { useInput, useAppDispatch, useAppSelector } from "../../hooks";
-import { resetPassword } from "../../services/store/slices/api/pass-reset-api";
+import { resetPassword } from "../../services/store/slices/pass-reset-api/pass-reset-api";
 
 const ResetPassword: FC = () => {
     const { input: passwordInput, state: password } = useInput({

@@ -9,7 +9,7 @@ import { FeedOrderStatus, FeedOrderStatusView } from "../../../../../constants/o
 import IngredientIcon from "../../../ingredient-icon/ingredient-icon";
 import CostCounter from "../../../../cost-counter/cost-counter";
 import { useAppDispatch, usePrepareIngredientFullInfo } from "../../../../../hooks";
-import { setDetails } from "../../../../../services/store/slices/feed-order-details";
+import { setDetails } from "../../../../../services/store/slices/feed-order-details/feed-order-details";
 
 type TProps = Omit<IFeedOrder, "updatedAt">;
 

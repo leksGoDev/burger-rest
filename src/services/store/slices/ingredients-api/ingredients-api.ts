@@ -14,7 +14,7 @@ interface IState {
 const initialState: IState = {
     isLoading: false,
     hasError: false,
-    data: [],
+    data: []
 };
 
 export const fetchIngredients = createAsyncThunk<IIngredient[], AbortController["signal"]>(

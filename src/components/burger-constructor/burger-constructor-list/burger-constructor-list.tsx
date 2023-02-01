@@ -5,7 +5,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./burger-constructor-list.module.css";
 import { IIngredient, IDragIngredient, IngredientType } from "../../../models/ingredient";
 import { useAppDispatch } from "../../../hooks";
-import { addStuffing, changeBun } from "../../../services/store/slices/constructor";
+import { addStuffing, changeBun } from "../../../services/store/slices/constructor/constructor";
 import ConstructorElementWrapper from "./constructor-element-wrapper/constructor-element-wrapper";
 
 interface IProps {

@@ -4,7 +4,7 @@ import { NavLink, useLocation, useRouteMatch } from "react-router-dom";
 
 import styles from "./profile-navigation.module.css";
 import { useAppDispatch } from "../../../hooks";
-import { logout } from "../../../services/store/slices/api/auth-api";
+import { logout } from "../../../services/store/slices/auth-api/auth-api";
 
 const ProfileNavigation: FC = () => {
     const location = useLocation();

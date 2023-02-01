@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import styles from "./ingredient.module.css";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import { clearDetails } from "../../services/store/slices/ingredient-details";
+import { clearDetails } from "../../services/store/slices/ingredient-details/ingredient-details";
 
 const Ingredient: FC = () => {
     const { details } = useAppSelector(store => store.ingredientDetails);

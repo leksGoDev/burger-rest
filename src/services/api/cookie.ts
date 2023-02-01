@@ -2,7 +2,7 @@ import { ACCESS_TOKEN_MAX_AGE, REFRESH_TOKEN_MAX_AGE } from "../../constants/api
 
 const setCookie = (key: string, value: string, maxAge: number) => {
     value = encodeURIComponent(value);
-    document.cookie = `${key}=${value}; max-age=${maxAge}`;
+    document.cookie = `${key}=${value}; max-age=${maxAge}; path=/`;
 };
 
 export const getCookie = (name: string) => {
